@@ -6,15 +6,14 @@ import {FormComponent} from './form/form.component';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ListExampleComponent} from './list-example/list-example.component';
+import {SharedModule} from "../../_shared/shared.module";
 
 
 @NgModule({
   declarations: [FormComponent, ListExampleComponent],
   imports: [
-    CommonModule,
+    SharedModule,
     ExampleRoutingModule,
-    NgZorroAntdModule,
-    ReactiveFormsModule
   ]
 })
 export class ExampleModule {

@@ -1,0 +1,6 @@
+<ng-container *ngIf="article">
+  <h3>{{article.title}}</h3>
+  <p *ngFor="let paragraph of article.body.split('\n')">
+    {{paragraph}}
+  </p>
+</ng-container>
