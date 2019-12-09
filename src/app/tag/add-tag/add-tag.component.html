@@ -1,0 +1,27 @@
+<div>
+  <nz-tag
+    (nzOnClose)="handleClose(tag)"
+    *ngFor="let tag of tags; let i = index"
+    [nzMode]="i === 0 ? 'default' : 'closeable'">
+    {{ sliceTagName(tag) }}
+  </nz-tag>
+  <nz-tag (click)="showInput()" *ngIf="!inputVisible" class="editable-tag" nzNoAnimation>
+    <i nz-icon nzType="plus"></i> New Tag
+  </nz-tag>
+  <input
+      #inputElement
+      (blur)="handleInputConfirm()"
+      (keydown.enter)="handleInputConfirm()"
+      *ngIf="inputVisible"
+      [(ngModel)]="inputValue"
+      nz-input
+      nzSize="small"
+      style="width: 78px;"
+      type="text"/>
+</div>
+<div>
+  <button (click)="handleSave()" [ngClass]="'submit-button'" [nzType]="'primary'" nz-button><i nz-icon nzTheme="outline"
+                                                                                               nzType="save"></i> Save
+  </button>
+
+</div>

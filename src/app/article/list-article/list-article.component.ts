@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ArticleModel} from '../../_models/article.model';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-list-article',
@@ -16,7 +15,7 @@ export class ListArticleComponent implements OnInit {
 
   constructor(private crud: CrudService) {
     this.articles = [];
-    this.articleUrl = Globals.apiUrl + Globals.article;
+    this.articleUrl = Globals.API_URL + Globals.ARTICLE;
     this.nbArticles = 0;
   }
 

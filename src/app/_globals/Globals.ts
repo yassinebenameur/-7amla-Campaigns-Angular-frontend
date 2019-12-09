@@ -1,7 +1,8 @@
 import {environment} from '../../environments/environment';
 
 export class Globals {
-  static baseUrl = environment.baseUrl;
-  static apiUrl = Globals.baseUrl + '/api';
-  static article = '/article';
+  static BASE_URL = environment.baseUrl;
+  static API_URL = Globals.BASE_URL + '/api';
+  static ARTICLE = '/article';
+  static TAG = '/tag';
  }

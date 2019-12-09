@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 import {ArticleModel} from '../../_models/article.model';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-show-article',
@@ -16,7 +16,7 @@ export class ShowArticleComponent implements OnInit {
   articleId: string
 
   constructor(private crud: CrudService, private route: ActivatedRoute) {
-    this.articleUrl = Globals.apiUrl + Globals.article;
+    this.articleUrl = Globals.API_URL + Globals.ARTICLE;
   }
 
   ngOnInit() {
