@@ -24,7 +24,7 @@ export class ListArticleComponent implements OnInit {
   }
 
   loadData(pi: number = 1): void {
-    this.crud.getAllPaginate<{ count: number, elements: ArticleModel[] }>(this.articleUrl, pi - 1, 10)
+    this.crud.getAllPaginate<{ count: number, elements: ArticleModel[] }>(this.articleUrl, (pi - 1) * 10, 10)
       .subscribe(articles => {
         this.articles = articles.elements;
         this.nbArticles = articles.count;
