@@ -3,10 +3,11 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NgZorroAntdModule} from "ng-zorro-antd";
+import {RevertDatePipe} from "../_pipes/revert-date.pipe";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RevertDatePipe],
   imports: [
   ],
   providers: [],
@@ -17,6 +18,7 @@ import {NgZorroAntdModule} from "ng-zorro-antd";
     CommonModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
+    RevertDatePipe,
   ]
 })
 

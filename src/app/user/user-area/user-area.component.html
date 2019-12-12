@@ -1,0 +1,19 @@
+<div class="">
+
+  <div nz-row nzJustify="center">
+    <div nz-col nzSm="18" nzXs="24">
+      <button (click)="changeDisplay(0)" [class.btn-outline-primary]="display!==0" [class.btn-primary]="display===0"
+              class="btn mb-3 mr-sm-2">Détails
+      </button>
+      <button (click)="changeDisplay(1)" [class.btn-outline-primary]="display!==1" [class.btn-primary]="display===1"
+              class="btn mb-3 mr-sm-2">Commandes
+      </button>
+    </div>
+  </div>
+
+  <div class="border border-light p-3" *ngIf="user">
+    <app-user-detail *ngIf="display===0" [user]="user.user"></app-user-detail>
+    <!--<app-user-order  *ngIf="display===1||false" [orders]="user.user.orders"></app-user-order>-->
+  </div>
+
+</div>

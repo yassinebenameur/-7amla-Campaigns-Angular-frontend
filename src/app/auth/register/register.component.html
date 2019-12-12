@@ -1,0 +1,127 @@
+<nz-spin [nzSpinning]="loading">
+  <div nz-row nzJustify="center" nzType="flex" class="p-3" *ngIf="registerForm">
+    <div nz-col [nzMd]="16" [nzLg]="12">
+      <div [formGroup]="registerForm" class="checkout-information">
+        <div class="mb-3">
+          <div class="checkout-title">
+            <h6>Vos Informations</h6>
+          </div>
+        </div>
+
+        <div>
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="emailError" nzValidatingTip="Verification">
+              <nz-input-group [nzSuffix]="emailSuffix">
+                <input (change)="validateEmail()" formControlName="email" nz-input placeholder="Email" type="text"/>
+              </nz-input-group>
+              <ng-template #emailError let-control>
+                <ng-container *ngIf="control.hasError('email')">Email invalide</ng-container>
+                <ng-container *ngIf="control.hasError('required')">Champs requis</ng-container>
+                <ng-container *ngIf="control.hasError('duplicated')">Email déjà utilisé. Avez-vous ouvliez votre mot de
+                  passe?
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+          <ng-template #emailSuffix>
+            <i nz-icon nzTheme="outline" nzType="mail"></i>
+          </ng-template>
+          <div [nzGutter]="8" nz-row>
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Champs requis">
+                  <nz-input-group [nzSuffix]="infoSuffix">
+                    <input formControlName="password" nz-input placeholder="Mot de passe" type="password"
+                           (input)="checkPassword()"/>
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <ng-template #infoSuffix>
+                <i nz-icon nzTheme="outline" nzType="info-circle"></i>
+              </ng-template>
+            </div>
+
+
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="passwordConfirmationError">
+                  <nz-input-group [nzSuffix]="infoSuffix">
+                    <input formControlName="password_confirmation" nz-input placeholder="Répeter mot de passe"
+                           (input)="checkPassword()"
+                           type="password"/>
+                  </nz-input-group>
+                  <ng-template #passwordConfirmationError let-control>
+                    <ng-container *ngIf="control.hasError('required')">Champs requis</ng-container>
+                    <ng-container *ngIf="control.hasError('confirm')">Les 2 mots de passes ne correspondent pas
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div [nzGutter]="8" nz-row>
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Champs requis">
+                  <nz-input-group [nzSuffix]="infoSuffix">
+                    <input formControlName="last_name" nz-input placeholder="Nom" type="text"/>
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <ng-template #infoSuffix>
+                <i nz-icon nzTheme="outline" nzType="info-circle"></i>
+              </ng-template>
+            </div>
+
+
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Champs requis">
+                  <nz-input-group [nzSuffix]="infoSuffix">
+                    <input formControlName="first_name" nz-input placeholder="Prénom" type="text"/>
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+
+          <div [nzGutter]="8" nz-row>
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Champs requis">
+                  <nz-input-group [nzSuffix]="phoneSuffix">
+                    <input formControlName="phone" nz-input placeholder="Telephone" type="text"/>
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <ng-template #phoneSuffix>
+                <i nz-icon nzTheme="outline" nzType="phone"></i>
+              </ng-template>
+            </div>
+            <div [nzSm]="12" [nzXs]="24" nz-col>
+
+              <nz-form-item>
+                <nz-form-control nzErrorTip="Champs requis">
+                  <nz-date-picker [ngModel]="date_of_birth" [nzFormat]="'dd-MM-yyyy'" [nzShowToday]="false"
+                                  [nzStyle]="{width:'100%'}"
+                                  class="w-100"
+                                  formControlName="date_of_birth"></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <button class="btn btn-primary" (click)="submitRegisterForm()">Créer un compte</button>
+      <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+
+    </div>
+  </div>
+</nz-spin>

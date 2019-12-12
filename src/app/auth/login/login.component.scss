@@ -1,0 +1,21 @@
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+@media (max-width: 576px) {
+  .login-form{
+    border: none!important;
+  }
+
+}
+
+@media (min-width: 576px) {
+  .register-message{
+    border: none!important;
+  }
+
+}

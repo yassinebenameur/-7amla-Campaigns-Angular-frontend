@@ -1,0 +1,32 @@
+<nz-spin [nzSpinning]="loading">
+  <div *ngIf="sendPassword" [formGroup]="verifyForm" [nzGutter]="8" nz-row>
+    <div [nzSm]="12" [nzXs]="24" nz-col>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Champs requis">
+          <nz-input-group [nzSuffix]="infoSuffix">
+            <input formControlName="password" nz-input placeholder="Mot de passe" type="password"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <ng-template #infoSuffix>
+        <i nz-icon nzTheme="outline" nzType="info-circle"></i>
+      </ng-template>
+    </div>
+
+
+    <div [nzSm]="12" [nzXs]="24" nz-col>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Champs requis">
+          <nz-input-group [nzSuffix]="infoSuffix">
+            <input formControlName="password_confirmation" nz-input placeholder="Répeter mot de passe"
+                   type="password"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <button (click)="verifyUser()" class="btn btn-primary">Envoyer</button>
+    <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+
+  </div>
+</nz-spin>

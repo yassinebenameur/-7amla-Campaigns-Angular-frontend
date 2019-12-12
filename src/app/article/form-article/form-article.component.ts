@@ -17,7 +17,7 @@ export class FormArticleComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private crud: CrudService, private router: Router) {
-    this.articleUrl = Globals.apiUrl + Globals.article
+    this.articleUrl = Globals.API_URL + Globals.ARTICLE
   }
 
   submitForm(value: any): void {
