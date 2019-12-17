@@ -13,6 +13,7 @@ export class Globals {
   static REFRESH = '/refresh';
 
   static globalError = 'Une erreur s\'est produite. Veuillez réessayez. Si l\'erreur persiste, contactez un administrateur';
+  static COMPAIGNS = '/compaign';
 
 
 }

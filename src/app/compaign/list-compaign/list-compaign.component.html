@@ -1,0 +1,42 @@
+<div nz-row>
+  <div nz-col nzSpan="8"></div>
+  <div nz-col nzSpan="8"><h1 nz-title>7amlet</h1>
+  </div>
+  <div nz-col nzSpan="8"></div>
+</div>
+<nz-list [nzDataSource]="compaigns" [nzGrid]="{ gutter: 16, span: 6 }" [nzRenderItem]="item" style="margin-top: 20px">
+  <ng-template #item let-item>
+    <nz-list-item [nzContent]="nzContent">
+      <ng-template #nzContent>
+        <nz-card [nzActions]="[actionSetting, actionEdit,actionEdit2, actionEllipsis]"
+                 [nzCover]="coverTemplate">
+          <nz-card-meta
+            [nzAvatar]="priceTemplate"
+            nzDescription="{{item.description}}"
+            nzTitle="{{item.title}}"
+          ></nz-card-meta>
+        </nz-card>
+        <ng-template #priceTemplate>
+          <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </ng-template>
+        <ng-template #coverTemplate>
+          <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+        </ng-template>
+        <ng-template #actionSetting>
+          <i nz-icon nzType="like"></i>
+        </ng-template>
+        <ng-template #actionEdit>
+          <button class="ant-btn">Consulter</button>
+
+        </ng-template>
+        <ng-template #actionEdit2>
+          <button class="ant-btn">Bénévole</button>
+
+        </ng-template>
+        <ng-template #actionEllipsis>
+          <i nz-icon nzType="eye"></i>
+        </ng-template>
+      </ng-template>
+    </nz-list-item>
+  </ng-template>
+</nz-list>
