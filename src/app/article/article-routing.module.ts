@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {ListArticleComponent} from "./list-article/list-article.component";
-import {ShowArticleComponent} from "./show-article/show-article.component";
-import {FormArticleComponent} from "./form-article/form-article.component";
+import {RouterModule, Routes} from '@angular/router';
+import {ListArticleComponent} from './list-article/list-article.component';
+import {ShowArticleComponent} from './show-article/show-article.component';
+import {FormArticleComponent} from './form-article/form-article.component';
+import {AuthGuard} from '../_guards/auth.guard';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    component: FormArticleComponent
+    component: FormArticleComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: ':id',

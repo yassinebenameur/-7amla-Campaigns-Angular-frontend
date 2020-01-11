@@ -5,10 +5,10 @@
   [nzRenderItem]="item"
 >
   <ng-template #item let-item>
-    <nz-list-item [nzActions]="[starAction, likeAction]" [nzContent]="'item.content'" [nzExtra]="extra">
+    <nz-list-item [nzActions]="[starAction, likeAction]" [nzContent]="item.body|truncateDescription" [nzExtra]="extra">
       <ng-template #starAction><i nz-icon nzType="like-o" style="margin-right: 8px;"></i> 156</ng-template>
       <ng-template #likeAction><i nz-icon nzType="dislike-o" style="margin-right: 8px;"></i> 156</ng-template>
-      <nz-list-item-meta [nzDescription]="'item.description'" [nzTitle]="nzTitle">
+      <nz-list-item-meta [nzDescription]="item.user.first_name+' '+item.user.last_name" [nzTitle]="nzTitle">
         <ng-template #nzTitle
         ><a routerLink="{{item.id}}">{{ item.title }}</a></ng-template
         >

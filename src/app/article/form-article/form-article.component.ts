@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {Observable, Observer} from 'rxjs';
-import {CrudService} from "../../_services/crud.service";
-import {Globals} from "../../_globals/Globals";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CrudService} from '../../_services/crud.service';
+import {Globals} from '../../_globals/Globals';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../_services/authentication.service';
+import {UserModel} from '../../_models/user.model';
 
 @Component({
   selector: 'app-form-article',
@@ -13,11 +14,16 @@ import {Router} from "@angular/router";
 export class FormArticleComponent implements OnInit {
 
   articleForm: FormGroup;
-  articleUrl
+  articleUrl;
+  currentUser: UserModel;
 
 
-  constructor(private fb: FormBuilder, private crud: CrudService, private router: Router) {
-    this.articleUrl = Globals.API_URL + Globals.ARTICLE
+  constructor(private fb: FormBuilder, private crud: CrudService, private router: Router, private authenticationService: AuthenticationService) {
+    this.articleUrl = Globals.API_URL + Globals.ARTICLE;
+    this.authenticationService.currentUser
+      .subscribe(user => {
+        this.currentUser = user.user;
+      });
   }
 
   submitForm(value: any): void {
@@ -28,8 +34,8 @@ export class FormArticleComponent implements OnInit {
     console.log(value);
     this.crud.post(this.articleUrl, this.articleForm.value)
       .subscribe(() => {
-        this.router.navigate(['/article'])
-      })
+        this.router.navigate(['/article']);
+      });
   }
 
   resetForm(e: MouseEvent): void {
@@ -45,6 +51,7 @@ export class FormArticleComponent implements OnInit {
     this.articleForm = this.fb.group({
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
+      user_id: this.currentUser.id
     });
   }
 
