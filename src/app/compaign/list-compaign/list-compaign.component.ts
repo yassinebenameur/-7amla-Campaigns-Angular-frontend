@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
+import {Compaign} from '../../_models/compaign.model';
 
 @Component({
   selector: 'app-list-compaign',
@@ -9,7 +10,7 @@ import {Globals} from '../../_globals/Globals';
 })
 export class ListCompaignComponent implements OnInit {
 
-  compaigns: any;
+  compaigns: Compaign[];
 
   constructor(private crudService: CrudService) {
   }
@@ -20,8 +21,9 @@ export class ListCompaignComponent implements OnInit {
 
   getAllCompaigns() {
     this.crudService.getAll(Globals.API_URL + Globals.COMPAIGNS).subscribe(
-      (data) => {
+      (data: Compaign[]) => {
         this.compaigns = data;
+        console.log(this.compaigns);
       }
     );
   }

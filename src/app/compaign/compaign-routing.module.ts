@@ -5,8 +5,9 @@ import {AddCompaignComponent} from './add-compaign/add-compaign.component';
 
 
 const routes: Routes = [
-  {path: 'list', component: ListCompaignComponent},
+  {path: '', component: ListCompaignComponent},
   {path: 'add', component: AddCompaignComponent},
+  {path: 'edit/:id', component: AddCompaignComponent},
 ];
 
 @NgModule({

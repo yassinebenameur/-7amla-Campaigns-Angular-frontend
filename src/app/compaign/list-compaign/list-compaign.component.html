@@ -10,10 +10,12 @@
       <ng-template #nzContent>
         <nz-card [nzActions]="[actionSetting, actionEdit,actionEdit2, actionEllipsis]"
                  [nzCover]="coverTemplate">
+          <a routerLink="{{item.id}}"></a>
           <nz-card-meta
             [nzAvatar]="priceTemplate"
             nzDescription="{{item.description}}"
             nzTitle="{{item.title}}"
+
           ></nz-card-meta>
         </nz-card>
         <ng-template #priceTemplate>
@@ -26,11 +28,11 @@
           <i nz-icon nzType="like"></i>
         </ng-template>
         <ng-template #actionEdit>
-          <button class="ant-btn">Consulter</button>
+          <button class="ant-btn" routerLink="edit/{{item.id}}">Consulter</button>
 
         </ng-template>
         <ng-template #actionEdit2>
-          <button class="ant-btn">Bénévole</button>
+          <button class="ant-btn" >Bénévole</button>
 
         </ng-template>
         <ng-template #actionEllipsis>
