@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="campaignForm" (ngSubmit)="submitForm(campaignForm.value)">
+<form nz-form [formGroup]="campaignForm" *ngIf="tags" (ngSubmit)="submitForm(campaignForm.value)">
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="'Required'">
@@ -17,9 +17,49 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>Tags</nz-form-label>
+    <nz-form-control>
+      <nz-select nzMode="tags" nzPlaceHolder="Tag Mode" formControlName="tags">
+        <nz-option *ngFor="let tag of tags" [nzLabel]="tag.name" [nzValue]="tag.name"></nz-option>
+      </nz-select>
+    </nz-form-control>
+
     <nz-form-control [nzOffset]="7" [nzSpan]="12">
       <button nz-button nzType="primary" [disabled]="!campaignForm.valid">Submit</button>
       <button nz-button (click)="resetForm($event)">Reset</button>
     </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <button (click)="preventDefault($event);add_committee_member(null)" nz-button>
+      <i nz-icon nzType="add"></i>
+      Add committee
+    </button>
+
+    <nz-form-item *ngFor="let type of campaignForm.get('committee_members')['controls']; let i = index"
+                  formArrayName="committee_members">
+      <ng-container [formGroupName]="i">
+        <nz-form-label [nzSpan]="3" nzRequired>Comittee Role</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="5" nzHasFeedback>
+          <input formControlName="role" nz-input placeholder="role"/>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="3" nzRequired>Select a person</nz-form-label>
+
+        <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="7" nzHasFeedback>
+          <nz-select formControlName="user_id" nzAllowClear nzPlaceHolder="Select a person" nzShowSearch>
+            <nz-option *ngFor="let user of users" [nzValue]="user.id"
+                       nzLabel="{{user.first_name}} {{user.last_name}}"></nz-option>
+
+          </nz-select>
+
+
+        </nz-form-control>
+        <nz-form-control [nzSpan]="1">
+          <button (click)="preventDefault($event);deleteCommitteeMember(i)" nz-button nzShape="circle" nzType="danger">
+            X
+          </button>
+        </nz-form-control>
+      </ng-container>
+    </nz-form-item>
   </nz-form-item>
 </form>
