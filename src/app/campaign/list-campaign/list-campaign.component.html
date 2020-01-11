@@ -25,7 +25,8 @@
           <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
         </ng-template>
         <ng-template #actionSetting>
-          <i nz-icon nzType="like"></i>
+          <i *ngIf="currentUser&&currentUser.id===item.creator.id" [queryParams]="{returnUrl:'campaign'}" nz-icon
+             nzType="like" routerLink="/article/add/{{item.id}}"></i>
         </ng-template>
         <ng-template #actionEdit>
           <button class="ant-btn" routerLink="{{item.id}}">Consulter</button>

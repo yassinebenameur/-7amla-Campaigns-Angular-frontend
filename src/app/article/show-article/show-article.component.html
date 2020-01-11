@@ -1,5 +1,6 @@
 <ng-container *ngIf="article">
   <h3>{{article.title}}</h3>
+  <a *ngIf="currentUser&&currentUser.id===article.user.id" routerLink="/article/edit/{{articleId}}">Edit</a>
   <p *ngFor="let paragraph of article.body.split('\n')">
     {{paragraph}}
   </p>

@@ -12,7 +12,12 @@ const routes: Routes = [
     component: ListArticleComponent
   },
   {
-    path: 'add',
+    path: 'add/:campaign_id',
+    component: FormArticleComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit/:id',
     component: FormArticleComponent,
     canActivate: [AuthGuard]
   },

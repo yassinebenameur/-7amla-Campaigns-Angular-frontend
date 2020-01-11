@@ -4,6 +4,8 @@ import {CrudService} from '../../_services/crud.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
+import {UserModel} from '../../_models/user.model';
+import {AuthenticationService} from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-add-campaign',
@@ -16,11 +18,20 @@ export class AddCampaignComponent implements OnInit {
   campaignUrl;
   campaign_id: string;
   campaign: Campaign;
+  currentUser: UserModel;
 
 
-  constructor(private fb: FormBuilder, private crud: CrudService, private router: Router,
-              private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder,
+              private crud: CrudService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private authService: AuthenticationService) {
     this.campaignUrl = Globals.API_URL + Globals.CAMPAIGNS;
+
+    authService.currentUser
+      .subscribe(user => {
+        this.currentUser = user.user;
+      });
   }
 
   submitForm(value: any): void {
@@ -70,6 +81,7 @@ export class AddCampaignComponent implements OnInit {
     this.campaignForm = this.fb.group({
       title: [this.campaign ? this.campaign.title : '', [Validators.required]],
       description: [this.campaign ? this.campaign.description : '', [Validators.required]],
+      creator_id: this.campaign ? this.campaign.creator.id : this.currentUser.id
     });
   }
 }

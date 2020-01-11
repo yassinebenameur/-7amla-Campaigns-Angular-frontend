@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
+import {UserModel} from '../../_models/user.model';
+import {AuthenticationService} from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-list-campaign',
@@ -11,8 +13,14 @@ import {Campaign} from '../../_models/campaign.model';
 export class ListCampaignComponent implements OnInit {
 
   campaigns: Campaign[];
+  currentUser: UserModel;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService,
+              private authService: AuthenticationService) {
+    authService.currentUser
+      .subscribe(user => {
+        this.currentUser = user.user;
+      });
   }
 
   ngOnInit() {

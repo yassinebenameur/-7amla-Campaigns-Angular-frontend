@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {UserModel} from '../../_models/user.model';
+import {ArticleModel} from '../../_models/article.model';
 
 @Component({
   selector: 'app-form-article',
@@ -15,16 +16,43 @@ export class FormArticleComponent implements OnInit {
 
   articleForm: FormGroup;
   articleUrl;
+  articleId;
   currentUser: UserModel;
+  campaignId: string;
+  article: ArticleModel;
+  private readonly returnUrl: string;
 
-
-  constructor(private fb: FormBuilder, private crud: CrudService, private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private fb: FormBuilder,
+              private crud: CrudService,
+              private router: Router,
+              private authenticationService: AuthenticationService,
+              private route: ActivatedRoute) {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;
     this.authenticationService.currentUser
       .subscribe(user => {
         this.currentUser = user.user;
       });
+    route.params.subscribe(params => {
+      this.campaignId = params.campaign_id;
+      this.articleId = params.id;
+    });
+
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/article';
+
   }
+
+
+  ngOnInit() {
+    this.initForm();
+    if (this.articleId) {
+      this.crud.getOne<ArticleModel>(this.articleUrl, this.articleId)
+        .subscribe(article => {
+          this.article = article;
+          this.initForm();
+        });
+    }
+  }
+
 
   submitForm(value: any): void {
     for (const key in this.articleForm.controls) {
@@ -34,7 +62,7 @@ export class FormArticleComponent implements OnInit {
     console.log(value);
     this.crud.post(this.articleUrl, this.articleForm.value)
       .subscribe(() => {
-        this.router.navigate(['/article']);
+        this.router.navigate([this.returnUrl]);
       });
   }
 
@@ -47,11 +75,13 @@ export class FormArticleComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+
+  initForm() {
     this.articleForm = this.fb.group({
-      title: ['', [Validators.required]],
-      body: ['', [Validators.required]],
-      user_id: this.currentUser.id
+      title: [this.article ? this.article.title : '', [Validators.required]],
+      body: [this.article ? this.article.body : '', [Validators.required]],
+      user_id: this.article ? this.article.user.id : this.currentUser.id,
+      campaign_id: this.campaignId ? this.campaignId : (this.article ? this.article.campaign.id : null)
     });
   }
 
