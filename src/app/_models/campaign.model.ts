@@ -11,6 +11,7 @@ export class Campaign {
   creator: UserModel;
   tags: TagModel[];
   users: UserModel[];
+  feedback: UserModel[];
 
   constructor(id: string, title: string, description: string, tags: TagModel[], users: UserModel[]) {
     this.id = id;

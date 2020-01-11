@@ -5,8 +5,8 @@
   <div *ngIf="campaign.articles.length>0">
     <h4>Related articles</h4>
     <div class="row">
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 border border-light shadow m-2"
-           *ngFor="let article of campaign.articles">
+      <div *ngFor="let article of campaign.articles"
+           class="col-12 col-sm-6 col-md-4 col-lg-3 border border-light shadow m-2">
         <a routerLink="/article/{{article.id}}">{{article.title}}</a>
         <p>{{article.body|truncateDescription}}</p>
       </div>
@@ -23,4 +23,41 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="campaign.feedback.length>0">
+    <h3>
+      Feedback
+    </h3>
+    <div *ngFor="let feedback of campaign.feedback">
+      <h4>
+        {{feedback.first_name}} {{feedback.last_name}} - {{feedback.feedback.rating}}
+      </h4>
+      <p>
+        {{feedback.feedback.comment}}
+      </p>
+    </div>
+  </div>
+  <form [formGroup]="feedbackForm" (ngSubmit)="postFeedback()" *ngIf="currentUser&&checkUserCanGiveFeedback()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Rating</nz-form-label>
+      <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="12" nzHasFeedback>
+        <input formControlName="rating" max="5" min="0" nz-input placeholder="Rating" type="number"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+      <textarea
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+        formControlName="comment"
+        nz-input
+        placeholder="Comment"
+      ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button [disabled]="!feedbackForm.valid" nz-button nzType="primary">Submit</button>
+      <button (click)="resetForm($event)" nz-button>Reset</button>
+    </nz-form-control>
+  </form>
 </ng-container>

@@ -14,6 +14,7 @@ export class Globals {
 
   static globalError = 'Une erreur s\'est produite. Veuillez réessayez. Si l\'erreur persiste, contactez un administrateur';
   static CAMPAIGNS = '/campaign';
+  static FEEDBACK = '/feedback';
 
 
   static toFormData<T>(formValue: T) {
