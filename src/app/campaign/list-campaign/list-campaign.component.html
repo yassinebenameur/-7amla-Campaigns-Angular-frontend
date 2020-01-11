@@ -15,8 +15,10 @@
             [nzAvatar]="priceTemplate"
             nzDescription="{{item.description|truncateDescription}}"
             nzTitle="{{item.title}}"
-
           ></nz-card-meta>
+          <div>
+            <nz-tag *ngFor="let tag of item.tags" [nzColor]="'#00967F'">#{{tag.name}}</nz-tag>
+          </div>
         </nz-card>
         <ng-template #priceTemplate>
           <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>

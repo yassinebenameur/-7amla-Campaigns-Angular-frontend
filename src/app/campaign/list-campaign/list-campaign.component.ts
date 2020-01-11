@@ -20,8 +20,8 @@ export class ListCampaignComponent implements OnInit {
   }
 
   getAllCampaigns() {
-    this.crudService.getAll(Globals.API_URL + Globals.CAMPAIGNS).subscribe(
-      (data: Campaign[]) => {
+    this.crudService.getAll<Campaign[]>(Globals.API_URL + Globals.CAMPAIGNS).subscribe(
+      (data) => {
         this.campaigns = data;
         console.log(this.campaigns);
       }
