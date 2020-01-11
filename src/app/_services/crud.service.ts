@@ -37,7 +37,7 @@ export class CrudService {
     return this.http.post(url, values);
   }
 
-  put(url, id, values, toFormData = false) {
+  update(url, id, values, toFormData = false) {
     if (toFormData) {
       return this.http.post(url + '/' + id, Globals.toFormData(Object.assign(values, {_method: 'put'})));
     }
