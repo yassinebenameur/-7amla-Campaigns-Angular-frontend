@@ -1,4 +1,4 @@
-export class Compaign {
+export class Campaign {
   id: string;
   title: string;
   description: string;
