@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
 import {UserModel} from '../../_models/user.model';
+import {TagModel} from '../../_models/tag.model';
 
 @Component({
   selector: 'app-add-campaign',
@@ -17,6 +18,9 @@ export class AddCampaignComponent implements OnInit {
   campaignUrl;
   campaign_id: string;
   campaign: Campaign;
+  tags: TagModel[];
+  listOfTagOptions: TagModel[];
+  selectedTag = [];
   userUrl: string;
 
   users: UserModel[];
@@ -29,13 +33,20 @@ export class AddCampaignComponent implements OnInit {
     this.userUrl = Globals.API_URL + Globals.USER;
   }
 
+  getAllTags() {
+    this.crud.getAll(Globals.API_URL + Globals.TAG).subscribe(
+      (data: TagModel[]) => {
+        this.tags = data;
+      }
+    );
+  }
+
   submitForm(value: any): void {
     for (const key in this.campaignForm.controls) {
       this.campaignForm.controls[key].markAsDirty();
       this.campaignForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-
 
     if (!this.campaign) {
       this.crud.post(this.campaignUrl, this.campaignForm.value)
@@ -60,21 +71,31 @@ export class AddCampaignComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllTags();
     this.getAllUsers();
     this.campaign_id = this.route.snapshot.params.id;
     console.log(this.campaign_id);
-    this.crud.getOne(this.campaignUrl, this.campaign_id).subscribe(
-      (data: Campaign) => {
-        this.campaign = data;
-        console.log(this.campaign);
-        this.initForm();
-        console.log(this.campaign['users'].forEach(
-          (elt) => {
-            this.add_committee_member(elt.role);
+    if (this.campaign_id) {
+      this.crud.getOne(this.campaignUrl, this.campaign_id).subscribe(
+        (data: Campaign) => {
+          this.campaign = data;
+
+          this.initForm();
+          console.log(this.campaign);
+
+          this.campaign['users'].forEach(
+            (elt) => {
+              this.add_committee_member(elt.role);
+              console.log(elt);
+              console.log('TEST');
+            }
+          );
+          for (const tag of this.campaign.tags) {
+            this.selectedTag.push(tag.name);
           }
-        ));
-      }
-    );
+        }
+      );
+    }
     this.initForm();
   }
 
@@ -82,6 +103,7 @@ export class AddCampaignComponent implements OnInit {
     this.campaignForm = this.fb.group({
       title: [this.campaign ? this.campaign.title : '', [Validators.required]],
       description: [this.campaign ? this.campaign.description : '', [Validators.required]],
+      tags: [this.campaign ? this.selectedTag : null, [Validators.required]],
       committee_members: this.fb.array([])
 
     });
@@ -102,7 +124,7 @@ export class AddCampaignComponent implements OnInit {
 
   add_committee_member(committee_member) {
     (this.campaignForm.get('committee_members') as FormArray).push(this.createCommitteeRole(committee_member));
-
+    console.log(this.campaignForm.get('committee_members'));
   }
 
   createCommitteeRole(committee_member: any): FormGroup {
