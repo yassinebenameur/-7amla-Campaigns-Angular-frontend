@@ -60,10 +60,17 @@ export class FormArticleComponent implements OnInit {
       this.articleForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    this.crud.post(this.articleUrl, this.articleForm.value)
-      .subscribe(() => {
-        this.router.navigate([this.returnUrl]);
-      });
+    if (!this.article) {
+      this.crud.post(this.articleUrl, this.articleForm.value)
+        .subscribe(() => {
+          this.router.navigate([this.returnUrl]);
+        });
+    } else {
+      this.crud.update(this.articleUrl, this.articleId, this.articleForm.value)
+        .subscribe(() => {
+          this.router.navigate([this.returnUrl]);
+        });
+    }
   }
 
   resetForm(e: MouseEvent): void {

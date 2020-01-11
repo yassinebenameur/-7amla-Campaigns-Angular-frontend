@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Globals} from '../_globals/Globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
 
-
   constructor(private http: HttpClient) {
-
   }
 
   getAll<T>(url) {
@@ -31,11 +30,17 @@ export class CrudService {
     return this.http.get<T>(url + '/' + id);
   }
 
-  post(url, values) {
+  post(url, values, toFormData = false) {
+    if (toFormData) {
+      return this.http.post(url, Globals.toFormData(values));
+    }
     return this.http.post(url, values);
   }
 
-  update(url, id, values) {
+  put(url, id, values, toFormData = false) {
+    if (toFormData) {
+      return this.http.post(url + '/' + id, Globals.toFormData(Object.assign(values, {_method: 'put'})));
+    }
     return this.http.put(url + '/' + id, values);
   }
 
