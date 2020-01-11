@@ -10,11 +10,13 @@ export class Campaign {
   articles: ArticleModel[];
   creator: UserModel;
   tags: TagModel[];
+  users: UserModel[];
 
-  constructor(id: string, title: string, description: string, tags: TagModel[]) {
+  constructor(id: string, title: string, description: string, tags: TagModel[], users: UserModel[]) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.tags = tags;
+    this.users = users;
   }
 }

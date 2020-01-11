@@ -5,4 +5,8 @@ export class UserModel {
   last_name: string;
   date_of_birth: string;
   phone: string;
+  role: {
+    role: string;
+    campaign_id: string;
+  };
 }
