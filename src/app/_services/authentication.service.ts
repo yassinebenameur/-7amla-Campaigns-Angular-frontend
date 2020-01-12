@@ -11,7 +11,7 @@ import {UserModel} from '../_models/user.model';
 export class AuthenticationService {
 
   public currentUser: Observable<AuthTokenModel>;
-  private currentUserSubject: BehaviorSubject<AuthTokenModel>;
+  public currentUserSubject: BehaviorSubject<AuthTokenModel>;
   private remember;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -26,16 +26,10 @@ export class AuthenticationService {
   login(value) {
     return this.http.post<any>(Globals.API_URL + Globals.AUTH + Globals.LOGIN, value)
       .pipe(map(user => {
-        if (value.remember) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        } else {
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject = new BehaviorSubject<AuthTokenModel>(JSON.parse(sessionStorage.getItem('currentUser')));
-          this.currentUser = this.currentUserSubject.asObservable();
-        }
 
-        this.remember = value.remember;
-        this.currentUserSubject.next(user);
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(JSON.parse(sessionStorage.getItem('currentUser')));
+        this.currentUser = this.currentUserSubject.asObservable();
         return user;
       }));
   }

@@ -1,127 +1,81 @@
-<nz-spin [nzSpinning]="loading">
-  <div nz-row nzJustify="center" nzType="flex" class="p-3" *ngIf="registerForm">
-    <div nz-col [nzMd]="16" [nzLg]="12">
-      <div [formGroup]="registerForm" class="checkout-information">
-        <div class="mb-3">
-          <div class="checkout-title">
-            <h6>Vos Informations</h6>
-          </div>
-        </div>
+<div class="container">
+  <div class="contact-form-block">
 
-        <div>
-          <nz-form-item>
-            <nz-form-control [nzErrorTip]="emailError" nzValidatingTip="Verification">
-              <nz-input-group [nzSuffix]="emailSuffix">
-                <input (change)="validateEmail()" formControlName="email" nz-input placeholder="Email" type="text"/>
-              </nz-input-group>
-              <ng-template #emailError let-control>
-                <ng-container *ngIf="control.hasError('email')">Email invalide</ng-container>
-                <ng-container *ngIf="control.hasError('required')">Champs requis</ng-container>
-                <ng-container *ngIf="control.hasError('duplicated')">Email déjà utilisé. Avez-vous ouvliez votre mot de
-                  passe?
-                </ng-container>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-          <ng-template #emailSuffix>
-            <i nz-icon nzTheme="outline" nzType="mail"></i>
-          </ng-template>
-          <div [nzGutter]="8" nz-row>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="infoSuffix">
-                    <input formControlName="password" nz-input placeholder="Mot de passe" type="password"
-                           (input)="checkPassword()"/>
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #infoSuffix>
-                <i nz-icon nzTheme="outline" nzType="info-circle"></i>
-              </ng-template>
-            </div>
+    <h2 class="contact-title">Create a new account</h2>
 
+    <form (ngSubmit)="submitRegisterForm()" [formGroup]="registerForm" action="#" id="contact-form" method="post"
+          role="form">
 
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control [nzErrorTip]="passwordConfirmationError">
-                  <nz-input-group [nzSuffix]="infoSuffix">
-                    <input formControlName="password_confirmation" nz-input placeholder="Répeter mot de passe"
-                           (input)="checkPassword()"
-                           type="password"/>
-                  </nz-input-group>
-                  <ng-template #passwordConfirmationError let-control>
-                    <ng-container *ngIf="control.hasError('required')">Champs requis</ng-container>
-                    <ng-container *ngIf="control.hasError('confirm')">Les 2 mots de passes ne correspondent pas
-                    </ng-container>
-                  </ng-template>
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div [nzGutter]="8" nz-row>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="infoSuffix">
-                    <input formControlName="last_name" nz-input placeholder="Nom" type="text"/>
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #infoSuffix>
-                <i nz-icon nzTheme="outline" nzType="info-circle"></i>
-              </ng-template>
-            </div>
-
-
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="infoSuffix">
-                    <input formControlName="first_name" nz-input placeholder="Prénom" type="text"/>
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-
-
-          <div [nzGutter]="8" nz-row>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="phoneSuffix">
-                    <input formControlName="phone" nz-input placeholder="Telephone" type="text"/>
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #phoneSuffix>
-                <i nz-icon nzTheme="outline" nzType="phone"></i>
-              </ng-template>
-            </div>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-date-picker [ngModel]="date_of_birth" [nzFormat]="'dd-MM-yyyy'" [nzShowToday]="false"
-                                  [nzStyle]="{width:'100%'}"
-                                  class="w-100"
-                                  formControlName="date_of_birth"></nz-date-picker>
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-        </div>
-
+      <div class="form-group">
+        <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
+               placeholder="Email"
+               type="email">
+        <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
+          <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
+        </ng-container>
 
       </div>
 
-      <button class="btn btn-primary" (click)="submitRegisterForm()">Créer un compte</button>
-      <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+      <div [ngClass]="{'has-error':password.invalid}" class="form-group">
+        <input class="form-control" formControlName="password" name="password" placeholder="Password" type="password">
+        <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+          <span *ngIf="password.errors.required" class="help-block">Password is Required</span>
+        </ng-container>
+      </div>
 
-    </div>
+      <div [ngClass]="{'has-error':password_confirmation.invalid}" class="form-group">
+        <input [pattern]="password.value" class="form-control" formControlName="password_confirmation"
+               name="password_confirmation" placeholder="password_confirmation"
+               type="password">
+        <ng-container
+          *ngIf="password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)">
+          <span *ngIf="password_confirmation.errors.required"
+                class="help-block">password_confirmation is Required</span>
+          <span *ngIf="password_confirmation.errors.pattern" class="help-block">Passwords don't match</span>
+        </ng-container>
+      </div>
+
+
+      <div [ngClass]="{'has-error':first_name.invalid}" class="form-group">
+        <input class="form-control" formControlName="first_name" name="first_name" placeholder="first_name" type="text">
+        <ng-container *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
+          <span *ngIf="first_name.errors.required" class="help-block">Password Confirmation is Required</span>
+        </ng-container>
+      </div>
+
+      <div [ngClass]="{'has-error':last_name.invalid}" class="form-group">
+        <input class="form-control" formControlName="last_name" name="last_name" placeholder="last_name" type="text">
+        <ng-container *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
+          <span *ngIf="last_name.errors.required" class="help-block">Password Confirmation is Required</span>
+        </ng-container>
+      </div>
+
+
+      <div [ngClass]="{'has-error':phone.invalid}" class="form-group">
+        <input class="form-control" formControlName="phone" name="phone" pattern="\d{8}" placeholder="+216"
+               type="text">
+        <ng-container *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+          <span *ngIf="phone.errors.required" class="help-block">Phone is Required</span>
+          <span *ngIf="phone.errors.pattern" class="help-block">Phone number is invalid</span>
+        </ng-container>
+      </div>
+
+
+      <div class="form-group">
+        <button [disabled]="registerForm.invalid" class="btn btn-theme" type="submit">Create Account</button>
+      </div>
+
+    </form>
+
+
+    <h2 class="contact-title">Already Have An Account ?
+      <button class="btn btn-capitalize">
+        <a href="JavaScript:void(0);" routerLink="/auth/login">Login to your account </a>
+      </button>
+    </h2>
+
+
   </div>
-</nz-spin>
+</div>
+

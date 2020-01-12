@@ -1,49 +1,3 @@
-<nz-spin [nzSpinning]="loading">
-  <div nz-row>
-    <div [nzSm]="12" [nzXs]="24" class="border-right border-light p-md-5 p-3 login-form" nz-col>
-      <h4>Connexion</h4>
-      <form (ngSubmit)="submitLoginForm()" [formGroup]="loginForm" class="login-form" nz-form>
-        <nz-form-item>
-          <nz-form-control [nzErrorTip]="emailError">
-            <nz-input-group nzPrefixIcon="user">
-              <input formControlName="email" nz-input placeholder="Email" type="text"/>
-            </nz-input-group>
-            <ng-template #emailError let-control>
-              <ng-container *ngIf="control.hasError('email')">Email invalide</ng-container>
-              <ng-container *ngIf="control.hasError('required')">Champs requis</ng-container>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="Champs requis">
-            <nz-input-group nzPrefixIcon="lock">
-              <input formControlName="password" nz-input placeholder="Password" type="password"/>
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control>
-            <label formControlName="remember" nz-checkbox>
-              <span>Remember me</span>
-            </label>
-            <a class="login-form-forgot">Forgot password</a>
-            <button [nzType]="'primary'" class="login-form-button" nz-button [disabled]="loginForm.invalid">Se
-              connecter
-            </button>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
-    </div>
-    <div [nzSm]="12" [nzXs]="24" class="p-md-5 p-3 border-top border-light register-message" nz-col>
-      <h4>Vous n'avez pas de compte?</h4>
-      <p>Venez par <a routerLink="/auth/register">ici</a> et laissez vous guider</p>
-    </div>
-  </div>
-</nz-spin>
-
-
 <div class="container">
   <div class="contact-form-block">
 
@@ -78,8 +32,11 @@
     </form>
 
 
-    <h2 class="contact-title">Don't Have An Account ?</h2>
-    <a href="JavaScript:void(0);" routerLink="/auth/register">Create A New Account</a>
+    <h2 class="contact-title">Don't Have An Account ?
+      <button class="btn btn-capitalize">
+        <a href="JavaScript:void(0);" routerLink="/auth/register">Create A New Account</a>
+      </button>
+    </h2>
 
 
   </div>

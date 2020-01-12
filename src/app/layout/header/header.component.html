@@ -21,15 +21,17 @@
       </div>
 
       <div class="col-md-4 col-sm-12" style="margin-top: 12px">
-        <p>
-          <strong>Welcome Khlil Turki !</strong>
+        <p *ngIf="user_name">
+          <strong>Welcome {{user_name}} ! </strong>
         </p>
       </div>
 
       <div class="col-md-4 col-sm-12" style="margin-top: 12px">
         <p>
-          <span>&nbsp; <strong><a href="JavaScript:void(0)" routerLink="/auth/login">LOGIN</a></strong> </span>
-          <span>&nbsp; <strong>LOGOUT</strong> </span>
+          <span>&nbsp; <strong><a *ngIf="!user_name" href="JavaScript:void(0)"
+                                  routerLink="/auth/login">LOGIN</a></strong> </span>
+          <span>&nbsp; <strong><a (click)="logout()" *ngIf="user_name"
+                                  href="JavaScript:void(0)"> LOGOUT</a></strong> </span>
         </p>
 
 
