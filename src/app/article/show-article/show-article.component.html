@@ -4,4 +4,35 @@
   <p *ngFor="let paragraph of article.body.split('\n')">
     {{paragraph}}
   </p>
+
+  <div *ngIf="article.comments.length>0">
+    <h3>
+      Comments
+    </h3>
+    <div *ngFor="let comment of article.comments">
+      <h4>
+        {{comment.first_name}} {{comment.last_name}}
+      </h4>
+      <p>
+        {{comment.comments.content}}
+      </p>
+    </div>
+  </div>
+  <form [formGroup]="commentForm" (ngSubmit)="postComment()" *ngIf="currentUser&&checkUserCanGiveComment()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+      <textarea
+        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+        formControlName="content"
+        nz-input
+        placeholder="content"
+      ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button [disabled]="!commentForm.valid" nz-button nzType="primary">Submit</button>
+      <button (click)="resetForm($event)" nz-button>Reset</button>
+    </nz-form-control>
+  </form>
 </ng-container>

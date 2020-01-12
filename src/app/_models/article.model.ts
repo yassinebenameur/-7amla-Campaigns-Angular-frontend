@@ -7,4 +7,6 @@ export class ArticleModel {
   body: string;
   user: UserModel;
   campaign: Campaign;
+  comments: UserModel[];
+
 }

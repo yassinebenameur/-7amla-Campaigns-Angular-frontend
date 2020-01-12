@@ -20,4 +20,9 @@ export class UserModel {
     created_at: string,
     updated_at: string
   };
+  comments?: {
+    content: string,
+    created_at: string,
+    updated_at: string
+  };
 }

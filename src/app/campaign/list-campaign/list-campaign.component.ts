@@ -4,6 +4,7 @@ import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
 import {UserModel} from '../../_models/user.model';
 import {AuthenticationService} from '../../_services/authentication.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-list-campaign',
@@ -11,12 +12,15 @@ import {AuthenticationService} from '../../_services/authentication.service';
   styleUrls: ['./list-campaign.component.css']
 })
 export class ListCampaignComponent implements OnInit {
-
   @Input() campaigns: Campaign[];
   currentUser: UserModel;
+  commentForm: FormGroup;
 
   constructor(private crudService: CrudService,
-              private authService: AuthenticationService) {
+              private authService: AuthenticationService,
+              private fb: FormBuilder) {
+
+
     authService.currentUser
       .subscribe(user => {
         this.currentUser = user.user;
@@ -37,5 +41,7 @@ export class ListCampaignComponent implements OnInit {
       }
     );
   }
+
+
 
 }
