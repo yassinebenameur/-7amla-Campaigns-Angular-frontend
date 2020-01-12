@@ -24,7 +24,9 @@ export class ShowArticleComponent implements OnInit {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;
     authService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+        }
       });
   }
 

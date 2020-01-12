@@ -20,6 +20,7 @@ export class ListArticleComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.articles) {
+      this.articles = [];
       this.loadData(1);
     }
   }

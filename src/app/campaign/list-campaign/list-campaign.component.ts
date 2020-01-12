@@ -19,7 +19,9 @@ export class ListCampaignComponent implements OnInit {
               private authService: AuthenticationService) {
     authService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+        }
       });
   }
 
