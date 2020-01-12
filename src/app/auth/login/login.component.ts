@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.router.navigate([this.returnUrl]);
       }, (error) => {
-        this.error = 'Vérifiez vos données et réessayez';
+        this.error = 'Verify your credentials and retry ';
         this.loading = false;
       });
   }

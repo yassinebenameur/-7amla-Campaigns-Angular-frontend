@@ -11,6 +11,7 @@ import {Globals} from '../../_globals/Globals';
 export class ListTagComponent implements OnInit {
 
   tags: TagModel[];
+  newTag = false;
 
   constructor(private crudService: CrudService) {
   }
@@ -28,4 +29,20 @@ export class ListTagComponent implements OnInit {
     );
   }
 
+  onEnter(value: string) {
+    if (value.trim() === '') {
+      return;
+    }
+
+    this.crudService.post(Globals.API_URL + Globals.TAG, {name: value}).subscribe(
+      (data: TagModel) => {
+        this.tags.push(data);
+        this.newTag = false;
+      },
+      () => {
+      }
+    );
+
+
+  }
 }

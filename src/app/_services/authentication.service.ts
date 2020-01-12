@@ -27,8 +27,8 @@ export class AuthenticationService {
     return this.http.post<any>(Globals.API_URL + Globals.AUTH + Globals.LOGIN, value)
       .pipe(map(user => {
 
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(JSON.parse(sessionStorage.getItem('currentUser')));
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         return user;
       }));

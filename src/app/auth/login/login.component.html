@@ -23,9 +23,11 @@
         </ng-container>
       </div>
 
+      <h5 *ngIf="error" class="text-danger">{{error}}</h5>
 
       <div class="form-group">
         <button [disabled]="loginForm.invalid" class="btn btn-theme" type="submit">Login</button>
+
         <a class="alignright">Forget Password ?</a>
       </div>
 
