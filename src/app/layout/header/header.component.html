@@ -9,7 +9,9 @@
         <form class="search-form" id="search-form" method="get" role="form">
 
           <div class="input-group">
-            <input class="form-control" placeholder="Search...." type="text">
+            <input #box (keyup.enter)="onEnter(box.value)" class="form-control" placeholder="input search text..."
+                   type="text">
+
           </div>
 
           <input type="hidden" value="submit">
