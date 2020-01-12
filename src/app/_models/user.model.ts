@@ -10,4 +10,14 @@ export class UserModel {
   phone: string;
   campaigns: Campaign[];
   articles: ArticleModel[];
+  role?: {
+    role: string;
+    campaign_id: string;
+  };
+  feedback?: {
+    comment: string,
+    rating: number,
+    created_at: string,
+    updated_at: string
+  };
 }

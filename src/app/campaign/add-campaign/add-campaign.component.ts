@@ -94,7 +94,7 @@ export class AddCampaignComponent implements OnInit {
           this.initForm();
           console.log(this.campaign);
 
-          this.campaign['users'].forEach(
+          this.campaign.users.forEach(
             (elt) => {
               this.add_committee_member(elt.role);
               console.log(elt);
