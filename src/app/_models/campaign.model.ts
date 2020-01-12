@@ -13,6 +13,11 @@ export class Campaign {
   users: UserModel[];
   feedback: UserModel[];
   interests: UserModel[];
+  start_date: string;
+  end_date?: string;
+  start_hour: string;
+  end_hour: string;
+  city: string;
 
   constructor(id: string, title: string, description: string, tags: TagModel[], users: UserModel[]) {
     this.id = id;

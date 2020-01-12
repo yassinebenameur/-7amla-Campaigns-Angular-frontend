@@ -5,12 +5,16 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {RevertDatePipe} from '../_pipes/revert-date.pipe';
 import {TruncateDescriptionPipe} from '../_pipes/truncate-description.pipe';
+import {TimePipe} from '../_pipes/time.pipe';
+import {ConvertDatePipe} from '../_pipes/convert-date.pipe';
 
 
 @NgModule({
   declarations: [
     RevertDatePipe,
-    TruncateDescriptionPipe
+    TruncateDescriptionPipe,
+    TimePipe,
+    ConvertDatePipe
   ],
   imports: [
   ],
@@ -24,6 +28,8 @@ import {TruncateDescriptionPipe} from '../_pipes/truncate-description.pipe';
     ReactiveFormsModule,
     RevertDatePipe,
     TruncateDescriptionPipe,
+    TimePipe,
+    ConvertDatePipe,
   ]
 })
 
