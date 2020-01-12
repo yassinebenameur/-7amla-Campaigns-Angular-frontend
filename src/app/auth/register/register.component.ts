@@ -11,7 +11,6 @@ import {Globals} from '../../_globals/Globals';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  date_of_birth: Date;
 
   registerUrl: string;
   userEmailUrl: string;
@@ -24,7 +23,6 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder) {
     this.registerUrl = Globals.API_URL + Globals.AUTH + Globals.REGISTER;
-    this.date_of_birth = new Date();
 
   }
 
@@ -47,6 +45,34 @@ export class RegisterComponent implements OnInit {
       phone: ['54192720', Validators.required],
       date_of_birth: ['1997-03-10', Validators.required],
     });
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get password_confirmation() {
+    return this.registerForm.get('password_confirmation');
+  }
+
+  get first_name() {
+    return this.registerForm.get('first_name');
+  }
+
+  get last_name() {
+    return this.registerForm.get('last_name');
+  }
+
+  get phone() {
+    return this.registerForm.get('phone');
+  }
+
+  get date_of_birth() {
+    return this.registerForm.get('date_of_birth');
   }
 
   // initAddress(type) {

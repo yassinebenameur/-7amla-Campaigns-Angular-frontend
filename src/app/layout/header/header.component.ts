@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -8,14 +9,33 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) {
+  user_name = null;
+
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
+    this.authenticationService.currentUserSubject.subscribe(
+      (data) => {
+        console.log('iemmmazheeeeeeeereeeeeeeeeeeeeeeeeeeeeee');
+        if (data) {
+          this.user_name = data.user.first_name + ' ' + data.user.last_name;
+        } else {
+          this.user_name = null;
+        }
+
+      }
+    );
   }
+
 
   onEnter(value: any) {
     console.log(value);
     this.router.navigateByUrl('search/' + value);
+  }
+
+  logout() {
+    this.authenticationService.logout();
   }
 }
