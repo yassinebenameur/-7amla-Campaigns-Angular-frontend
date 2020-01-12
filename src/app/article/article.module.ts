@@ -10,6 +10,9 @@ import { FormArticleComponent } from './form-article/form-article.component';
 
 @NgModule({
   declarations: [ListArticleComponent, ShowArticleComponent, FormArticleComponent],
+  exports: [
+    ListArticleComponent
+  ],
   imports: [
     SharedModule,
     ArticleRoutingModule

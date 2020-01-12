@@ -10,6 +10,9 @@ import { ShowCampaignComponent } from './show-campaign/show-campaign.component';
 
 @NgModule({
   declarations: [ListCampaignComponent, AddCampaignComponent, ShowCampaignComponent],
+  exports: [
+    ListCampaignComponent
+  ],
   imports: [
     CommonModule,
     CampaignRoutingModule,

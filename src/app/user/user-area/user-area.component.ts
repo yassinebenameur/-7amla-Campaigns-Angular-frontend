@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {AuthTokenModel} from '../../_models/auth-token.model';
+import {UserModel} from '../../_models/user.model';
 
 @Component({
   selector: 'app-user-area',
@@ -20,7 +21,7 @@ export class UserAreaComponent implements OnInit {
           .subscribe(
             x => {
               this.user = x;
-              console.log(this.user);
+              console.log(this.user.user.articles);
             });
       });
   }

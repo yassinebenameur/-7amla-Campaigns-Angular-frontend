@@ -1,3 +1,6 @@
+import {Campaign} from './campaign.model';
+import {ArticleModel} from './article.model';
+
 export class UserModel {
   id: string;
   email: string;
@@ -5,4 +8,6 @@ export class UserModel {
   last_name: string;
   date_of_birth: string;
   phone: string;
+  campaigns: Campaign[];
+  articles: ArticleModel[];
 }

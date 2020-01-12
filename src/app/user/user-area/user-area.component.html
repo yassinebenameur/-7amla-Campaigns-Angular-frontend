@@ -3,16 +3,21 @@
   <div nz-row nzJustify="center">
     <div nz-col nzSm="18" nzXs="24">
       <button (click)="changeDisplay(0)" [class.btn-outline-primary]="display!==0" [class.btn-primary]="display===0"
-              class="btn mb-3 mr-sm-2">Détails
+              class="btn mb-3 mr-sm-2">Details
       </button>
       <button (click)="changeDisplay(1)" [class.btn-outline-primary]="display!==1" [class.btn-primary]="display===1"
-              class="btn mb-3 mr-sm-2">Commandes
+              class="btn mb-3 mr-sm-2">7amlet
+      </button>
+      <button (click)="changeDisplay(2)" [class.btn-outline-primary]="display!==2" [class.btn-primary]="display===2"
+              class="btn mb-3 mr-sm-2">Articles
       </button>
     </div>
   </div>
 
   <div class="border border-light p-3" *ngIf="user">
     <app-user-detail *ngIf="display===0" [user]="user.user"></app-user-detail>
+    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===1" ></app-list-campaign>
+    <app-list-article [articles]="user.user.articles" *ngIf="display===2" ></app-list-article>
     <!--<app-user-order  *ngIf="display===1||false" [orders]="user.user.orders"></app-user-order>-->
   </div>
 

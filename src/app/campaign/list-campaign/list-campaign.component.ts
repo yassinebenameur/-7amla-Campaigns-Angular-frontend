@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../_services/authentication.service';
 })
 export class ListCampaignComponent implements OnInit {
 
-  campaigns: Campaign[];
+  @Input() campaigns: Campaign[];
   currentUser: UserModel;
 
   constructor(private crudService: CrudService,
@@ -24,7 +24,9 @@ export class ListCampaignComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllCampaigns();
+    if (!this.campaigns) {
+      this.getAllCampaigns();
+    }
   }
 
   getAllCampaigns() {
