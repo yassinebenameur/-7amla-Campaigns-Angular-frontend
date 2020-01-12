@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Globals} from '../../_globals/Globals';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -49,5 +48,13 @@ export class LoginComponent implements OnInit {
         this.error = 'Vérifiez vos données et réessayez';
         this.loading = false;
       });
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 }
