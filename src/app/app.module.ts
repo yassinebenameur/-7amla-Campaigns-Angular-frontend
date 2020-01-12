@@ -13,13 +13,17 @@ import en from '@angular/common/locales/en';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {SearchComponent} from './search/search.component';
+import {HeaderComponent} from './layout/header/header.component';
+import {FooterComponent} from './layout/footer/footer.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

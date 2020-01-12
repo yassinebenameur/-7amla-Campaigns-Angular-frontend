@@ -1,111 +1,132 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>7AMLA</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
+<div id="preloader">
+  <span class="margin-bottom"><img alt="" src="../assets/images/loader.gif"/></span>
+</div>
 
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="form" nzTitle="Examples">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/example/form">Basic Form</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/example/list">List</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="form" nzTitle="Articles">
-        <ul>
-          <li *ngIf="false" nz-menu-item nzMatchRouter>
-            <a routerLink="/article/add">Add an article</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/article">List articles</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="form" nzTitle="7amlet">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/campaign/add">Add a 7amla</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/campaign">7amlet</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="tag" nzTitle="Tags">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/tag/add">Add a Tag</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/tag">List Tags</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="tag" nzTitle="Auth">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/auth/login">Login</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzIcon="tag" nzTitle="Me">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/user">Profile</a>
-          </li>
-        </ul>
-      </li>
+<!--  HEADER -->
 
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <nz-input-group [nzSuffix]="suffixIconSearch">
-        <input #box (keyup.enter)="onEnter(box.value)" nz-input placeholder="input search text" type="text"/>
-      </nz-input-group>
-      <ng-template #suffixIconSearch>
-        <i nz-icon nzType="search"></i>
+<header class="main-header clearfix">
 
-      </ng-template>
-      <div class="app-header">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <div class="">
 
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+    <div class="container">
 
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
+      <div class="row section-heading-wrapper">
 
+        <div class="col-md-12 col-sm-12 text-left no-img-separator">
+          <h2>ALL CAMPAIGNS</h2>
+          <span class="heading-separator heading-separator-horizontal"></span>
+          <h4>Encourage new donors to join and continue to give blood. We have total sixty thousands donor centers and
+            visit thousands of other venues on various occasions. </h4>
+        </div> <!-- end .col-sm-12  -->
 
-        </span>
+      </div> <!-- end .row  -->
 
+      <div class="row margin-top-48">
+
+        <div class="col-md-6 col-sm-12">
+          <div class="event-layout-1 theme-custom-box-shadow clearfix">
+            <figure class="event-img">
+              <a href="#">
+                <img alt="" src="../assets/images/event_1.jpg">
+              </a>
+            </figure>
+            <div class="event-info">
+              <a class="event-date" href="#"><i class="fa fa-calendar-o"></i> 14 January, 2018</a>
+              <h4>
+                <a href="#">Opening Donation Day</a>
+              </h4>
+              <div class="event-exceprt">Lorem ipsum dolor sit amet turadipi scing elit lobort issim consecte dign
+                pharetra mauris.
+              </div>
+              <div class="event-time">
+                <a href="#"><i class="fa fa-clock-o"></i> 10.00 - 3.00</a>
+                <a href="#"> <i class="fa fa-map-marker"></i> California, USA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <div class="event-layout-1 theme-custom-box-shadow clearfix">
+            <figure class="event-img">
+              <a href="#">
+                <img alt="" src="../assets/images/event_3.jpg">
+              </a>
+            </figure>
+            <div class="event-info">
+              <a class="event-date" href="#"><i class="fa fa-calendar-o"></i> 14 January, 2018</a>
+              <h4>
+                <a href="#">Free Group Checking</a>
+              </h4>
+              <div class="event-exceprt">Lorem ipsum dolor sit amet turadipi scing elit lobort issim consecte dign
+                pharetra mauris.
+              </div>
+              <div class="event-time">
+                <a href="#"><i class="fa fa-clock-o"></i> 10.00 - 3.00</a>
+                <a href="#"> <i class="fa fa-map-marker"></i> California, USA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <div class="event-layout-1 theme-custom-box-shadow clearfix">
+            <figure class="event-img">
+              <a href="#">
+                <img alt="" src="../assets/images/event_4.jpg">
+              </a>
+            </figure>
+            <div class="event-info">
+              <a class="event-date" href="#"><i class="fa fa-calendar-o"></i> 14 January, 2018</a>
+              <h4>
+                <a href="#">Blood Group Collection</a>
+              </h4>
+              <div class="event-exceprt">Lorem ipsum dolor sit amet turadipi scing elit lobort issim consecte dign
+                pharetra mauris.
+              </div>
+              <div class="event-time">
+                <a href="#"><i class="fa fa-clock-o"></i> 10.00 - 3.00</a>
+                <a href="#"> <i class="fa fa-map-marker"></i> California, USA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <div class="event-layout-1 theme-custom-box-shadow clearfix">
+            <figure class="event-img">
+              <a href="#">
+                <img alt="" src="../assets/images/event_2.jpg">
+              </a>
+            </figure>
+            <div class="event-info">
+              <a class="event-date" href="#"><i class="fa fa-calendar-o"></i> 14 January, 2018</a>
+              <h4>
+                <a href="#">Blood Donation Camp</a>
+              </h4>
+              <div class="event-exceprt">Lorem ipsum dolor sit amet turadipi scing elit lobort issim consecte dign
+                pharetra mauris.
+              </div>
+              <div class="event-time">
+                <a href="#"><i class="fa fa-clock-o"></i> 10.00 - 3.00</a>
+                <a href="#"> <i class="fa fa-map-marker"></i> California, USA</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
-    </nz-header>
-    <nz-content>
-      <div class="inner-content">
 
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-  </nz-layout>
-</nz-layout>
+    </div> <!--  end .container  -->
+
+  </div>
+
+  <app-footer></app-footer>
+
+</header> <!-- end main-header  -->
+
+
+<!-- END FOOTER  -->
+

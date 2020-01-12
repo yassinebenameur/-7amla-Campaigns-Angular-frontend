@@ -24,20 +24,28 @@
     </div>
   </div>
 
-  <div *ngIf="campaign.feedback.length>0">
-  <h3>
-    Feedback
-  </h3>
-  <div *ngFor="let feedback of campaign.feedback">
-    <h4>
-      {{feedback.first_name}} {{feedback.last_name}} - {{feedback.feedback.rating}}
-    </h4>
-    <p>
-      {{feedback.feedback.comment}}
-    </p>
+  <div>
+    <h3>
+      Interested : {{campaign.interests.length}}
+      <nz-rate (ngModelChange)="submitInterest($event)" *ngIf="currentUser" [(ngModel)]="interested"
+               nzCount="1"></nz-rate>
+    </h3>
   </div>
-</div>
-  <form [formGroup]="feedbackForm" (ngSubmit)="postFeedback()" *ngIf="currentUser&&checkUserCanGiveFeedback()">
+
+  <div *ngIf="campaign.feedback.length>0">
+    <h3>
+      Feedback
+    </h3>
+    <div *ngFor="let feedback of campaign.feedback">
+      <h4>
+        {{feedback.first_name}} {{feedback.last_name}} - {{feedback.feedback.rating}}
+      </h4>
+      <p>
+        {{feedback.feedback.comment}}
+      </p>
+    </div>
+  </div>
+  <form (ngSubmit)="postFeedback()" *ngIf="currentUser&&checkUserCanGiveFeedback()" [formGroup]="feedbackForm">
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Rating</nz-form-label>
       <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="12" nzHasFeedback>

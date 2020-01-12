@@ -20,6 +20,8 @@ export class ShowCampaignComponent implements OnInit {
   feedbackForm: FormGroup;
   feedbackUrl;
   currentUser: UserModel;
+  interested: number;
+  interestUrl;
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
@@ -27,12 +29,18 @@ export class ShowCampaignComponent implements OnInit {
               private fb: FormBuilder) {
     this.campaignUrl = Globals.API_URL + Globals.CAMPAIGNS;
     this.feedbackUrl = this.campaignUrl + Globals.FEEDBACK;
+    this.interestUrl = this.campaignUrl + Globals.INTEREST;
     route.params.subscribe(params => {
       this.campaignId = params.id;
     });
+    this.interested = 0;
+
     authService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+          this.checkIfUserInterested();
+        }
       });
   }
 
@@ -40,6 +48,7 @@ export class ShowCampaignComponent implements OnInit {
     this.crud.getOne<Campaign>(this.campaignUrl, this.campaignId)
       .subscribe(campaign => {
         this.campaign = campaign;
+        this.checkIfUserInterested();
       });
     this.initFeedbackForm();
   }
@@ -81,6 +90,39 @@ export class ShowCampaignComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  submitInterest(n) {
+    let url;
+    if (n > 0) {
+      url = this.interestUrl;
+    } else {
+      url = this.interestUrl + Globals.REMOVE;
+    }
+    this.crud.post(url, {user_id: this.currentUser.id, campaign_id: this.campaignId})
+      .subscribe((interests) => {
+        // @ts-ignore
+        this.campaign.interests = interests;
+        this.checkIfUserInterested();
+      }, () => {
+        console.log('error');
+        this.checkIfUserInterested();
+      });
+
+  }
+
+  checkIfUserInterested() {
+    if (this.currentUser && this.campaign) {
+      for (const user of this.campaign.interests) {
+        if (user.id === this.currentUser.id) {
+          this.interested = 1;
+          console.log('interested');
+          return;
+        }
+      }
+
+      this.interested = 0;
+    }
   }
 
 }

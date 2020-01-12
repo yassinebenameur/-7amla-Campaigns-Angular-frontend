@@ -29,7 +29,9 @@ export class ShowArticleComponent implements OnInit {
     this.commentUrl = this.articleUrl + Globals.COMMENT;
     authService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+        }
       });
   }
 

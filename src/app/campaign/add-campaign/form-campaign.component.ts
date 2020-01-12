@@ -10,10 +10,10 @@ import {AuthenticationService} from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-add-campaign',
-  templateUrl: './add-campaign.component.html',
-  styleUrls: ['./add-campaign.component.css']
+  templateUrl: './form-campaign.component.html',
+  styleUrls: ['./form-campaign.component.css']
 })
-export class AddCampaignComponent implements OnInit {
+export class FormCampaignComponent implements OnInit {
 
   campaignForm: FormGroup;
   campaignUrl;
@@ -39,7 +39,9 @@ export class AddCampaignComponent implements OnInit {
 
     authService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+        }
       });
   }
 

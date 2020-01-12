@@ -16,6 +16,8 @@ export class Globals {
   static CAMPAIGNS = '/campaign';
   static FEEDBACK = '/feedback';
   static COMMENT = '/comment';
+  static INTEREST = '/interest';
+  static REMOVE = '/remove';
 
 
   static toFormData<T>(formValue: T) {

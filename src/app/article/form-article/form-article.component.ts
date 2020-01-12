@@ -30,7 +30,9 @@ export class FormArticleComponent implements OnInit {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;
     this.authenticationService.currentUser
       .subscribe(user => {
-        this.currentUser = user.user;
+        if (user) {
+          this.currentUser = user.user;
+        }
       });
     route.params.subscribe(params => {
       this.campaignId = params.campaign_id;
