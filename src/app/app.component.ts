@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-declare var $: any;
+// declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -25,13 +25,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ($('.main-header').attr('data-sticky_header')) {
-
-      $('.main-header .header-wrapper').waypoint('sticky', {
-        wrapper: '<div class="sticky-wrapper" />',
-        stuckClass: 'stuck'
-      });
-
-    }
+    // if ($('.main-header').attr('data-sticky_header')) {
+    //
+    //   $('.main-header .header-wrapper').waypoint('sticky', {
+    //     wrapper: '<div class="sticky-wrapper" />',
+    //     stuckClass: 'stuck'
+    //   });
+    //
+    // }
   }
 }
