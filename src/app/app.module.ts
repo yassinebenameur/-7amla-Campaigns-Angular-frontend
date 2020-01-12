@@ -15,6 +15,17 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {SearchComponent} from './search/search.component';
 import {HeaderComponent} from './layout/header/header.component';
 import {FooterComponent} from './layout/footer/footer.component';
+import {OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE} from 'ng-pick-datetime';
+import {Select2Module} from 'ng2-select2';
+
+export const MY_NATIVE_FORMATS = {
+  fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
+  datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
+  timePickerInput: {hour: 'numeric', minute: 'numeric'},
+  monthYearLabel: {year: 'numeric', month: 'short'},
+  dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+  monthYearA11yLabel: {year: 'numeric', month: 'long'},
+};
 
 registerLocaleData(en);
 
@@ -32,7 +43,7 @@ registerLocaleData(en);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
 
@@ -44,6 +55,9 @@ registerLocaleData(en);
 
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS},
+
+    // {provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'},
   ],
   bootstrap: [AppComponent]
 })

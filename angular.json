@@ -36,13 +36,12 @@
               "src/assets/css/owl.carousel.css",
               "src/assets/css/venobox.css",
               "src/assets/css/styles.css",
-              "src/assets/css/bootstrap-datetimepicker.css",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "src/assets/js/bootstrap.min.js",
-              "src/assets/js/bootstrap-datetimepicker.js",
               "src/assets/js/wow.min.js",
               "src/assets/js/jquery.backTop.min.js",
               "src/assets/js/waypoints.min.js",

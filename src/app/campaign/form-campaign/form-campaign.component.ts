@@ -27,9 +27,17 @@ export class FormCampaignComponent implements OnInit {
   userUrl: string;
 
   users: UserModel[];
-  selectedValue: any;
   currentUser: UserModel;
 
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
+  selectedStartDate;
+  selectStartDate: boolean;
+  selectEndDate: boolean;
+  private selectedEndDate;
 
   constructor(private fb: FormBuilder,
               private crud: CrudService,
@@ -38,6 +46,9 @@ export class FormCampaignComponent implements OnInit {
               private authService: AuthenticationService) {
     this.campaignUrl = Globals.API_URL + Globals.CAMPAIGNS;
     this.userUrl = Globals.API_URL + Globals.USER;
+
+    this.selectStartDate = false;
+    this.selectEndDate = false;
 
     authService.currentUser
       .subscribe(user => {
@@ -63,6 +74,10 @@ export class FormCampaignComponent implements OnInit {
     return this.campaignForm.get('end');
   }
 
+  get place() {
+    return this.campaignForm.get('place');
+  }
+
   getAllTags() {
     this.crud.getAll(Globals.API_URL + Globals.TAG).subscribe(
       (data: TagModel[]) => {
@@ -78,11 +93,12 @@ export class FormCampaignComponent implements OnInit {
       this.campaignForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
+    console.log(this.start.value.toLocaleString());
 
     if (!this.campaign) {
-      this.crud.post(this.campaignUrl, this.campaignForm.value)
+      this.crud.post(this.campaignUrl, Object.assign(this.campaignForm.value, {image: this.fileData}), true)
         .subscribe(() => {
-          this.router.navigate(['/campaign/']);
+          // this.router.navigate(['/campaign/']);
         });
     } else {
       this.crud.update(this.campaignUrl, this.campaign_id, this.campaignForm.value)
@@ -128,23 +144,10 @@ export class FormCampaignComponent implements OnInit {
       );
     }
 
+
     this.initForm();
-
-    this.initDatepicker();
   }
 
-  initDatepicker() {
-    const date = new Date();
-
-    $('.form_datetime').datetimepicker({
-      format: 'yyyy-mm-dd hh:ii',
-      startDate: date.getFullYear() + '-'
-        + (date.getMonth() + 1) + '-'
-        + date.getDate() + ' '
-        + date.getHours() + ':'
-        + date.getMinutes()
-    });
-  }
 
   initForm() {
     const date = new Date();
@@ -155,21 +158,29 @@ export class FormCampaignComponent implements OnInit {
       committee_members: this.fb.array([]),
 
       creator_id: this.campaign ? this.campaign.creator.id : this.currentUser.id,
-      start: [this.campaign ?
-        this.campaign.start_date + ' ' + this.campaign.start_hour :
-        date.getFullYear() + '-'
-        + (date.getMonth() + 1) + '-'
-        + date.getDate() + ' '
-        + date.getHours() + ':'
-        + date.getMinutes(), Validators.required],
-      end: [this.campaign ?
-        this.campaign.end_date + ' ' + this.campaign.end_hour :
-        date.getFullYear() + '-'
-        + (date.getMonth() + 1) + '-'
-        + date.getDate() + ' '
-        + date.getHours() + ':'
-        + date.getMinutes(), Validators.required],
+      start: [null],
+      end: [null],
+      place: [this.campaign ? this.campaign.place : null, Validators.required],
     });
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File> fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview
+    var mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
   }
 
   getAllUsers() {
@@ -201,5 +212,20 @@ export class FormCampaignComponent implements OnInit {
   deleteCommitteeMember(i) {
     (this.campaignForm.get('committee_members') as FormArray).removeAt(i);
 
+  }
+
+  onChange($event: any, picker) {
+    console.log($event.getFullYear());
+    const date = $event.getFullYear() + '-'
+      + ('0' + ($event.getMonth() + 1)).slice(-2) + '-'
+      + ('0' + $event.getDate()).slice(-2) + ' '
+      + ('0' + $event.getHours()).slice(-2) + ':'
+      + ('0' + $event.getMinutes()).slice(-2);
+    if (picker === 'start') {
+      this.start.setValue(date);
+    }
+    if (picker === 'end') {
+      this.end.setValue(date);
+    }
   }
 }
