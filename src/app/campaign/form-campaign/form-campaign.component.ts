@@ -215,7 +215,6 @@ export class FormCampaignComponent implements OnInit {
   }
 
   onChange($event: any, picker) {
-    console.log($event.getFullYear());
     const date = $event.getFullYear() + '-'
       + ('0' + ($event.getMonth() + 1)).slice(-2) + '-'
       + ('0' + $event.getDate()).slice(-2) + ' '
