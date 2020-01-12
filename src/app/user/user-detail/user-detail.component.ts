@@ -34,11 +34,6 @@ export class UserDetailComponent implements OnInit {
         console.log(this.userForForm);
         if (this.userForForm) {
           this.initUserForm();
-          const date_of_birth = this.userForForm.user.date_of_birth.split('-');
-          this.date_of_birth = new Date();
-          this.date_of_birth.setDate(parseInt(date_of_birth[2], 10));
-          this.date_of_birth.setMonth(parseInt(date_of_birth[1], 10) - 1);
-          this.date_of_birth.setFullYear(parseInt(date_of_birth[0], 10));
         }
       });
   }
@@ -78,10 +73,6 @@ export class UserDetailComponent implements OnInit {
 
     }
 
-    this.userForm.controls.date_of_birth.setValue(
-      this.date_of_birth.getFullYear() + '-' + (this.date_of_birth.getMonth() + 1) + '-' + this.date_of_birth.getDate()
-    );
-
     this.crud.update(this.userUrl, this.user.id, this.userForm.value)
       .subscribe(data => {
         this.loading = true;
@@ -92,5 +83,15 @@ export class UserDetailComponent implements OnInit {
             this.loading = false;
           });
       });
+  }
+  get birthDate() {
+    return this.userForm.get('date_of_birth');
+  }
+  onChange($event: any) {
+    console.log($event.getFullYear());
+    const date = $event.getFullYear() + '-'
+      + ('0' + ($event.getMonth() + 1)).slice(-2) + '-'
+      + ('0' + $event.getDate()).slice(-2) + ' ';
+      this.birthDate.setValue(date);
   }
 }
