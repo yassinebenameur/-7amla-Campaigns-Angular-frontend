@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {CampaignRoutingModule} from './campaign-routing.module';
 import {ListCampaignComponent} from './list-campaign/list-campaign.component';
-import {FormCampaignComponent} from './add-campaign/form-campaign.component';
+import {FormCampaignComponent} from './form-campaign/form-campaign.component';
 import {SharedModule} from '../_shared/shared.module';
 import { ShowCampaignComponent } from './show-campaign/show-campaign.component';
 

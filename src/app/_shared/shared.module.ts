@@ -7,6 +7,7 @@ import {RevertDatePipe} from '../_pipes/revert-date.pipe';
 import {TruncateDescriptionPipe} from '../_pipes/truncate-description.pipe';
 import {TimePipe} from '../_pipes/time.pipe';
 import {ConvertDatePipe} from '../_pipes/convert-date.pipe';
+import {PublicFolderPipe} from '../_pipes/public-folder.pipe';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {ConvertDatePipe} from '../_pipes/convert-date.pipe';
     RevertDatePipe,
     TruncateDescriptionPipe,
     TimePipe,
-    ConvertDatePipe
+    ConvertDatePipe,
+    PublicFolderPipe
   ],
   imports: [
   ],
@@ -30,6 +32,7 @@ import {ConvertDatePipe} from '../_pipes/convert-date.pipe';
     TruncateDescriptionPipe,
     TimePipe,
     ConvertDatePipe,
+    PublicFolderPipe,
   ]
 })
 

@@ -17,7 +17,8 @@ export class Campaign {
   end_date?: string;
   start_hour: string;
   end_hour: string;
-  city: string;
+  place: string;
+  image:string
 
   constructor(id: string, title: string, description: string, tags: TagModel[], users: UserModel[]) {
     this.id = id;

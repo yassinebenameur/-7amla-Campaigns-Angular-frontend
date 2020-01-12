@@ -8,6 +8,8 @@ import {TagModel} from '../../_models/tag.model';
 import {UserModel} from '../../_models/user.model';
 import {AuthenticationService} from '../../_services/authentication.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-add-campaign',
   templateUrl: './form-campaign.component.html',
@@ -43,6 +45,22 @@ export class FormCampaignComponent implements OnInit {
           this.currentUser = user.user;
         }
       });
+  }
+
+  get title() {
+    return this.campaignForm.get('title');
+  }
+
+  get description() {
+    return this.campaignForm.get('description');
+  }
+
+  get start() {
+    return this.campaignForm.get('start');
+  }
+
+  get end() {
+    return this.campaignForm.get('end');
   }
 
   getAllTags() {
@@ -109,17 +127,48 @@ export class FormCampaignComponent implements OnInit {
         }
       );
     }
+
     this.initForm();
+
+    this.initDatepicker();
+  }
+
+  initDatepicker() {
+    const date = new Date();
+
+    $('.form_datetime').datetimepicker({
+      format: 'yyyy-mm-dd hh:ii',
+      startDate: date.getFullYear() + '-'
+        + (date.getMonth() + 1) + '-'
+        + date.getDate() + ' '
+        + date.getHours() + ':'
+        + date.getMinutes()
+    });
   }
 
   initForm() {
+    const date = new Date();
     this.campaignForm = this.fb.group({
       title: [this.campaign ? this.campaign.title : '', [Validators.required]],
       description: [this.campaign ? this.campaign.description : '', [Validators.required]],
       tags: [this.campaign ? this.selectedTag : null, [Validators.required]],
       committee_members: this.fb.array([]),
 
-      creator_id: this.campaign ? this.campaign.creator.id : this.currentUser.id
+      creator_id: this.campaign ? this.campaign.creator.id : this.currentUser.id,
+      start: [this.campaign ?
+        this.campaign.start_date + ' ' + this.campaign.start_hour :
+        date.getFullYear() + '-'
+        + (date.getMonth() + 1) + '-'
+        + date.getDate() + ' '
+        + date.getHours() + ':'
+        + date.getMinutes(), Validators.required],
+      end: [this.campaign ?
+        this.campaign.end_date + ' ' + this.campaign.end_hour :
+        date.getFullYear() + '-'
+        + (date.getMonth() + 1) + '-'
+        + date.getDate() + ' '
+        + date.getHours() + ':'
+        + date.getMinutes(), Validators.required],
     });
   }
 
@@ -153,6 +202,4 @@ export class FormCampaignComponent implements OnInit {
     (this.campaignForm.get('committee_members') as FormArray).removeAt(i);
 
   }
-
-
 }
