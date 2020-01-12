@@ -10,6 +10,7 @@ export class UserModel {
   phone: string;
   campaigns: Campaign[];
   articles: ArticleModel[];
+  interests: Campaign[];
   role?: {
     role: string;
     campaign_id: string;
@@ -20,9 +21,5 @@ export class UserModel {
     created_at: string,
     updated_at: string
   };
-  comments?: {
-    content: string,
-    created_at: string,
-    updated_at: string
-  };
+  comments?: ArticleModel[];
 }

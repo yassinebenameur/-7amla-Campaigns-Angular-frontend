@@ -7,6 +7,10 @@ export class ArticleModel {
   body: string;
   user: UserModel;
   campaign: Campaign;
-  comments: UserModel[];
+  comments: UserModel[] | {
+    content: string,
+    created_at: string,
+    updated_at: string
+  }[];
 
 }

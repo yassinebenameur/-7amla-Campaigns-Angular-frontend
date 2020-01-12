@@ -10,7 +10,7 @@ import {UserModel} from '../../_models/user.model';
 })
 export class UserAreaComponent implements OnInit {
 
-  display: number;
+  display = -1 ;
   user: AuthTokenModel;
 
   constructor(private authService: AuthenticationService) {
@@ -21,12 +21,12 @@ export class UserAreaComponent implements OnInit {
           .subscribe(
             x => {
               this.user = x;
-              console.log(this.user.user.articles);
+              console.log(this.user);
             });
       });
   }
 
-  ngOnInit() {
+  ngOnInit() {console.log(this.display);
   }
 
   changeDisplay(i: number) {

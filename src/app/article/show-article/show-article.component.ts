@@ -41,9 +41,6 @@ export class ShowArticleComponent implements OnInit {
       this.crud.getOne<ArticleModel>(this.articleUrl, this.articleId)
         .subscribe(article => {
           this.article = article;
-          console.log(this.article.comments[0].comments.content);
-          console.log(this.articleId);
-
         });
     }
     this.initCommentForm();
@@ -82,6 +79,7 @@ export class ShowArticleComponent implements OnInit {
 
   checkUserCanGiveComment() {
     for (const comment of this.article.comments) {
+      // @ts-ignore
       if (comment.id === this.currentUser.id) {
         return false;
       }

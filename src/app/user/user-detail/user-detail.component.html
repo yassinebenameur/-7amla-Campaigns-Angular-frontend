@@ -1,149 +1,43 @@
-<nz-descriptions *ngIf="!edit" [nzColumn]="1" [nzTitle]="userDetailTitle">
-  <nz-descriptions-item nzTitle="Prénom">{{user.first_name}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Nom">{{user.last_name}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Status">{{user.date_of_birth|revertDate}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="Téléphone">{{user.phone}}</nz-descriptions-item>
+<div class="about-details">
 
-  <nz-descriptions-item [nzTitle]="'Adresse'" *ngIf="false">
-    {{user.address.street}}, {{user.address.zip_code}} {{user.address.city}}
-    , {{user.address.country}}
-  </nz-descriptions-item>
-</nz-descriptions>
+  <div *ngIf="!edit" >
 
-<ng-template #userDetailTitle>
-  <h4>Mes infos</h4>
-  <a href="#" (click)="preventDefault($event);edit=!edit">Modifier mes données</a>
-</ng-template>
 
-<ng-container *ngIf="edit">
+    <ul class="custom-bullet-list">
+      <li>
+        Prénom: {{user.first_name}}
+      </li>
+      <li>
+        Nom: {{user.last_name}}
+      </li>
+      <li>
+        Date of birth: {{user.date_of_birth|revertDate}}
+      </li>
+      <li>
+        Téléphone: {{user.phone}}
+      </li>
+
+
+    </ul>
+    <button class="btn btn-theme" (click)="preventDefault($event);edit=!edit">Modifier mes données</button>
+  </div>
+
+
+</div> <!--  end .about-details -->
+
+
+<div *ngIf="edit">
   <nz-spin [nzSpinning]="loading">
-    <form (ngSubmit)="editUser()" *ngIf="userForm" [formGroup]="userForm" class="checkout-information">
-      <div class="mb-3">
-        <div class="checkout-title">
-          <h6>Vos Informations</h6>
-        </div>
-      </div>
+    <form (ngSubmit)="editUser()" *ngIf="userForm" [formGroup]="userForm" class="checkout-information appoinment-form">
 
-      <div>
-        <div [nzGutter]="8" nz-row>
-          <div [nzSm]="12" [nzXs]="24" nz-col>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Champs requis">
-                <nz-input-group [nzSuffix]="infoSuffix">
-                  <input formControlName="last_name" nz-input placeholder="Nom" type="text"/>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <ng-template #infoSuffix>
-              <i nz-icon nzTheme="outline" nzType="info-circle"></i>
-            </ng-template>
-          </div>
+      <input class="form-control" formControlName="last_name" placeholder="Nom" type="text"/>
+
+      <input class="form-control" formControlName="first_name" placeholder="Prénom" type="text"/>
+      <input class="form-control" formControlName="first_name" placeholder="Prénom" type="text"/>
 
 
-          <div [nzSm]="12" [nzXs]="24" nz-col>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Champs requis">
-                <nz-input-group [nzSuffix]="infoSuffix">
-                  <input formControlName="first_name" nz-input placeholder="Prénom" type="text"/>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
+      <button id="btn_submit" class="btn btn-theme">Modifier</button>
 
-
-        <div [nzGutter]="8" nz-row>
-          <div [nzSm]="12" [nzXs]="24" nz-col>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Champs requis">
-                <nz-input-group [nzSuffix]="phoneSuffix">
-                  <input formControlName="phone" nz-input placeholder="Telephone" type="number"/>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <ng-template #phoneSuffix>
-              <i nz-icon nzTheme="outline" nzType="phone"></i>
-            </ng-template>
-          </div>
-          <div [nzSm]="12" [nzXs]="24" nz-col>
-
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Champs requis">
-                <nz-date-picker [ngModel]="date_of_birth" [nzFormat]="'dd-MM-yyyy'" [nzShowToday]="false"
-                                [nzStyle]="{width:'100%'}"
-                                class="w-100"
-                                formControlName="date_of_birth"></nz-date-picker>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="mb-3" >
-        <div formGroupName="user_address" *ngIf="false">
-          <h6>Adresse personnelle</h6>
-
-          <nz-form-item>
-            <nz-form-control nzErrorTip="Champs requis">
-              <nz-input-group [nzSuffix]="addressSuffix">
-                <textarea formControlName="street" nz-input nzAutosize placeholder="Adresse"></textarea>
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-          <ng-template #addressSuffix>
-            <i nz-icon nzTheme="outline" nzType="project"></i>
-          </ng-template>
-
-          <div [nzGutter]="8" nz-row>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="citySuffix">
-                    <input formControlName="city" nz-input placeholder="Ville" type="text">
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #citySuffix>
-                <i nz-icon nzTheme="outline" nzType="bank"></i>
-              </ng-template>
-            </div>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="zipCodeSuffix">
-                    <input formControlName="zip_code" nz-input placeholder="Code postal" type="number">
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #zipCodeSuffix>
-                <i nz-icon nzTheme="outline" nzType="down-square"></i>
-              </ng-template>
-            </div>
-
-          </div>
-
-          <div [nzGutter]="8" nz-row>
-            <div [nzSm]="12" [nzXs]="24" nz-col>
-
-              <nz-form-item>
-                <nz-form-control nzErrorTip="Champs requis">
-                  <nz-input-group [nzSuffix]="countrySuffix">
-                    <input formControlName="country" nz-input placeholder="Pays" type="text">
-                  </nz-input-group>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-template #countrySuffix>
-                <i nz-icon nzTheme="outline" nzType="global"></i>
-              </ng-template>
-            </div>
-
-          </div>
-        </div>
-
-        <button class="btn btn-primary">Modifier</button>
-      </div>
     </form>
   </nz-spin>
-</ng-container>
+</div>

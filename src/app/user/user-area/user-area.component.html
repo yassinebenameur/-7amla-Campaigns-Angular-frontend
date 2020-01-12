@@ -1,3 +1,132 @@
+<ng-container *ngIf="user">
+  <section class="section-content-block">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
+          <div class="about-us-container theme-custom-box-shadow">
+
+            <div class="row section-heading-wrapper margin-bottom-11">
+
+              <div class="col-lg-12 col-md-12 col-sm-12 text-left no-img-separator">
+                <h2><strong>{{user.user.first_name}} {{user.user.last_name}}</strong></h2>
+                <span class="heading-separator heading-separator-horizontal"></span>
+
+              </div> <!-- end .col-sm-10  -->
+              <app-user-detail [user]="user.user"></app-user-detail>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
+          <figure class="about-img theme-custom-box-shadow">
+            <a class="venobox wow bounceIn" data-vbtype="video" data-autoplay="true"
+               href="https://www.youtube.com/watch?v=nrJtHemSPW4"><i class="fa fa-play"></i></a>
+            <img src="images/about_feat_bg.jpg" alt="about"/>
+          </figure> <!-- end .cause-img  -->
+
+        </div> <!--  end .col-lg-6 col-md-6 col-sm-12 col-xs-12  -->
+
+      </div> <!--  end .row  -->
+    </div>
+
+  </section>
+  <section class="section-content-block section-secondary-bg">
+
+    <div class="container wow fadeInUp">
+
+      <div class="row section-heading-wrapper">
+
+        <div *ngIf="user.user.campaigns || user.user.articles" class="col-md-12 col-sm-12 text-center">
+          <h2>OUR ACHIEVEMENTS</h2>
+          <h4>We have been working since 1973 with a prestigious vision to helping patient to provide blood.</h4>
+        </div> <!-- end .col-sm-12  -->
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+          <div class="counter-block-1 text-left">
+
+            <i class="fa fa-users"></i>
+
+            <span class="counter">{{user.user.campaigns.length}}</span>
+            <h4 class="text-capitalize">7amla</h4>
+            <button (click)="changeDisplay(0)"
+                    class="btn btn-theme">Check
+            </button>
+
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+          <div class="counter-block-1 text-left">
+
+            <i class="fa fa-newspaper-o"></i>
+
+            <span class="counter">{{user.user.articles.length}}</span>
+            <h4 class="text-capitalize">articles</h4>
+            <button (click)="changeDisplay(1)"
+                    class="btn btn-theme">Check
+            </button>
+
+          </div>
+        </div>
+
+        <div  class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+          <div class="counter-block-1 text-left">
+
+            <i class="fa fa-star"></i>
+
+            <span class="counter">{{user.user.interests.length}}</span>
+            <h4 class="text-capitalize">Interests</h4>
+            <button (click)="changeDisplay(2)"
+                    class="btn btn-theme">Check
+            </button>
+
+          </div>
+
+        </div>
+        <div  class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+          <div class="counter-block-1 text-left">
+
+            <i class="fa fa-comment"></i>
+
+            <span class="counter">{{user.user.comments.length}}</span>
+            <h4 class="text-capitalize">comments</h4>
+            <button (click)="changeDisplay(3)"
+                    class="btn btn-theme">Check
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div> <!--  end .container  -->
+
+  </section>
+  <section>
+    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===0"></app-list-campaign>
+    <app-list-article [articles]="user.user.articles" *ngIf="display===1"></app-list-article>
+    <app-list-campaign [campaigns]="user.user.interests" *ngIf="display===2"></app-list-campaign>
+    <app-list-article [articles]="user.user.comments" *ngIf="display===3"></app-list-article>
+    <!--
+    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===3"></app-list-campaign>
+-->
+  </section>
+  <!--
+
 <div class="">
 
   <div nz-row nzJustify="center">
@@ -16,9 +145,9 @@
 
   <div class="border border-light p-3" *ngIf="user">
     <app-user-detail *ngIf="display===0" [user]="user.user"></app-user-detail>
-    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===1" ></app-list-campaign>
-    <app-list-article [articles]="user.user.articles" *ngIf="display===2" ></app-list-article>
-    <!--<app-user-order  *ngIf="display===1||false" [orders]="user.user.orders"></app-user-order>-->
+    <app-list-article [articles]="user.user.articles" *ngIf="display===2"></app-list-article>
   </div>
 
 </div>
+-->
+</ng-container>
