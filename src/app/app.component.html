@@ -79,13 +79,26 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input #box (keyup.enter)="onEnter(box.value)" nz-input placeholder="input search text" type="text"/>
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+
+      </ng-template>
       <div class="app-header">
+
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+
             <i class="trigger"
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
+
+
         </span>
+
+
       </div>
     </nz-header>
     <nz-content>

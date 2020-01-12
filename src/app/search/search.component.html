@@ -1,0 +1,36 @@
+<nz-card *ngIf="results['campaigns']" [nzExtra]="extraTemplate" nzTitle="Campaigns" style="width:900px;">
+
+  <a *ngFor="let campaign of results['campaigns']">
+    {{campaign.title}}
+  </a>
+</nz-card>
+<ng-template #extraTemplate>
+</ng-template>
+
+<nz-card *ngIf="results['tags']" [nzExtra]="extraTemplate2" nzTitle="Tags" style="width:900px;">
+
+  <a *ngFor="let tag of results['tags']">
+    #{{tag.title}}
+  </a></nz-card>
+<ng-template #extraTemplate2>
+  <a>More</a>
+</ng-template>
+
+<nz-card *ngIf="results['articles']" [nzExtra]="extraTemplate3" nzTitle="Articles" style="width:900px;">
+
+  <a *ngFor="let article of results['articles']">
+    {{article.title}}
+  </a></nz-card>
+<ng-template #extraTemplate3>
+  <a>More</a>
+</ng-template>
+
+<nz-card *ngIf="results['users']" [nzExtra]="extraTemplate4" nzTitle="Users" style="width:900px;">
+
+  <a *ngFor="let user of results['users']">
+    {{user.title}}
+  </a></nz-card>
+<ng-template #extraTemplate4>
+  <a>More</a>
+</ng-template>
+

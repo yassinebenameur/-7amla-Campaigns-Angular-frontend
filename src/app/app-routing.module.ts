@@ -1,8 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/welcome'},
+  {path: 'search/:keyword', component: SearchComponent},
   {path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
   {path: 'example', loadChildren: () => import('./pages/example/example.module').then(m => m.ExampleModule)},
   {path: 'campaign', loadChildren: () => import('./campaign/campaign.module').then(m => m.CampaignModule)},

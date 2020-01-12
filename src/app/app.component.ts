@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isCollapsed = false;
+
+  constructor(private router: Router) {
+  }
+
+  onSearch() {
+    console.log('SEARCH');
+  }
+
+
+  onEnter(nzValue: any) {
+    console.log(nzValue);
+    this.router.navigateByUrl('search/' + nzValue);
+  }
 }

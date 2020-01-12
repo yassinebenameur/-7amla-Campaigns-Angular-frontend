@@ -22,6 +22,11 @@ export class CrudService {
     return this.http.get<T>(url + '/search' + '?key=' + key);
   }
 
+  searchByKeyword<T>(url, key) {
+    console.log(url + '/search/' + key);
+    return this.http.get<T>(url + '/search/' + key);
+  }
+
   searchPaginate<T>(url, key, offset, limit) {
     return this.http.get<T>(url + '/search' + '?key=' + key + '&offset=' + offset + '&limit=' + limit);
   }
