@@ -8,6 +8,8 @@ import {TruncateDescriptionPipe} from '../_pipes/truncate-description.pipe';
 import {TimePipe} from '../_pipes/time.pipe';
 import {ConvertDatePipe} from '../_pipes/convert-date.pipe';
 import {PublicFolderPipe} from '../_pipes/public-folder.pipe';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {Select2Module} from 'ng2-select2';
 
 
 @NgModule({
@@ -33,6 +35,9 @@ import {PublicFolderPipe} from '../_pipes/public-folder.pipe';
     TimePipe,
     ConvertDatePipe,
     PublicFolderPipe,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    Select2Module
   ]
 })
 
