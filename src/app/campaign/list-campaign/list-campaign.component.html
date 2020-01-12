@@ -1,10 +1,48 @@
-<div nz-row>
+<div class="container">
+
+  <div class="row section-heading-wrapper">
+
+    <div class="col-md-12 col-sm-12 text-left no-img-separator">
+      <h2>ALL CAMPAIGNS</h2>
+      <span class="heading-separator heading-separator-horizontal"></span>
+      <h4>Encourage new donors to join and continue to give blood. We have total sixty thousands donor centers and visit
+        thousands of other venues on various occasions. </h4>
+    </div> <!-- end .col-sm-12  -->
+
+  </div> <!-- end .row  -->
+
+  <div *ngIf="campaigns" class="row margin-top-48">
+
+    <div *ngFor="let campaign of campaigns" class="col-md-6 col-sm-12">
+      <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
+        <figure class="event-img">
+          <a href="#">
+            <img alt="" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png">
+          </a>
+        </figure>
+        <div class="event-info">
+          <a class="event-date" href="#"><i class="fa fa-calendar-o"></i>{{campaign.start_date|convertDate:campaign.end_date}}</a>
+          <h4>
+            <a href="#">{{campaign.title|truncateDescription:30}}</a>
+          </h4>
+          <div class="event-exceprt" style="min-height: 84px">{{campaign.description|truncateDescription:80}}</div>
+          <div class="event-time">
+            <a href="#"><i class="fa fa-clock-o"></i>{{campaign.start_hour|time}} - {{campaign.end_hour|time}}</a>
+            <a href="#"> <i class="fa fa-map-marker"></i>{{campaign.place}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="false" nz-row>
   <div nz-col nzSpan="8"></div>
   <div nz-col nzSpan="8"><h1 nz-title>7amlet</h1>
   </div>
   <div nz-col nzSpan="8"></div>
 </div>
-<nz-list [nzDataSource]="campaigns" [nzGrid]="{ gutter: 16, span: 6 }" [nzRenderItem]="item" style="margin-top: 20px">
+<nz-list *ngIf="false" [nzDataSource]="campaigns" [nzGrid]="{ gutter: 16, span: 6 }" [nzRenderItem]="item"
+         style="margin-top: 20px">
   <ng-template #item let-item>
     <nz-list-item [nzContent]="nzContent">
       <ng-template #nzContent>
