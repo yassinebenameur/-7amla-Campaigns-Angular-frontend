@@ -19,7 +19,7 @@
 
 
     </ul>
-    <button class="btn btn-theme" (click)="preventDefault($event);edit=!edit">Modifier mes données</button>
+    <button *ngIf="(this.userForForm.user.id === user.id)" class="btn btn-theme" (click)="preventDefault($event);edit=!edit">Modifier mes données</button>
   </div>
 
 
@@ -31,12 +31,15 @@
     <form (ngSubmit)="editUser()" *ngIf="userForm" [formGroup]="userForm" class="checkout-information appoinment-form">
 
       <input class="form-control" formControlName="last_name" placeholder="Nom" type="text"/>
-
       <input class="form-control" formControlName="first_name" placeholder="Prénom" type="text"/>
-      <input class="form-control" formControlName="first_name" placeholder="Prénom" type="text"/>
-
-
-      <button id="btn_submit" class="btn btn-theme">Modifier</button>
+      <input class="form-control" formControlName="phone" placeholder="phone" type="text"/>
+      <nz-date-picker
+        nzShowTime
+        nzFormat="yyyy-MM-dd"
+        (nzOnOk)="onChange($event)"
+      ></nz-date-picker>
+      <br>
+      <button  id="btn_submit" class="btn btn-theme">Modifier</button>
 
     </form>
   </nz-spin>

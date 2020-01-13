@@ -30,6 +30,7 @@
 
               <div class="single-post-inner-title">
                 <h2>{{campaign.title}}</h2>
+                <a *ngIf="campaign.creator.id===currentUser.id" routerLink="/campaign/edit/{{campaign.id}}">Edit</a>
                 <p class="single-post-meta">
                   <i class="fa fa-user"></i>
                   &nbsp; {{campaign.creator.first_name}} {{campaign.creator.last_name}}&nbsp; &nbsp;
@@ -61,9 +62,11 @@
               </span>
 
               <span class="event-sub-content-title">From:</span>
-              {{campaign.start_hour}}
+              {{campaign.start_hour|time}}
               <span class="event-sub-content-title">To:</span>
-              {{campaign.end_hour}}
+              {{campaign.end_hour|time}}
+              <span class="event-sub-content-title">Place</span>
+              {{campaign.place}}
             </p>
           </div> <!-- end .col-sm-4  -->
 
@@ -82,12 +85,14 @@
 
           <div class="col-sm-4">
 
-            <h4 class="event-content-title">Venue</h4>
+            <h4 class="event-content-title">Committee</h4>
 
             <p class="event-content-info">
-              {{campaign.place}}
-              <span class="event-sub-content-title">Phone:</span>
-              {{campaign.creator.phone}}
+              <ng-container *ngFor="let user of campaign.users">
+                <span class="event-sub-content-title">{{user.role.role}}</span>
+                {{user.first_name}} {{user.last_name}}
+              </ng-container>
+              <ng-container *ngIf="campaign.users.length===0">No Committee selected</ng-container>
             </p>
 
 
@@ -116,7 +121,7 @@
         </div>
       </div>
 
-      <div class="row" *ngIf="campaign.tags.length>0">
+      <div *ngIf="campaign.tags.length>0" class="row">
         <div class="article-author clearfix">
 
           <div class="topic-bold-header clearfix">
