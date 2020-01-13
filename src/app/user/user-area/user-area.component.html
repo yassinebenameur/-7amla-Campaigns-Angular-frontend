@@ -12,11 +12,11 @@
             <div class="row section-heading-wrapper margin-bottom-11">
 
               <div class="col-lg-12 col-md-12 col-sm-12 text-left no-img-separator">
-                <h2><strong>{{user.user.first_name}} {{user.user.last_name}}</strong></h2>
+                <h2><strong>{{user.first_name}} {{user.last_name}}</strong></h2>
                 <span class="heading-separator heading-separator-horizontal"></span>
 
               </div> <!-- end .col-sm-10  -->
-              <app-user-detail [user]="user.user"></app-user-detail>
+              <app-user-detail [user]="user"></app-user-detail>
 
             </div>
           </div>
@@ -42,7 +42,7 @@
 
       <div class="row section-heading-wrapper">
 
-        <div *ngIf="user.user.campaigns || user.user.articles" class="col-md-12 col-sm-12 text-center">
+        <div *ngIf="user.campaigns || user.articles" class="col-md-12 col-sm-12 text-center">
           <h2>OUR ACHIEVEMENTS</h2>
           <h4>We have been working since 1973 with a prestigious vision to helping patient to provide blood.</h4>
         </div> <!-- end .col-sm-12  -->
@@ -57,7 +57,7 @@
 
             <i class="fa fa-users"></i>
 
-            <span class="counter">{{user.user.campaigns.length}}</span>
+            <span class="counter">{{user.campaigns.length}}</span>
             <h4 class="text-capitalize">7amla</h4>
             <button (click)="changeDisplay(0)"
                     class="btn btn-theme">Check
@@ -72,7 +72,7 @@
 
             <i class="fa fa-newspaper-o"></i>
 
-            <span class="counter">{{user.user.articles.length}}</span>
+            <span class="counter">{{user.articles.length}}</span>
             <h4 class="text-capitalize">articles</h4>
             <button (click)="changeDisplay(1)"
                     class="btn btn-theme">Check
@@ -81,13 +81,13 @@
           </div>
         </div>
 
-        <div  class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 
           <div class="counter-block-1 text-left">
 
             <i class="fa fa-star"></i>
 
-            <span class="counter">{{user.user.interests.length}}</span>
+            <span class="counter">{{user.interests.length}}</span>
             <h4 class="text-capitalize">Interests</h4>
             <button (click)="changeDisplay(2)"
                     class="btn btn-theme">Check
@@ -96,13 +96,13 @@
           </div>
 
         </div>
-        <div  class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 
           <div class="counter-block-1 text-left">
 
             <i class="fa fa-comment"></i>
 
-            <span class="counter">{{user.user.comments.length}}</span>
+            <span class="counter">{{user.comments.length}}</span>
             <h4 class="text-capitalize">comments</h4>
             <button (click)="changeDisplay(3)"
                     class="btn btn-theme">Check
@@ -117,10 +117,10 @@
 
   </section>
   <section>
-    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===0"></app-list-campaign>
-    <app-list-article [articles]="user.user.articles" *ngIf="display===1"></app-list-article>
-    <app-list-campaign [campaigns]="user.user.interests" *ngIf="display===2"></app-list-campaign>
-    <app-list-article [articles]="user.user.comments" *ngIf="display===3"></app-list-article>
+    <app-list-campaign [campaigns]="user.campaigns" *ngIf="display===0"></app-list-campaign>
+    <app-list-article [articles]="user.articles" *ngIf="display===1"></app-list-article>
+    <app-list-campaign [campaigns]="user.interests" *ngIf="display===2"></app-list-campaign>
+    <app-list-article [articles]="user.comments" *ngIf="display===3"></app-list-article>
     <!--
     <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===3"></app-list-campaign>
 -->

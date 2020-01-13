@@ -19,7 +19,7 @@
 
 
     </ul>
-    <button class="btn btn-theme" (click)="preventDefault($event);edit=!edit">Modifier mes données</button>
+    <button *ngIf="(this.userForForm.user.id === user.id)" class="btn btn-theme" (click)="preventDefault($event);edit=!edit">Modifier mes données</button>
   </div>
 
 
@@ -39,7 +39,7 @@
         (nzOnOk)="onChange($event)"
       ></nz-date-picker>
       <br>
-      <button id="btn_submit" class="btn btn-theme">Modifier</button>
+      <button  id="btn_submit" class="btn btn-theme">Modifier</button>
 
     </form>
   </nz-spin>
