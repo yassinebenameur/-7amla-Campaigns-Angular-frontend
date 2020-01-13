@@ -101,7 +101,8 @@ export class FormCampaignComponent implements OnInit {
           // this.router.navigate(['/campaign/']);
         });
     } else {
-      this.crud.update(this.campaignUrl, this.campaign_id, this.campaignForm.value)
+      const values = this.fileData ? Object.assign(this.campaignForm.value, {image: this.fileData}) : this.campaignForm.value;
+      this.crud.update(this.campaignUrl, this.campaign_id, values, true)
         .subscribe(() => {
           this.router.navigate(['/campaign/']);
         });
@@ -140,6 +141,25 @@ export class FormCampaignComponent implements OnInit {
           for (const tag of this.campaign.tags) {
             this.selectedTag.push(tag.name);
           }
+
+          this.selectedStartDate = new Date();
+          this.selectedStartDate.setDate(parseInt(this.campaign.start_date.split('-')[2], 10));
+          this.selectedStartDate.setMonth(parseInt(this.campaign.start_date.split('-')[1], 10) - 1);
+          this.selectedStartDate.setYear(parseInt(this.campaign.start_date.split('-')[0], 10));
+          this.selectedStartDate.setMinutes(parseInt(this.campaign.start_hour.split(':')[1], 10));
+          this.selectedStartDate.setHours(parseInt(this.campaign.start_hour.split(':')[0], 10));
+
+          this.start.setValue(this.campaign.start_date + ' ' + this.campaign.start_hour);
+
+          this.selectedEndDate = new Date();
+          this.selectedEndDate.setDate(parseInt(this.campaign.end_date.split('-')[2], 10));
+          this.selectedEndDate.setMonth(parseInt(this.campaign.end_date.split('-')[1], 10) - 1);
+          this.selectedEndDate.setYear(parseInt(this.campaign.end_date.split('-')[0], 10));
+          this.selectedEndDate.setMinutes(parseInt(this.campaign.end_hour.split(':')[1], 10));
+          this.selectedEndDate.setHours(parseInt(this.campaign.end_hour.split(':')[0], 10));
+
+          this.end.setValue(this.campaign.end_date + ' ' + this.campaign.end_hour);
+
         }
       );
     }
@@ -147,7 +167,6 @@ export class FormCampaignComponent implements OnInit {
 
     this.initForm();
   }
-
 
   initForm() {
     const date = new Date();
@@ -165,18 +184,18 @@ export class FormCampaignComponent implements OnInit {
   }
 
   fileProgress(fileInput: any) {
-    this.fileData = <File> fileInput.target.files[0];
+    this.fileData = fileInput.target.files[0] as File;
     this.preview();
   }
 
   preview() {
     // Show preview
-    var mimeType = this.fileData.type;
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(this.fileData);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
