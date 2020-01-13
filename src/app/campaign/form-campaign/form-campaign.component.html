@@ -28,16 +28,20 @@
         </div>
 
         <nz-date-picker
-          nzShowTime
+          (nzOnOk)="onChange($event,'start')"
           nzFormat="yyyy-MM-dd HH:mm"
           nzPlaceHolder="Start Time"
-          (nzOnOk)="onChange($event,'start')"
-        ></nz-date-picker>
-<nz-date-picker
           nzShowTime
+          [ngModel]="selectedStartDate"
+          [ngModelOptions]="{standalone: true}"
+        ></nz-date-picker>
+        <nz-date-picker
+          (nzOnOk)="onChange($event,'end')"
           nzFormat="yyyy-MM-dd HH:mm"
           nzPlaceHolder="End Time"
-          (nzOnOk)="onChange($event,'end')"
+          nzShowTime
+          [ngModel]="selectedEndDate"
+          [ngModelOptions]="{standalone: true}"
         ></nz-date-picker>
 
 
@@ -72,7 +76,8 @@
 
               </nz-form-control>
               <nz-form-control [nzSpan]="1">
-                <button (click)="preventDefault($event);deleteCommitteeMember(i)" nz-button nzShape="circle" nzType="danger">
+                <button (click)="preventDefault($event);deleteCommitteeMember(i)" nz-button nzShape="circle"
+                        nzType="danger">
                   X
                 </button>
               </nz-form-control>
@@ -83,57 +88,57 @@
         <div class="row">
           <div class="col-md-6 offset-md-3">
             <div class="form-group">
-              <input type="file" name="image" (change)="fileProgress($event)" />
+              <input (change)="fileProgress($event)" name="image" type="file"/>
             </div>
             <div *ngIf="fileUploadProgress">
               Upload progress: {{ fileUploadProgress }}
             </div>
-            <div class="image-preview mb-3" *ngIf="previewUrl">
-              <img [src]="previewUrl" height="300" />
+            <div *ngIf="previewUrl" class="image-preview mb-3">
+              <img [src]="previewUrl" height="300"/>
             </div>
 
-            <div class="mb-3" *ngIf="uploadedFilePath">
+            <div *ngIf="uploadedFilePath" class="mb-3">
               {{uploadedFilePath}}
             </div>
           </div>
         </div>
 
-<!--        <a (click)="preventDefault($event);selectStartDate=true" *ngIf="!selectStartDate" href="#">Pick start date</a>-->
-<!--        <a (click)="preventDefault($event);selectStartDate=false" *ngIf="selectStartDate" href="#">X</a>-->
-<!--        <br>-->
+        <!--        <a (click)="preventDefault($event);selectStartDate=true" *ngIf="!selectStartDate" href="#">Pick start date</a>-->
+        <!--        <a (click)="preventDefault($event);selectStartDate=false" *ngIf="selectStartDate" href="#">X</a>-->
+        <!--        <br>-->
 
-<!--        <span *ngIf="start.value">Start date : {{start.value|date:'d-M-y H:m'}}</span>-->
-<!--        <ng-container *ngIf="selectStartDate">-->
-<!--          <dl-date-time-picker-->
-<!--            (change)="closePicker('start')"-->
-<!--            formControlName="start"-->
-<!--            maxView="year"-->
-<!--            minView="minute"-->
-<!--            minuteStep="5"-->
-<!--            startView="day"-->
-<!--          >-->
-<!--          </dl-date-time-picker>-->
-<!--        </ng-container>-->
+        <!--        <span *ngIf="start.value">Start date : {{start.value|date:'d-M-y H:m'}}</span>-->
+        <!--        <ng-container *ngIf="selectStartDate">-->
+        <!--          <dl-date-time-picker-->
+        <!--            (change)="closePicker('start')"-->
+        <!--            formControlName="start"-->
+        <!--            maxView="year"-->
+        <!--            minView="minute"-->
+        <!--            minuteStep="5"-->
+        <!--            startView="day"-->
+        <!--          >-->
+        <!--          </dl-date-time-picker>-->
+        <!--        </ng-container>-->
 
-<!--        <br>-->
-<!--        <br>-->
+        <!--        <br>-->
+        <!--        <br>-->
 
-<!--        <a (click)="preventDefault($event);selectEndDate=true" *ngIf="!selectEndDate" href="#">Pick end date</a>-->
-<!--        <a (click)="preventDefault($event);selectEndDate=false" *ngIf="selectEndDate" href="#">X</a>-->
-<!--        <br>-->
+        <!--        <a (click)="preventDefault($event);selectEndDate=true" *ngIf="!selectEndDate" href="#">Pick end date</a>-->
+        <!--        <a (click)="preventDefault($event);selectEndDate=false" *ngIf="selectEndDate" href="#">X</a>-->
+        <!--        <br>-->
 
-<!--        <span *ngIf="start.value">End date : {{end.value|date:'d-M-y H:m'}}</span>-->
-<!--        <ng-container *ngIf="selectEndDate">-->
-<!--          <dl-date-time-picker-->
-<!--            (change)="closePicker('end')"-->
-<!--            formControlName="end"-->
-<!--            maxView="year"-->
-<!--            minView="minute"-->
-<!--            minuteStep="5"-->
-<!--            startView="day"-->
-<!--          >-->
-<!--          </dl-date-time-picker>-->
-<!--        </ng-container>-->
+        <!--        <span *ngIf="start.value">End date : {{end.value|date:'d-M-y H:m'}}</span>-->
+        <!--        <ng-container *ngIf="selectEndDate">-->
+        <!--          <dl-date-time-picker-->
+        <!--            (change)="closePicker('end')"-->
+        <!--            formControlName="end"-->
+        <!--            maxView="year"-->
+        <!--            minView="minute"-->
+        <!--            minuteStep="5"-->
+        <!--            startView="day"-->
+        <!--          >-->
+        <!--          </dl-date-time-picker>-->
+        <!--        </ng-container>-->
 
         <div *ngIf="false" [ngClass]="{'has-error':end.invalid}" class="form-group">
           <input class="form_datetime form-control" formControlName="end" readonly size="16" type="text">
