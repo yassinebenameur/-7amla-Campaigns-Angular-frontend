@@ -1,4 +1,249 @@
-<ng-container *ngIf="article">
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-8 col-sm-12">
+
+      <article class="post single-post-inner">
+
+        <div class="post-inner-featured-content">
+          <img alt="" src="../../../assets/images/blog_3.jpg">
+        </div>
+
+        <div class="single-post-inner-title">
+          <h2>{{article.title}}</h2>
+          <p class="single-post-meta"><i
+            class="fa fa-user"></i>&nbsp; {{article.user.first_name}} {{article.user.last_name}}&nbsp; &nbsp; <i
+            class="fa fa-share"></i>&nbsp; {{article.campaign.title}}</p>
+        </div>
+
+        <div class="single-post-inner-content">
+          <p>
+            {{article.body}}
+          </p>
+        </div>
+
+
+      </article> <!--  end single-post-container -->
+
+      <div class="article-author clearfix">
+
+        <div class="topic-bold-header clearfix">
+          <h4>Article by <a href="#"
+                            routerLink="/article/{{article.user.id}}">{{article.user.first_name}} {{article.user.last_name}}</a>
+          </h4>
+        </div> <!-- end .topic-bold-header  -->
+
+        <figure class="author-avatar">
+          <a href="#">
+            <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+          </a>
+        </figure>
+
+
+      </div> <!-- end .article-author  -->
+
+
+      <div class="comments-area" id="comments">
+        <a class="article-add-comments" href="#respond"><i class="fa fa-plus"></i></a>
+        <div class="topic-bold-header clearfix">
+          <h4>{{article.comments.length}} comment{{article.comments.length != 1 ? 's' : ''}} to this article</h4>
+        </div> <!-- end .topic-bold-header  -->
+
+
+        <ol *ngIf="article.comments.length>0" class="commentslist">
+          <li *ngFor="let comment of article.comments">
+            <article class="clearfix">
+              <header>
+                <h5><span>USER</span><a href="#"
+                                        routerLink="/user/{{comment.id}}">{{comment.first_name}} {{comment.last_name}}</a>
+                </h5>
+                <p><span>{{comment.comments.created_at}}</span><a href="#">Reply</a></p>
+              </header>
+
+              <figure class="comment-avatar">
+                <a href="#">
+                  <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+                </a>
+              </figure>
+
+
+              <div class="comment_text">
+                {{comment.comments.content}}
+              </div>
+
+            </article>
+          </li>
+
+
+        </ol>
+
+        <div class="comments-nav-section clearfix">
+
+          <a class="btn btn-primary fr" href="#">Newer Comments <i class="fa fa-angle-double-right"></i></a>
+          <a class="btn btn-primary" href="#"><i class="fa fa-angle-double-left"></i> Older Comments</a>
+
+        </div> <!-- end comments-nav-section-->
+
+        <div id="respond">
+
+          <div class="topic-bold-header clearfix">
+            <h4>Leave a reply</h4>
+          </div> <!-- end .topic-bold-header  -->
+
+          <form action="#" id="comment-form" method="post" role="form">
+
+            <div class="form-group">
+
+              <input class="form-control" id="author" placeholder="Name" type="text">
+            </div>
+
+            <div class="form-group">
+
+              <input class="form-control" id="email" placeholder="Email" type="email">
+            </div>
+            <div class="form-group">
+
+              <input class="form-control" id="url" placeholder="URL" type="text">
+            </div>
+
+            <div class="form-group">
+
+              <textarea class="form-control" id="comment" name="comment" placeholder="Write Your Comment"
+                        rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-custom" type="submit">Submit Comment</button>
+            </div>
+
+          </form>
+
+
+        </div> <!-- end respond-->
+
+      </div> <!-- end comments-area-->
+
+    </div> <!--  end .single-post-container -->
+
+    <div class="col-md-4 col-sm-12">
+
+      <div class="widget site-sidebar">
+
+        <h2 class="widget-title">Search</h2>
+
+        <form action="https://templates.bwlthemes.com/blood_donation/v_2/index.html" class="search-form"
+              id="search-form" method="get" role="form">
+
+          <div class="input-group">
+            <input class="form-control" placeholder="Search...." type="text">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          </div>
+
+          <input type="hidden" value="submit">
+
+        </form> <!-- end #search-form  -->
+
+      </div> <!--  end .widget -->
+
+
+      <div class="widget site-sidebar">
+
+        <h2 class="widget-title">Categories</h2>
+
+        <ul class="widget-post-category clearfix">
+          <li>
+            <a href="#" title="View all posts filed under Environment">Blood Relation</a>
+            <span class="pull-right badge">42</span>
+          </li>
+          <li>
+            <a href="#" title="View all posts filed under Technology">AB- Blood donor</a>
+            <span class="pull-right badge">40</span>
+          </li>
+          <li>
+            <a href="#" title="View all posts filed under Health">Keep Safe Blood</a>
+            <span class="pull-right badge">32</span>
+          </li>
+          <li>
+            <a href="#" title="View all posts filed under Disaster">Preserve Blood</a>
+            <span class="pull-right badge">26</span>
+          </li>
+          <li>
+            <a href="#" title="View all posts filed under Environment Right">Donation center</a>
+            <span class="pull-right badge">18</span>
+          </li>
+          <li>
+            <a href="#" title="View all posts filed under Education">Proper Education</a>
+            <span class="pull-right badge">12</span>
+          </li>
+        </ul>
+
+
+      </div> <!--  end .widget -->
+
+      <div class="widget site-sidebar">
+
+        <h2 class="widget-title">Recent Posts</h2>
+
+        <div class="single-recent-post">
+          <a href="#">Zomato Commits to Making Food Delivery</a>
+          <span><i class="fa fa-calendar icon-color"></i>&nbsp; April 19, 2017</span>
+        </div>
+
+        <div class="single-recent-post">
+          <a href="#">Make Kalam's House A Knowledge Centre</a>
+          <span><i class="fa fa-calendar icon-color"></i>&nbsp; April 18, 2017</span>
+        </div>
+
+        <div class="single-recent-post">
+          <a href="#">Central Government Retracts Proposal</a>
+          <span><i class="fa fa-calendar icon-color"></i>&nbsp; April 17, 2017</span>
+        </div>
+
+      </div> <!--  end .widget -->
+
+      <div class="widget site-sidebar">
+
+        <h2 class="widget-title">Tags</h2>
+
+        <ul class="widget-recent-tags clearfix">
+
+          <li>
+            <a href="#" title=""> claycold</a>
+          </li>
+
+          <li>
+            <a href="#" title=""> crushing</a>
+          </li>
+
+          <li>
+            <a href="#" title=""> chattels</a>
+          </li>
+
+          <li>
+            <a href="#" title=""> dinarchy</a>
+          </li>
+
+          <li>
+            <a href="#" title=""> cienaga</a>
+          </li>
+
+          <li>
+            <a href="#" title=""> doolie</a>
+          </li>
+
+        </ul><!--  end .widget-recent-tags -->
+
+      </div> <!--  end .widget -->
+
+    </div> <!-- end .col-sm-4  -->
+
+  </div> <!--  end row  -->
+
+</div>
+
+
+<ng-container *ngIf="false">
   <h3>{{article.title}}</h3>
   <a *ngIf="currentUser&&currentUser.id===article.user.id" routerLink="/article/edit/{{articleId}}">Edit</a>
   <p *ngFor="let paragraph of article.body.split('\n')">
