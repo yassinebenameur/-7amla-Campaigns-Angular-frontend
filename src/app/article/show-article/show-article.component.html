@@ -44,7 +44,7 @@
 
             <figure class="author-avatar">
               <a href="#">
-                <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+                <img alt="Avatar" src="{{article.user.image|publicFolder}}">
               </a>
             </figure>
 
@@ -62,14 +62,17 @@
               <li *ngFor="let comment of article.comments">
                 <article class="clearfix">
                   <header>
-                    <h5><span>USER</span><a href="#"
-                                            routerLink="/user/{{comment.id}}">{{comment.first_name}} {{comment.last_name}}</a>
+                    <h5>
+                      <span *ngIf="comment.id == article.user.id" style="background-color: #3c763d">AUTHOR</span>
+                      <span *ngIf="comment.id != article.user.id">USER</span>
+                      <a href="#"
+                         routerLink="/user/{{comment.id}}">{{comment.first_name}} {{comment.last_name}}</a>
                     </h5>
                   </header>
 
                   <figure class="comment-avatar">
                     <a href="#">
-                      <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+                      <img alt="Avatar" src="{{comment.image|publicFolder}}">
                     </a>
                   </figure>
 
