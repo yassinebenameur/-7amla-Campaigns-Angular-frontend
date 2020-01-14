@@ -174,6 +174,8 @@ export class FormCampaignComponent implements OnInit {
 
           this.end.setValue(this.campaign.end_date + ' ' + this.campaign.end_hour);
 
+        }, () => {
+          this.router.navigate(['/campaign']);
         }
       );
     }

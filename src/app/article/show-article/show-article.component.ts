@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 import {ArticleModel} from '../../_models/article.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {UserModel} from '../../_models/user.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -23,6 +23,7 @@ export class ShowArticleComponent implements OnInit {
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
+              private router: Router,
               private authService: AuthenticationService,
               private fb: FormBuilder) {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;
@@ -42,6 +43,9 @@ export class ShowArticleComponent implements OnInit {
       this.crud.getOne<ArticleModel>(this.articleUrl, this.articleId)
         .subscribe(article => {
           this.article = article;
+        }, () => {
+          console.log('not found');
+          this.router.navigate(['/article']);
         });
     }
     this.initCommentForm();

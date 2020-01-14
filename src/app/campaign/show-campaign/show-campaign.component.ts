@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Campaign} from '../../_models/campaign.model';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserModel} from '../../_models/user.model';
 import {AuthenticationService} from '../../_services/authentication.service';
@@ -27,6 +27,7 @@ export class ShowCampaignComponent implements OnInit {
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
+              private router: Router,
               private authService: AuthenticationService,
               private fb: FormBuilder) {
     this.campaignUrl = Globals.API_URL + Globals.CAMPAIGNS;
@@ -52,6 +53,9 @@ export class ShowCampaignComponent implements OnInit {
       .subscribe(campaign => {
         this.campaign = campaign;
         this.checkIfUserInterested();
+      }, () => {
+        this.router.navigate(['/campaign']);
+
       });
     this.initFeedbackForm();
   }
