@@ -39,7 +39,32 @@
         (nzOnOk)="onChange($event)"
       ></nz-date-picker>
       <br>
-      <button  id="btn_submit" class="btn btn-theme">Modifier</button>
+
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="form-group">
+            <label for="image">
+              <a class="btn btn-custom">Add Image
+              </a>
+              <input (change)="fileProgress($event)" class="form-control" id="image" name="image" style="display: none"
+                     type="file"/>
+            </label>
+
+          </div>
+          <div *ngIf="fileUploadProgress">
+            Upload progress: {{ fileUploadProgress }}
+          </div>
+          <div *ngIf="previewUrl" class="image-preview mb-3">
+            <img [src]="previewUrl" height="300"/>
+          </div>
+
+          <div *ngIf="uploadedFilePath" class="mb-3">
+            {{uploadedFilePath}}
+          </div>
+        </div>
+      </div>
+
+      <button id="btn_submit" class="btn btn-theme">Modifier</button>
 
     </form>
   </nz-spin>

@@ -1,25 +1,104 @@
-<form nz-form [formGroup]="articleForm" (ngSubmit)="submitForm(articleForm.value)">
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="'Required'">
-      <input nz-input formControlName="title" placeholder="title" type="email" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Body</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
-      <textarea
-      nz-input
-      placeholder="Article body"
-      formControlName="body"
-      [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-    ></textarea>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary" [disabled]="!articleForm.valid">Submit</button>
-      <button nz-button (click)="resetForm($event)">Reset</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+<div *ngIf="articleForm" class="container ">
+  <div class="contact-form-block row ">
+    <div class="col-md-6 col-12">
+
+      <h2 *ngIf="!articleId" class="contact-title">Add an article</h2>
+      <h2 *ngIf="articleId" class="contact-title">Edit an article</h2>
+
+      <form (ngSubmit)="submitForm(articleForm.value)" [formGroup]="articleForm" id="contact-form" role="form">
+
+        <div [ngClass]="{'has-error':title.invalid}" class="form-group">
+          <input class="form-control" formControlName="title" placeholder="Title"
+                 type="text">
+
+          <ng-container *ngIf="title.invalid && (title.dirty || title.touched)">
+            <span *ngIf="title.errors.required" class="help-block">Title is required</span>
+          </ng-container>
+        </div>
+
+
+        <div class="form-group">
+          <textarea [ngClass]="{'has-error':body.invalid}" class="form-control" formControlName="body"
+                    placeholder="Article content"
+                    rows="5">
+
+          </textarea>
+          <ng-container *ngIf="body.invalid && (body.dirty || body.touched)">
+            <span *ngIf="body.errors.required" class="help-block">Body is required</span>
+          </ng-container>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+              <label for="image">
+                <a class="btn btn-custom">Add Image
+                </a>
+                <input (change)="fileProgress($event)" class="form-control" id="image" name="image"
+                       style="display: none"
+                       type="file"/>
+              </label>
+
+            </div>
+            <div *ngIf="fileUploadProgress">
+              Upload progress: {{ fileUploadProgress }}
+            </div>
+            <div *ngIf="previewUrl" class="image-preview mb-3">
+              <img [src]="previewUrl" height="300"/>
+            </div>
+
+            <div *ngIf="uploadedFilePath" class="mb-3">
+              {{uploadedFilePath}}
+            </div>
+          </div>
+        </div>
+
+        <!--        <a (click)="preventDefault($event);selectStartDate=true" *ngIf="!selectStartDate" href="#">Pick start date</a>-->
+        <!--        <a (click)="preventDefault($event);selectStartDate=false" *ngIf="selectStartDate" href="#">X</a>-->
+        <!--        <br>-->
+
+        <!--        <span *ngIf="start.value">Start date : {{start.value|date:'d-M-y H:m'}}</span>-->
+        <!--        <ng-container *ngIf="selectStartDate">-->
+        <!--          <dl-date-time-picker-->
+        <!--            (change)="closePicker('start')"-->
+        <!--            formControlName="start"-->
+        <!--            maxView="year"-->
+        <!--            minView="minute"-->
+        <!--            minuteStep="5"-->
+        <!--            startView="day"-->
+        <!--          >-->
+        <!--          </dl-date-time-picker>-->
+        <!--        </ng-container>-->
+
+        <!--        <br>-->
+        <!--        <br>-->
+
+        <!--        <a (click)="preventDefault($event);selectEndDate=true" *ngIf="!selectEndDate" href="#">Pick end date</a>-->
+        <!--        <a (click)="preventDefault($event);selectEndDate=false" *ngIf="selectEndDate" href="#">X</a>-->
+        <!--        <br>-->
+
+        <!--        <span *ngIf="start.value">End date : {{end.value|date:'d-M-y H:m'}}</span>-->
+        <!--        <ng-container *ngIf="selectEndDate">-->
+        <!--          <dl-date-time-picker-->
+        <!--            (change)="closePicker('end')"-->
+        <!--            formControlName="end"-->
+        <!--            maxView="year"-->
+        <!--            minView="minute"-->
+        <!--            minuteStep="5"-->
+        <!--            startView="day"-->
+        <!--          >-->
+        <!--          </dl-date-time-picker>-->
+        <!--        </ng-container>-->
+
+
+        <div class="form-group">
+          <button class="btn btn-theme" type="submit">Submit</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

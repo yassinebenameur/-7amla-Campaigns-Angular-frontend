@@ -22,6 +22,13 @@ export class FormArticleComponent implements OnInit {
   article: ArticleModel;
   private readonly returnUrl: string;
 
+
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
+
   constructor(private fb: FormBuilder,
               private crud: CrudService,
               private router: Router,
@@ -55,24 +62,17 @@ export class FormArticleComponent implements OnInit {
     }
   }
 
+  get title() {
+    return this.articleForm.get('title');
+  }
 
-  submitForm(value: any): void {
-    for (const key in this.articleForm.controls) {
-      this.articleForm.controls[key].markAsDirty();
-      this.articleForm.controls[key].updateValueAndValidity();
-    }
-    console.log(value);
-    if (!this.article) {
-      this.crud.post(this.articleUrl, this.articleForm.value)
-        .subscribe(() => {
-          this.router.navigate([this.returnUrl]);
-        });
-    } else {
-      this.crud.update(this.articleUrl, this.articleId, this.articleForm.value)
-        .subscribe(() => {
-          this.router.navigate([this.returnUrl]);
-        });
-    }
+  get body() {
+    return this.articleForm.get('body');
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
+    this.preview();
   }
 
   resetForm(e: MouseEvent): void {
@@ -94,4 +94,39 @@ export class FormArticleComponent implements OnInit {
     });
   }
 
+  preview() {
+    // Show preview
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  submitForm(value: any): void {
+    for (const key in this.articleForm.controls) {
+      this.articleForm.controls[key].markAsDirty();
+      this.articleForm.controls[key].updateValueAndValidity();
+    }
+    console.log(value);
+    const values = this.fileData ? Object.assign(this.articleForm.value, {image: this.fileData}) : this.articleForm.value;
+
+    if (!this.article) {
+
+      this.crud.post(this.articleUrl, values, true)
+        .subscribe(() => {
+          this.router.navigate([this.returnUrl]);
+        });
+    } else {
+      this.crud.update(this.articleUrl, this.articleId, values, true)
+        .subscribe(() => {
+          this.router.navigate([this.returnUrl]);
+        });
+    }
+  }
 }
