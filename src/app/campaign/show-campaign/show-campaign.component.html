@@ -18,10 +18,22 @@
 
     <section class="section-content-block">
       <div class="container">
-        <a *ngIf="campaign.creator.id===currentUser.id"
-           class="btn btn-custom" routerLink="/campaign/edit/{{campaign.id}}"><i
-          class="fa fa-edit"></i>
-          Edit</a>
+        <div class="row">
+          <div class="col-md-2">
+            <a *ngIf="campaign.creator.id===currentUser.id"
+               class="btn btn-theme" routerLink="/campaign/edit/{{campaign.id}}"><i
+              class="fa fa-edit"></i>
+              Edit</a>
+
+          </div>
+          <div class="col-md-2">
+
+            <a *ngIf="campaign.creator.id===currentUser.id"
+               class="btn btn-theme" routerLink="/article/add/{{campaign.id}}"><i
+              class="fa fa-plus"></i>
+              Add Article</a></div>
+
+        </div>
         <div class="row">
           <div class="article-event clearfix">
 
@@ -115,7 +127,7 @@
 
           <div class="row">
 
-            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12" routerLink="/user/{{user.id}}">
+            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12" routerLink="/user/{{user}}">
 
               <div class="team-layout-1 theme-custom-box-shadow theme-custom-box-animation">
 
