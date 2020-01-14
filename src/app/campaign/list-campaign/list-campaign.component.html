@@ -45,7 +45,8 @@
           </a>
         </figure>
         <div class="event-info">
-          <a class="event-date" href="#"><i class="fa fa-calendar-o"></i>{{campaign.start_date|convertDate:campaign.end_date}}</a>
+          <a class="event-date" href="#"><i
+            class="fa fa-calendar-o"></i>{{campaign.start_date|convertDate:campaign.end_date}}</a>
           <h4>
             <a routerLink="/campaign/{{campaign.id}}">{{campaign.title|truncateDescription:30}}</a>
           </h4>
@@ -56,6 +57,35 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="animated fadeInUp row">
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <a (click)="preventDefault($event);page=page+1;getAllCampaigns(page)"
+         *ngIf="campaigns&&nbElements!==campaigns.length" class="btn btn-theme margin-top-24"
+         href="#"
+         style="margin-bottom: 20px">Show
+        more</a>
     </div>
   </div>
 </div>

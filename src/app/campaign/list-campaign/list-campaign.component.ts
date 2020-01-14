@@ -4,7 +4,7 @@ import {Globals} from '../../_globals/Globals';
 import {Campaign} from '../../_models/campaign.model';
 import {UserModel} from '../../_models/user.model';
 import {AuthenticationService} from '../../_services/authentication.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-list-campaign',
@@ -14,12 +14,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class ListCampaignComponent implements OnInit {
   @Input() campaigns: Campaign[];
   currentUser: UserModel;
-  commentForm: FormGroup;
+  loading: any;
+  campaignUrl: string;
+  nbElements: number;
+
+  page = 1;
 
   constructor(private crudService: CrudService,
               private authService: AuthenticationService,
               private fb: FormBuilder) {
 
+    this.campaignUrl = Globals.API_URL + Globals.CAMPAIGNS;
 
     authService.currentUser
       .subscribe(user => {
@@ -31,19 +36,29 @@ export class ListCampaignComponent implements OnInit {
 
   ngOnInit() {
     if (!this.campaigns) {
-      this.getAllCampaigns();
+      this.getAllCampaigns(1);
     }
   }
 
-  getAllCampaigns() {
-    this.crudService.getAll<Campaign[]>(Globals.API_URL + Globals.CAMPAIGNS).subscribe(
-      (data) => {
-        this.campaigns = data;
+  getAllCampaigns(pi) {
+    this.loading = true;
+    this.crudService.getAllPaginate<{ count: number, elements: Campaign[] }>(this.campaignUrl, (pi - 1) * 6, 6)
+      .subscribe(campaigns => {
+        if (!this.campaigns) {
+          this.campaigns = [];
+        }
+        this.campaigns = this.campaigns.concat(campaigns.elements);
         console.log(this.campaigns);
-      }
-    );
+
+        this.loading = false;
+        this.nbElements = campaigns.count;
+      });
   }
 
+
+  preventDefault($e) {
+    $e.preventDefault();
+  }
 
 
 }

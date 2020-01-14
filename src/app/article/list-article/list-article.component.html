@@ -34,12 +34,10 @@
 
   </div> <!-- end .row  -->
 
-  <nz-card *ngIf="articles.length==0" [nzLoading]="articles.length==0"></nz-card>
-
 
   <div *ngIf="articles" class="row margin-top-48">
 
-    <div *ngFor="let article of articles" class="col-md-6 col-sm-12">
+    <div *ngFor="let article of articles" class="col-md-6 col-sm-12 margin-bottom-24">
       <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
         <figure class="event-img">
           <a href="#" routerLink="/article/{{article.id}}">
@@ -53,12 +51,41 @@
             <a routerLink="/article/{{article.id}}">{{article.title|truncateDescription:30}}</a>
           </h4>
           <div class="event-exceprt" style="min-height: 84px">{{article.body|truncateDescription:80}}</div>
-          <div class="event-time">
+          <div class="event-time" style="height: 55px">
             <a href="#" routerLink="/campaign/{{article.campaign.id}}"><i class="fa fa-chain"
-            ></i>Campaign: {{article.campaign.title}}</a>
+            ></i>Campaign: {{article.campaign.title|truncateDescription:32}}</a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="animated fadeInUp">
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+    <div class="col-md-6 col-sm-12 margin-bottom-24">
+      <nz-card [nzLoading]="true"></nz-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <a (click)="preventDefault($event);page=page+1;loadData(page)" *ngIf="nbArticles!==articles.length"
+         class="btn btn-theme margin-top-24" href="#"
+         style="margin-bottom: 20px">Show
+        more</a>
     </div>
   </div>
 </div>
