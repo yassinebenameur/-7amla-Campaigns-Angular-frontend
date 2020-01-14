@@ -1,6 +1,8 @@
 <div class="container">
   <h2 class="contact-title">Tags</h2>
 
+  <nz-card *ngIf="!tags" [nzLoading]="!tags"></nz-card>
+
   <div class="single-post-inner-meta">
     <div class="tag-list">
       <a *ngFor="let tag of tags" href="#" routerLink="/search/{{tag.name}}"

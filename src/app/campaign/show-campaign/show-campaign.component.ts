@@ -23,6 +23,7 @@ export class ShowCampaignComponent implements OnInit {
   interested: number;
   interestUrl;
   rating: number;
+  loading: boolean;
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
@@ -57,7 +58,7 @@ export class ShowCampaignComponent implements OnInit {
 
   initFeedbackForm() {
     this.feedbackForm = this.fb.group({
-      rating: [null, Validators.required],
+      rating: [null],
       comment: [null, Validators.required],
       user_id: this.currentUser ? this.currentUser.id : null,
       campaign_id: this.campaignId ? this.campaignId : null
@@ -69,11 +70,16 @@ export class ShowCampaignComponent implements OnInit {
       this.feedbackForm.controls[key].markAsDirty();
       this.feedbackForm.controls[key].updateValueAndValidity();
     }
+    this.loading = true;
     this.feedbackForm.controls.rating.setValue(this.rating);
     this.crud.post(this.feedbackUrl, this.feedbackForm.value)
       .subscribe(feedback => {
         // @ts-ignore
         this.campaign.feedback = feedback;
+        this.loading = false;
+      }, () => {
+
+        this.loading = false;
       });
   }
 
@@ -102,14 +108,17 @@ export class ShowCampaignComponent implements OnInit {
     } else {
       url = this.interestUrl + Globals.REMOVE;
     }
+    this.loading = true;
     this.crud.post(url, {user_id: this.currentUser.id, campaign_id: this.campaignId})
       .subscribe((interests) => {
         // @ts-ignore
         this.campaign.interests = interests;
         this.checkIfUserInterested();
+        this.loading = false;
       }, () => {
         console.log('error');
         this.checkIfUserInterested();
+        this.loading = false;
       });
 
   }

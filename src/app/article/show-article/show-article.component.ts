@@ -19,6 +19,7 @@ export class ShowArticleComponent implements OnInit {
   articleId: string;
   currentUser: UserModel;
   commentForm: FormGroup;
+  loading: boolean;
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
@@ -64,12 +65,17 @@ export class ShowArticleComponent implements OnInit {
 
     console.log('im there');
 
+    this.loading = true;
 
     this.crud.post(this.commentUrl, this.commentForm.value)
       .subscribe(comments => {
         // @ts-ignore
         this.article.comments = comments;
         this.commentForm.reset();
+        this.loading = false;
+      }, () => {
+
+        this.loading = false;
       });
   }
 
@@ -80,16 +86,6 @@ export class ShowArticleComponent implements OnInit {
       this.commentForm.controls[key].markAsPristine();
       this.commentForm.controls[key].updateValueAndValidity();
     }
-  }
-
-  checkUserCanGiveComment() {
-    for (const comment of this.article.comments) {
-      // @ts-ignore
-      if (comment.id === this.currentUser.id) {
-        return false;
-      }
-    }
-    return true;
   }
 
 }

@@ -9,7 +9,7 @@ import {Globals} from '../../_globals/Globals';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss']
+  styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
 

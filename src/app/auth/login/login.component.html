@@ -1,45 +1,48 @@
-<div class="container">
-  <div class="contact-form-block">
+<nz-spin [nzSpinning]="loading">
+  <div class="container">
+    <div class="contact-form-block">
 
-    <h2 class="contact-title">Login to your account</h2>
+      <h2 class="contact-title">Login to your account</h2>
 
-    <form (ngSubmit)="submitLoginForm()" [formGroup]="loginForm" action="#" id="contact-form" method="post" role="form">
+      <form (ngSubmit)="submitLoginForm()" [formGroup]="loginForm" action="#" id="contact-form" method="post"
+            role="form">
 
-      <div class="form-group">
-        <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
-               placeholder="Email"
-               type="email">
-        <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
-          <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
-          <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
-        </ng-container>
+        <div class="form-group">
+          <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
+                 placeholder="Email"
+                 type="email">
+          <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
+            <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
+          </ng-container>
 
-      </div>
+        </div>
 
-      <div [ngClass]="{'has-error':password.invalid}" class="form-group">
-        <input class="form-control" formControlName="password" name="password" placeholder="Password" type="password">
-        <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
-          <span *ngIf="password.errors.required" class="help-block">Password is Required</span>
-        </ng-container>
-      </div>
+        <div [ngClass]="{'has-error':password.invalid}" class="form-group">
+          <input class="form-control" formControlName="password" name="password" placeholder="Password" type="password">
+          <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors.required" class="help-block">Password is Required</span>
+          </ng-container>
+        </div>
 
-      <h5 *ngIf="error" class="text-danger">{{error}}</h5>
+        <h5 *ngIf="error" class="text-danger">{{error}}</h5>
 
-      <div class="form-group">
-        <button [disabled]="loginForm.invalid" class="btn btn-theme" type="submit">Login</button>
+        <div class="form-group">
+          <button [disabled]="loginForm.invalid" class="btn btn-theme" type="submit">Login</button>
 
-        <a class="alignright">Forget Password ?</a>
-      </div>
+          <a class="alignright">Forget Password ?</a>
+        </div>
 
-    </form>
-
-
-    <h2 class="contact-title">Don't Have An Account ?
-      <button class="btn btn-capitalize">
-        <a href="JavaScript:void(0);" routerLink="/auth/register">Create A New Account</a>
-      </button>
-    </h2>
+      </form>
 
 
+      <h2 class="contact-title">Don't Have An Account ?
+        <button class="btn btn-capitalize">
+          <a href="JavaScript:void(0);" routerLink="/auth/register">Create A New Account</a>
+        </button>
+      </h2>
+
+
+    </div>
   </div>
-</div>
+</nz-spin>

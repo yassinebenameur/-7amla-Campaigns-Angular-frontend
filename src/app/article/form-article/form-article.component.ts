@@ -20,14 +20,12 @@ export class FormArticleComponent implements OnInit {
   currentUser: UserModel;
   campaignId: string;
   article: ArticleModel;
-  private readonly returnUrl: string;
-
-
+  loading: boolean;
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
-
+  private readonly returnUrl: string;
 
   constructor(private fb: FormBuilder,
               private crud: CrudService,
@@ -50,6 +48,13 @@ export class FormArticleComponent implements OnInit {
 
   }
 
+  get title() {
+    return this.articleForm.get('title');
+  }
+
+  get body() {
+    return this.articleForm.get('body');
+  }
 
   ngOnInit() {
     this.initForm();
@@ -62,17 +67,31 @@ export class FormArticleComponent implements OnInit {
     }
   }
 
-  get title() {
-    return this.articleForm.get('title');
-  }
-
-  get body() {
-    return this.articleForm.get('body');
-  }
-
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();
+  }
+
+  submitForm(value: any): void {
+    for (const key in this.articleForm.controls) {
+      this.articleForm.controls[key].markAsDirty();
+      this.articleForm.controls[key].updateValueAndValidity();
+    }
+    console.log(value);
+    this.loading = true;
+    if (!this.article) {
+      this.crud.post(this.articleUrl, this.articleForm.value, true)
+        .subscribe(() => {
+          history.back();
+          this.loading = false;
+        });
+    } else {
+      this.crud.update(this.articleUrl, this.articleId, this.articleForm.value, true)
+        .subscribe(() => {
+          history.back();
+          this.loading = false;
+        });
+    }
   }
 
   resetForm(e: MouseEvent): void {
@@ -108,25 +127,4 @@ export class FormArticleComponent implements OnInit {
     };
   }
 
-  submitForm(value: any): void {
-    for (const key in this.articleForm.controls) {
-      this.articleForm.controls[key].markAsDirty();
-      this.articleForm.controls[key].updateValueAndValidity();
-    }
-    console.log(value);
-    const values = this.fileData ? Object.assign(this.articleForm.value, {image: this.fileData}) : this.articleForm.value;
-
-    if (!this.article) {
-
-      this.crud.post(this.articleUrl, values, true)
-        .subscribe(() => {
-          this.router.navigate([this.returnUrl]);
-        });
-    } else {
-      this.crud.update(this.articleUrl, this.articleId, values, true)
-        .subscribe(() => {
-          this.router.navigate([this.returnUrl]);
-        });
-    }
-  }
 }

@@ -34,6 +34,9 @@
 
   </div> <!-- end .row  -->
 
+  <nz-card *ngIf="articles.length==0" [nzLoading]="articles.length==0"></nz-card>
+
+
   <div *ngIf="articles" class="row margin-top-48">
 
     <div *ngFor="let article of articles" class="col-md-6 col-sm-12">

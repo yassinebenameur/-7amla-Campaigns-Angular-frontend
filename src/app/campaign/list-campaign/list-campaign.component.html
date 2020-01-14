@@ -33,6 +33,7 @@
     </div> <!-- end .col-sm-12  -->
 
   </div> <!-- end .row  -->
+  <nz-card [nzLoading]="!campaigns" *ngIf="!campaigns"></nz-card>
 
   <div *ngIf="campaigns" class="row margin-top-48">
 
@@ -46,7 +47,7 @@
         <div class="event-info">
           <a class="event-date" href="#"><i class="fa fa-calendar-o"></i>{{campaign.start_date|convertDate:campaign.end_date}}</a>
           <h4>
-            <a routerLink="{{campaign.id}}">{{campaign.title|truncateDescription:30}}</a>
+            <a routerLink="/campaign/{{campaign.id}}">{{campaign.title|truncateDescription:30}}</a>
           </h4>
           <div class="event-exceprt" style="min-height: 84px">{{campaign.description|truncateDescription:80}}</div>
           <div class="event-time">

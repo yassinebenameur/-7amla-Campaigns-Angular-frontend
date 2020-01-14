@@ -37,6 +37,7 @@ export class FormCampaignComponent implements OnInit {
   selectedStartDate;
   selectStartDate: boolean;
   selectEndDate: boolean;
+  loading: boolean;
   private selectedEndDate;
 
   constructor(private fb: FormBuilder,
@@ -95,17 +96,26 @@ export class FormCampaignComponent implements OnInit {
     console.log(value);
     // console.log(this.start.value.toLocaleString());
 
+    this.loading = true;
     if (!this.campaign) {
       const values = this.fileData ? Object.assign(this.campaignForm.value, {image: this.fileData}) : this.campaignForm.value;
       this.crud.post(this.campaignUrl, values, true)
         .subscribe(() => {
-          this.router.navigate(['/campaign/']);
+          history.back();
+          this.loading = false;
+        }, () => {
+
+          this.loading = false;
         });
     } else {
       const values = this.fileData ? Object.assign(this.campaignForm.value, {image: this.fileData}) : this.campaignForm.value;
       this.crud.update(this.campaignUrl, this.campaign_id, values, true)
         .subscribe(() => {
-          this.router.navigate(['/campaign/']);
+          history.back();
+          this.loading = false;
+        }, () => {
+
+          this.loading = false;
         });
     }
   }
@@ -152,6 +162,9 @@ export class FormCampaignComponent implements OnInit {
 
           this.start.setValue(this.campaign.start_date + ' ' + this.campaign.start_hour);
 
+          if (!this.campaign.end_date) {
+            this.campaign.end_date = this.campaign.start_date;
+          }
           this.selectedEndDate = new Date();
           this.selectedEndDate.setDate(parseInt(this.campaign.end_date.split('-')[2], 10));
           this.selectedEndDate.setMonth(parseInt(this.campaign.end_date.split('-')[1], 10) - 1);

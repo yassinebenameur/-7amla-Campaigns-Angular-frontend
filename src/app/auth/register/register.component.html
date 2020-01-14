@@ -1,81 +1,84 @@
-<div class="container">
-  <div class="contact-form-block">
+<nz-spin [nzSpinning]="loading">
+  <div class="container">
+    <div class="contact-form-block">
 
-    <h2 class="contact-title">Create a new account</h2>
+      <h2 class="contact-title">Create a new account</h2>
 
-    <form (ngSubmit)="submitRegisterForm()" [formGroup]="registerForm" action="#" id="contact-form" method="post"
-          role="form">
+      <form (ngSubmit)="submitRegisterForm()" [formGroup]="registerForm" action="#" id="contact-form" method="post"
+            role="form">
 
-      <div class="form-group">
-        <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
-               placeholder="Email"
-               type="email">
-        <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
-          <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
-          <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
-        </ng-container>
+        <div class="form-group">
+          <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
+                 placeholder="Email"
+                 type="email">
+          <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+            <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
+            <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
+          </ng-container>
 
-      </div>
+        </div>
 
-      <div [ngClass]="{'has-error':password.invalid}" class="form-group">
-        <input class="form-control" formControlName="password" name="password" placeholder="Password" type="password">
-        <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
-          <span *ngIf="password.errors.required" class="help-block">Password is Required</span>
-        </ng-container>
-      </div>
+        <div [ngClass]="{'has-error':password.invalid}" class="form-group">
+          <input class="form-control" formControlName="password" name="password" placeholder="Password" type="password">
+          <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors.required" class="help-block">Password is Required</span>
+          </ng-container>
+        </div>
 
-      <div [ngClass]="{'has-error':password_confirmation.invalid}" class="form-group">
-        <input [pattern]="password.value" class="form-control" formControlName="password_confirmation"
-               name="password_confirmation" placeholder="password_confirmation"
-               type="password">
-        <ng-container
-          *ngIf="password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)">
+        <div [ngClass]="{'has-error':password_confirmation.invalid}" class="form-group">
+          <input [pattern]="password.value" class="form-control" formControlName="password_confirmation"
+                 name="password_confirmation" placeholder="password_confirmation"
+                 type="password">
+          <ng-container
+            *ngIf="password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)">
           <span *ngIf="password_confirmation.errors.required"
                 class="help-block">password_confirmation is Required</span>
-          <span *ngIf="password_confirmation.errors.pattern" class="help-block">Passwords don't match</span>
-        </ng-container>
-      </div>
+            <span *ngIf="password_confirmation.errors.pattern" class="help-block">Passwords don't match</span>
+          </ng-container>
+        </div>
 
 
-      <div [ngClass]="{'has-error':first_name.invalid}" class="form-group">
-        <input class="form-control" formControlName="first_name" name="first_name" placeholder="first_name" type="text">
-        <ng-container *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
-          <span *ngIf="first_name.errors.required" class="help-block">Password Confirmation is Required</span>
-        </ng-container>
-      </div>
+        <div [ngClass]="{'has-error':first_name.invalid}" class="form-group">
+          <input class="form-control" formControlName="first_name" name="first_name" placeholder="first_name"
+                 type="text">
+          <ng-container *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
+            <span *ngIf="first_name.errors.required" class="help-block">Password Confirmation is Required</span>
+          </ng-container>
+        </div>
 
-      <div [ngClass]="{'has-error':last_name.invalid}" class="form-group">
-        <input class="form-control" formControlName="last_name" name="last_name" placeholder="last_name" type="text">
-        <ng-container *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
-          <span *ngIf="last_name.errors.required" class="help-block">Password Confirmation is Required</span>
-        </ng-container>
-      </div>
-
-
-      <div [ngClass]="{'has-error':phone.invalid}" class="form-group">
-        <input class="form-control" formControlName="phone" name="phone" pattern="\d{8}" placeholder="+216"
-               type="text">
-        <ng-container *ngIf="phone.invalid && (phone.dirty || phone.touched)">
-          <span *ngIf="phone.errors.required" class="help-block">Phone is Required</span>
-          <span *ngIf="phone.errors.pattern" class="help-block">Phone number is invalid</span>
-        </ng-container>
-      </div>
+        <div [ngClass]="{'has-error':last_name.invalid}" class="form-group">
+          <input class="form-control" formControlName="last_name" name="last_name" placeholder="last_name" type="text">
+          <ng-container *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
+            <span *ngIf="last_name.errors.required" class="help-block">Password Confirmation is Required</span>
+          </ng-container>
+        </div>
 
 
-      <div class="form-group">
-        <button [disabled]="registerForm.invalid" class="btn btn-theme" type="submit">Create Account</button>
-      </div>
-
-    </form>
-
-
-    <h2 class="contact-title">Already Have An Account ?
-      <button class="btn btn-capitalize">
-        <a href="JavaScript:void(0);" routerLink="/auth/login">Login to your account </a>
-      </button>
-    </h2>
+        <div [ngClass]="{'has-error':phone.invalid}" class="form-group">
+          <input class="form-control" formControlName="phone" name="phone" pattern="\d{8}" placeholder="+216"
+                 type="text">
+          <ng-container *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+            <span *ngIf="phone.errors.required" class="help-block">Phone is Required</span>
+            <span *ngIf="phone.errors.pattern" class="help-block">Phone number is invalid</span>
+          </ng-container>
+        </div>
 
 
+        <div class="form-group">
+          <button [disabled]="registerForm.invalid" class="btn btn-theme" type="submit">Create Account</button>
+        </div>
+
+      </form>
+
+
+      <h2 class="contact-title">Already Have An Account ?
+        <button class="btn btn-capitalize">
+          <a href="JavaScript:void(0);" routerLink="/auth/login">Login to your account </a>
+        </button>
+      </h2>
+
+
+    </div>
   </div>
-</div>
 
+</nz-spin>
