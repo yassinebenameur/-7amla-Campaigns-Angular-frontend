@@ -47,6 +47,7 @@ export class AuthenticationService {
 
 
   refresh() {
+    console.log(JSON.parse(localStorage.getItem('currentUser')));
     return this.http.get<UserModel>(Globals.API_URL + Globals.AUTH + Globals.REFRESH)
       .pipe(map(user => {
         let userToStore;

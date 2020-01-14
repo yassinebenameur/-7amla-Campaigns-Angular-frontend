@@ -1,6 +1,6 @@
 <nz-spin [nzSpinning]="loading">
   <div class="container">
-    <div class="contact-form-block">
+    <div class="contact-form-block col-md-6">
 
       <h2 class="contact-title">Login to your account</h2>
 
@@ -33,6 +33,7 @@
           <a class="alignright">Forget Password ?</a>
         </div>
 
+
       </form>
 
 
@@ -42,6 +43,13 @@
         </button>
       </h2>
 
+
+    </div>
+    <div class="col-md-6">
+
+      <a [href]="facebookAuthUrl" class="btn btn-lg btn-social btn-facebook">
+        <i class="fa fa-facebook fa-fw"></i> Sign in with Facebook
+      </a>
 
     </div>
   </div>

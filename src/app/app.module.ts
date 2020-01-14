@@ -15,8 +15,8 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {SearchComponent} from './search/search.component';
 import {HeaderComponent} from './layout/header/header.component';
 import {FooterComponent} from './layout/footer/footer.component';
-import {OWL_DATE_TIME_FORMATS, OWL_DATE_TIME_LOCALE} from 'ng-pick-datetime';
-import {Select2Module} from 'ng2-select2';
+import {OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import {FacebookAuthComponent} from './facebook-auth/facebook-auth.component';
 
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
@@ -34,7 +34,8 @@ registerLocaleData(en);
     AppComponent,
     SearchComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FacebookAuthComponent
   ],
   imports: [
     BrowserModule,

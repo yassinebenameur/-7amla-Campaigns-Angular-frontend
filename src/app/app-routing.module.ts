@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SearchComponent} from './search/search.component';
+import {FacebookAuthComponent} from './facebook-auth/facebook-auth.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: '/welcome'},
+  // {path: '', pathMatch: 'full', redirectTo: '/campaign'},
   {path: 'search/:keyword', component: SearchComponent},
+  {path: 'facebook/:token/:id', component: FacebookAuthComponent},
   {path: 'campaign', loadChildren: () => import('./campaign/campaign.module').then(m => m.CampaignModule)},
   {path: 'article', loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)},
   {path: 'tag', loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)},

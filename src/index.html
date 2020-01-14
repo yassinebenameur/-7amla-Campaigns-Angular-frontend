@@ -6,8 +6,28 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script type="text/javascript">
+    if (window.location.hash && window.location.hash == '#_=_') {
+      if (window.history && history.pushState) {
+        // window.history.pushState("", document.title, window.location.pathname);
+        window.location = window.location.href.replace('#_=_', '');
+
+      } else {
+        // Prevent scrolling by storing the page's current scroll offset
+        var scroll = {
+          top: document.body.scrollTop,
+          left: document.body.scrollLeft
+        };
+        // window.location.hash = window.location.hash.split('#_=_')[0];
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scroll.top;
+        document.body.scrollLeft = scroll.left;
+        console.log(window.location);
+      }
+    }
+  </script>
 </head>
 <body>
-  <app-root></app-root>
+<app-root></app-root>
 </body>
 </html>
