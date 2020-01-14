@@ -94,7 +94,6 @@ export class FormCampaignComponent implements OnInit {
       this.campaignForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    // console.log(this.start.value.toLocaleString());
 
     this.loading = true;
     if (!this.campaign) {
