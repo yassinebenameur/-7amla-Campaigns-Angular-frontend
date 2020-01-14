@@ -3,11 +3,13 @@
   <div class="row">
 
     <div class="col-md-12 col-sm-12">
+      <a *ngIf="currentUser.id ===article.user.id"
+         class="btn btn-custom" routerLink="/article/edit/{{article.id}}"><i class="fa fa-edit"></i> Edit Article</a>
 
       <article class="post single-post-inner">
 
         <div class="post-inner-featured-content">
-          <img alt="" src="../../../assets/images/blog_3.jpg">
+          <img [src]="article.image|publicFolder" alt="">
         </div>
 
         <div class="single-post-inner-title">

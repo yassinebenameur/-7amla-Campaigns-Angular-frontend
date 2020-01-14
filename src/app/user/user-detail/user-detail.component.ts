@@ -23,6 +23,15 @@ export class UserDetailComponent implements OnInit {
 
   userUrl: string;
 
+  fileData: File = null;
+
+  previewUrl: any = null;
+
+  fileUploadProgress: string = null;
+
+  uploadedFilePath: string = null;
+
+
   constructor(private fb: FormBuilder,
               private crud: CrudService,
               private authService: AuthenticationService) {
@@ -66,6 +75,25 @@ export class UserDetailComponent implements OnInit {
   //   });
   // }
 
+  fileProgress(fileInput: any) {
+    this.fileData = fileInput.target.files[0] as File;
+    this.preview();
+  }
+
+  preview() {
+    // Show preview
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
   editUser() {
     for (const key in this.userForm.controls) {
       this.userForm.controls[key].markAsDirty();
@@ -73,7 +101,9 @@ export class UserDetailComponent implements OnInit {
 
     }
 
-    this.crud.update(this.userUrl, this.user.id, this.userForm.value)
+    const values = this.fileData ? Object.assign(this.userForm.value, {image: this.fileData}) : this.userForm.value;
+
+    this.crud.update(this.userUrl, this.user.id, values, true)
       .subscribe(data => {
         this.loading = true;
         console.log(data);
@@ -84,14 +114,16 @@ export class UserDetailComponent implements OnInit {
           });
       });
   }
+
   get birthDate() {
     return this.userForm.get('date_of_birth');
   }
+
   onChange($event: any) {
     console.log($event.getFullYear());
     const date = $event.getFullYear() + '-'
       + ('0' + ($event.getMonth() + 1)).slice(-2) + '-'
       + ('0' + $event.getDate()).slice(-2) + ' ';
-      this.birthDate.setValue(date);
+    this.birthDate.setValue(date);
   }
 }
