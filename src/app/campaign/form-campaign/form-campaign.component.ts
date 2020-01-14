@@ -94,7 +94,6 @@ export class FormCampaignComponent implements OnInit {
       this.campaignForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    // console.log(this.start.value.toLocaleString());
 
     this.loading = true;
     if (!this.campaign) {
@@ -189,7 +188,7 @@ export class FormCampaignComponent implements OnInit {
     this.campaignForm = this.fb.group({
       title: [this.campaign ? this.campaign.title : '', [Validators.required]],
       description: [this.campaign ? this.campaign.description : '', [Validators.required]],
-      tags: [this.campaign ? this.selectedTag : null, [Validators.required]],
+      tags: [this.campaign ? this.selectedTag : [], [Validators.required]],
       committee_members: this.fb.array([]),
 
       creator_id: this.campaign ? this.campaign.creator.id : this.currentUser.id,

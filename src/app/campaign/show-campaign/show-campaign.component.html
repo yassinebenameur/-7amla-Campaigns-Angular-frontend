@@ -36,7 +36,6 @@
 
                 <div class="single-post-inner-title">
                   <h2>{{campaign.title}}</h2>
-                  <a *ngIf="campaign.creator.id===currentUser.id" routerLink="/campaign/edit/{{campaign.id}}">Edit</a>
                   <p class="single-post-meta">
                     <i class="fa fa-user"></i>
                     &nbsp; {{campaign.creator.first_name}} {{campaign.creator.last_name}}&nbsp; &nbsp;
@@ -109,6 +108,44 @@
 
         </div> <!--  end .row  -->
 
+        <div class="container margin-top-48 margin-bottom-48 wow fadeInLeft animated"
+             style="visibility: visible; animation-name: fadeInLeft;">
+
+          <h4>Committee:</h4>
+
+          <div class="row">
+
+            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12" routerLink="/user/{{user.id}}">
+
+              <div class="team-layout-1 theme-custom-box-shadow theme-custom-box-animation">
+
+                <figure class="team-member" style="min-height: 358px">
+                  <a href="#">
+                    <img alt="{{user.first_name }} {{ user.last_name}}" src="{{user.image|publicFolder}}">
+                  </a>
+
+                </figure> <!-- end. team-member  -->
+
+                <article class="team-info">
+                  <h3>{{user.first_name }} {{ user.last_name}}</h3>
+                  <h4>{{user.role.role}}</h4>
+                </article>
+
+                <div class="team-content">
+
+
+                </div>
+
+              </div> <!--  end team-layout-1 -->
+
+            </div> <!--  end .col-md-4 col-sm-12  -->
+
+
+          </div> <!-- end .row  -->
+
+
+        </div>
+
         <div *ngIf="campaign.articles.length>0" class="row">
           <div class="article-author clearfix">
 
@@ -172,14 +209,6 @@
               {{campaign.creator.bio}}
             </div>
 
-            <div class="social-icons margin-top-11 clearfix">
-              <a class="fa fa-facebook social_icons" data-original-title="Facebook" href="#"></a>
-              <a class="fa fa-twitter social_icons" data-original-title="Twitter" href="https://twitter.com/#"></a>
-              <a class="fa fa-flickr social_icons" data-original-title="Flickr"
-                 href="http://www.flickr.com/photos/#"></a>
-              <a class="fa fa-youtube social_icons" data-original-title="Youtube" href="http://www.youtube.com/#"></a>
-              <a class="fa fa-linkedin social_icons" data-original-title="Linkedin" href="#"></a>
-            </div>
 
           </div> <!-- end .article-author  -->
 
@@ -256,76 +285,5 @@
     </section>
   </ng-container>
 
-  <ng-container *ngIf="campaign&&false">
-    <h3>{{campaign.title}}</h3>
-    <div>{{campaign.description}}</div>
 
-    <div *ngIf="campaign.articles.length>0">
-      <h4>Related articles</h4>
-      <div class="row">
-        <div *ngFor="let article of campaign.articles"
-             class="col-12 col-sm-6 col-md-4 col-lg-3 border border-light shadow m-2">
-          <a routerLink="/article/{{article.id}}">{{article.title}}</a>
-          <p>{{article.body|truncateDescription}}</p>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="campaign.users.length>0">
-      <h4>Committee members</h4>
-      <div class="row">
-        <div *ngFor="let user of campaign.users"
-             class="col-12 col-sm-6 col-md-4 col-lg-3 border border-light shadow m-2">
-          <h5>{{user.role.role}}</h5>
-
-          <a>{{user.first_name}} {{user.last_name}}</a>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h3>
-        Interested : {{campaign.interests.length}}
-        <nz-rate (ngModelChange)="submitInterest($event)" *ngIf="currentUser" [(ngModel)]="interested"
-                 nzCount="1"></nz-rate>
-      </h3>
-    </div>
-
-    <div *ngIf="campaign.feedback.length>0">
-      <h3>
-        Feedback
-      </h3>
-      <div *ngFor="let feedback of campaign.feedback">
-        <h4>
-          {{feedback.first_name}} {{feedback.last_name}} - {{feedback.feedback.rating}}
-        </h4>
-        <p>
-          {{feedback.feedback.comment}}
-        </p>
-      </div>
-    </div>
-    <form (ngSubmit)="postFeedback()" *ngIf="currentUser&&checkUserCanGiveFeedback()" [formGroup]="feedbackForm">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>Rating</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="12" nzHasFeedback>
-          <input formControlName="rating" max="5" min="0" nz-input placeholder="Rating" type="number"/>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
-        <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
-      <textarea
-        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-        formControlName="comment"
-        nz-input
-        placeholder="Comment"
-      ></textarea>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-control [nzOffset]="7" [nzSpan]="12">
-        <button [disabled]="!feedbackForm.valid" nz-button nzType="primary">Submit</button>
-        <button (click)="resetForm($event)" nz-button>Reset</button>
-      </nz-form-control>
-    </form>
-  </ng-container>
 </nz-spin>

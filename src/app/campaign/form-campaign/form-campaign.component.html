@@ -1,4 +1,4 @@
-<div *ngIf="campaignForm" class="container ">
+<div *ngIf="campaignForm" class="container  animated fadeInLeftBig">
   <div class="contact-form-block row ">
     <div class="col-md-6 col-12">
 
@@ -31,35 +31,35 @@
 
           </div>
 
-          <nz-date-picker
-            (nzOnOk)="onChange($event,'start')"
-            [ngModelOptions]="{standalone: true}"
-            [ngModel]="selectedStartDate"
-            nzFormat="yyyy-MM-dd HH:mm"
-            nzPlaceHolder="Start Time"
-            nzShowTime
+          <nz-date-picker (nzOnOk)="onChange($event,'start')"
+                          [ngModelOptions]="{standalone: true}"
+                          [ngModel]="selectedStartDate"
+                          nzFormat="yyyy-MM-dd HH:mm"
+                          nzPlaceHolder="Start Time"
+                          nzShowTime
+                          style="margin: 20px 20px 20px 20px "
           ></nz-date-picker>
-          <nz-date-picker
-            (nzOnOk)="onChange($event,'end')"
-            [ngModelOptions]="{standalone: true}"
-            [ngModel]="selectedEndDate"
-            nzFormat="yyyy-MM-dd HH:mm"
-            nzPlaceHolder="End Time"
-            nzShowTime
+          <nz-date-picker (nzOnOk)="onChange($event,'end')"
+                          [ngModelOptions]="{standalone: true}"
+                          [ngModel]="selectedEndDate"
+                          nzFormat="yyyy-MM-dd HH:mm"
+                          nzPlaceHolder="End Time"
+                          nzShowTime
+                          style="margin: 20px 20px 20px 20px "
           ></nz-date-picker>
 
 
-          <nz-form-control>
+          <nz-form-control style="margin: 20px 20px 20px 20px ">
             <nz-select formControlName="tags" nzMode="tags" nzPlaceHolder="Tag Mode">
               <nz-option *ngFor="let tag of tags" [nzLabel]="tag.name" [nzValue]="tag.name"></nz-option>
             </nz-select>
           </nz-form-control>
 
           <nz-form-item>
-            <button (click)="preventDefault($event);add_committee_member(null)" nz-button>
+            <a (click)="preventDefault($event);add_committee_member(null)" class="btn btn-custom">
               <i nz-icon nzType="add"></i>
               Add committee
-            </button>
+            </a>
 
             <nz-form-item *ngFor="let type of campaignForm.get('committee_members')['controls']; let i = index"
                           formArrayName="committee_members">
@@ -92,7 +92,14 @@
           <div class="row">
             <div class="col-md-6 offset-md-3">
               <div class="form-group">
-                <input (change)="fileProgress($event)" name="image" type="file"/>
+                <label for="image">
+                  <a class="btn btn-custom">Add Image
+                  </a>
+                  <input (change)="fileProgress($event)" class="form-control" id="image" name="image"
+                         style="display: none"
+                         type="file"/>
+                </label>
+
               </div>
               <div *ngIf="fileUploadProgress">
                 Upload progress: {{ fileUploadProgress }}
@@ -107,42 +114,6 @@
             </div>
           </div>
 
-          <!--        <a (click)="preventDefault($event);selectStartDate=true" *ngIf="!selectStartDate" href="#">Pick start date</a>-->
-          <!--        <a (click)="preventDefault($event);selectStartDate=false" *ngIf="selectStartDate" href="#">X</a>-->
-          <!--        <br>-->
-
-          <!--        <span *ngIf="start.value">Start date : {{start.value|date:'d-M-y H:m'}}</span>-->
-          <!--        <ng-container *ngIf="selectStartDate">-->
-          <!--          <dl-date-time-picker-->
-          <!--            (change)="closePicker('start')"-->
-          <!--            formControlName="start"-->
-          <!--            maxView="year"-->
-          <!--            minView="minute"-->
-          <!--            minuteStep="5"-->
-          <!--            startView="day"-->
-          <!--          >-->
-          <!--          </dl-date-time-picker>-->
-          <!--        </ng-container>-->
-
-          <!--        <br>-->
-          <!--        <br>-->
-
-          <!--        <a (click)="preventDefault($event);selectEndDate=true" *ngIf="!selectEndDate" href="#">Pick end date</a>-->
-          <!--        <a (click)="preventDefault($event);selectEndDate=false" *ngIf="selectEndDate" href="#">X</a>-->
-          <!--        <br>-->
-
-          <!--        <span *ngIf="start.value">End date : {{end.value|date:'d-M-y H:m'}}</span>-->
-          <!--        <ng-container *ngIf="selectEndDate">-->
-          <!--          <dl-date-time-picker-->
-          <!--            (change)="closePicker('end')"-->
-          <!--            formControlName="end"-->
-          <!--            maxView="year"-->
-          <!--            minView="minute"-->
-          <!--            minuteStep="5"-->
-          <!--            startView="day"-->
-          <!--          >-->
-          <!--          </dl-date-time-picker>-->
-          <!--        </ng-container>-->
 
           <div *ngIf="false" [ngClass]="{'has-error':end.invalid}" class="form-group">
             <input class="form_datetime form-control" formControlName="end" readonly size="16" type="text">
@@ -162,6 +133,7 @@
 
           <div class="form-group">
             <button class="btn btn-theme" type="submit">Send Now</button>
+            <button (click)="resetForm($event)" class="btn btn-theme" style="margin-left: 20px">Reset</button>
           </div>
 
         </form>
@@ -170,69 +142,3 @@
     </div>
   </div>
 </div>
-
-<form (ngSubmit)="submitForm(campaignForm.value)" *ngIf="tags&&false" [formGroup]="campaignForm" nz-form>
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
-    <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="12" nzHasFeedback>
-      <input formControlName="title" nz-input placeholder="title" type="email"/>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
-    <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
-      <textarea
-        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-        formControlName="description"
-        nz-input
-        placeholder="Article description"
-      ></textarea>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSpan]="7" nzRequired>Tags</nz-form-label>
-    <nz-form-control>
-      <nz-select formControlName="tags" nzMode="tags" nzPlaceHolder="Tag Mode">
-        <nz-option *ngFor="let tag of tags" [nzLabel]="tag.name" [nzValue]="tag.name"></nz-option>
-      </nz-select>
-    </nz-form-control>
-
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button [disabled]="!campaignForm.valid" nz-button nzType="primary">Submit</button>
-      <button (click)="resetForm($event)" nz-button>Reset</button>
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-    <button (click)="preventDefault($event);add_committee_member(null)" nz-button>
-      <i nz-icon nzType="add"></i>
-      Add committee
-    </button>
-
-    <nz-form-item *ngFor="let type of campaignForm.get('committee_members')['controls']; let i = index"
-                  formArrayName="committee_members">
-      <ng-container [formGroupName]="i">
-        <nz-form-label [nzSpan]="3" nzRequired>Comittee Role</nz-form-label>
-        <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="5" nzHasFeedback>
-          <input formControlName="role" nz-input placeholder="role"/>
-        </nz-form-control>
-        <nz-form-label [nzSpan]="3" nzRequired>Select a person</nz-form-label>
-
-        <nz-form-control [nzErrorTip]="'Required'" [nzSpan]="7" nzHasFeedback>
-          <nz-select formControlName="user_id" nzAllowClear nzPlaceHolder="Select a person" nzShowSearch>
-            <nz-option *ngFor="let user of users" [nzValue]="user.id"
-                       nzLabel="{{user.first_name}} {{user.last_name}}"></nz-option>
-
-          </nz-select>
-
-
-        </nz-form-control>
-        <nz-form-control [nzSpan]="1">
-          <button (click)="preventDefault($event);deleteCommitteeMember(i)" nz-button nzShape="circle" nzType="danger">
-            X
-          </button>
-        </nz-form-control>
-      </ng-container>
-    </nz-form-item>
-  </nz-form-item>
-</form>
