@@ -39,7 +39,7 @@
     <div *ngFor="let article of articles" class="col-md-6 col-sm-12">
       <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
         <figure class="event-img">
-          <a href="#">
+          <a href="#" routerLink="/article/{{article.id}}">
             <img [src]="article.image|publicFolder" alt="">
           </a>
         </figure>
