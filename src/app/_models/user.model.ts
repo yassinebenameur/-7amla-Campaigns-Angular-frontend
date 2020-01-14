@@ -8,6 +8,8 @@ export class UserModel {
   last_name: string;
   date_of_birth: string;
   phone: string;
+  image: string;
+  bio: string;
   campaigns: Campaign[];
   articles: ArticleModel[];
   interests: Campaign[];

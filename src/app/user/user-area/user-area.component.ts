@@ -3,7 +3,6 @@ import {AuthenticationService} from '../../_services/authentication.service';
 import {AuthTokenModel} from '../../_models/auth-token.model';
 import {UserModel} from '../../_models/user.model';
 import {ActivatedRoute} from '@angular/router';
-import {Campaign} from '../../_models/campaign.model';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 
@@ -30,7 +29,7 @@ export class UserAreaComponent implements OnInit {
         authService.currentUser
           .subscribe(
             x => {
-              this.currentUser = x;
+              this.user = x.user;
             });
       });
   }
@@ -40,15 +39,15 @@ export class UserAreaComponent implements OnInit {
       this.userId = routeParams['id'];
     });
 
-    this.crudService.getOne<UserModel>(this.userUrl, this.userId)
-      .subscribe(user => {
-        if (this.userId === this.currentUser.user.id) {
-          this.user = this.currentUser.user;
-        } else {
-          this.user = user;
-        }
-        console.log(this.user);
-      });
+    if (this.userId) {
+      this.crudService.getOne<UserModel>(this.userUrl, this.userId)
+        .subscribe(user => {
+          if (this.userId !== this.user.id) {
+            this.user = user;
+          }
+          console.log(this.user);
+        });
+    }
   }
 
   changeDisplay(i: number) {
