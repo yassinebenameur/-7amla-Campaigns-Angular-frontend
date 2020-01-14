@@ -121,6 +121,16 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="article-author clearfix">
+          <h4>
+            Interested : {{campaign.interests.length}}
+            <nz-rate (ngModelChange)="submitInterest($event)" *ngIf="currentUser" [(ngModel)]="interested"
+                     nzCount="1"></nz-rate>
+          </h4>
+        </div>
+      </div>
+
       <div *ngIf="campaign.tags.length>0" class="row">
         <div class="article-author clearfix">
 
@@ -143,19 +153,17 @@
         <div class="article-author clearfix">
 
           <div class="topic-bold-header clearfix">
-            <h4>Event Created by <a href="#">Deborah Beck</a></h4>
+            <h4>Event Created by <a href="#">{{campaign.creator.first_name}} {{campaign.creator.last_name}}</a></h4>
           </div> <!-- end .topic-bold-header  -->
 
           <figure class="author-avatar">
             <a href="#">
-              <img alt="Avatar" src="images/user_1.jpg">
+              <img alt="Avatar" src="{{campaign.creator.image|publicFolder}}">
             </a>
           </figure>
 
           <div class="about_author">
-            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-            tortor quam feugiat vitae ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas
-            semper.
+            {{campaign.creator.bio}}
           </div>
 
           <div class="social-icons margin-top-11 clearfix">
@@ -177,6 +185,71 @@
 
       </div>
 
+
+      <div class="comments-area" id="comments">
+        <a class="article-add-comments" href="#respond"><i class="fa fa-plus"></i></a>
+        <div class="topic-bold-header clearfix">
+          <h4>{{campaign.feedback.length}} feedback to this article</h4>
+        </div> <!-- end .topic-bold-header  -->
+
+
+        <ol *ngIf="campaign.feedback.length>0" class="commentslist">
+          <li *ngFor="let feedback of campaign.feedback">
+            <article class="clearfix">
+              <header>
+                <h5>
+                  <a routerLink="/user/{{feedback.id}}">{{feedback.first_name}} {{feedback.last_name}}</a>
+                  <nz-rate [ngModel]="feedback.feedback.rating" nzDisabled></nz-rate>
+                </h5>
+                <p><span>{{feedback.feedback.created_at}}</span></p>
+              </header>
+
+              <figure class="comment-avatar">
+                <a href="#">
+                  <img alt="Avatar" src="{{feedback.image|publicFolder}}">
+                </a>
+              </figure>
+
+
+              <div class="comment_text">
+                {{feedback.feedback.comment}}
+              </div>
+
+            </article>
+          </li>
+
+
+        </ol>
+
+
+        <div *ngIf="currentUser&&checkUserCanGiveFeedback()" id="respond">
+
+          <div class="topic-bold-header clearfix">
+            <h4>Leave a reply</h4>
+          </div> <!-- end .topic-bold-header  -->
+
+          <form (ngSubmit)="postFeedback()" [formGroup]="feedbackForm"
+                id="comment-form">
+
+            <nz-rate [(ngModel)]="rating" [ngModelOptions]="{standalone:true}" nzAllowHalf></nz-rate>
+
+
+            <div class="form-group">
+
+              <textarea class="form-control" formControlName="comment" id="comment" name="comment"
+                        placeholder="Comment" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-custom" type="submit">Submit Comment</button>
+            </div>
+
+          </form>
+
+
+        </div> <!-- end respond-->
+
+      </div> <!-- end comments-area-->
     </div> <!--  end container -->
 
   </section>

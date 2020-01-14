@@ -11,11 +11,11 @@ const routes: Routes = [
   {path: 'article', loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)},
   {path: 'tag', loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)},
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
-  {path: 'user/:id', loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
+  {path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

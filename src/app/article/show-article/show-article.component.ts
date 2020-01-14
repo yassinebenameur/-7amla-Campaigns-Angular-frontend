@@ -55,16 +55,21 @@ export class ShowArticleComponent implements OnInit {
   }
 
 
-
   postComment() {
+    console.log('posting commen,t ');
     for (const key in this.commentForm.controls) {
       this.commentForm.controls[key].markAsDirty();
       this.commentForm.controls[key].updateValueAndValidity();
     }
+
+    console.log('im there');
+
+
     this.crud.post(this.commentUrl, this.commentForm.value)
       .subscribe(comments => {
         // @ts-ignore
         this.article.comments = comments;
+        this.commentForm.reset();
       });
   }
 

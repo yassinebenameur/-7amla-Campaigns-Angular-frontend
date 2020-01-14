@@ -1,38 +1,153 @@
-<ng-container *ngIf="article">
-  <h3>{{article.title}}</h3>
-  <a *ngIf="currentUser&&currentUser.id===article.user.id" routerLink="/article/edit/{{articleId}}">Edit</a>
-  <p *ngFor="let paragraph of article.body.split('\n')">
-    {{paragraph}}
-  </p>
+<div class="container">
 
-  <div *ngIf="article.comments.length>0">
-    <h3>
-      Comments
-    </h3>
-    <div *ngFor="let comment of article.comments">
-      <h4>
-        {{comment.first_name}} {{comment.last_name}}
-      </h4>
-      <p>
-        {{comment.comments.content}}
-      </p>
-    </div>
-  </div>
-  <form [formGroup]="commentForm" (ngSubmit)="postComment()" *ngIf="currentUser&&checkUserCanGiveComment()">
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
-      <textarea
-        [nzAutosize]="{ minRows: 2, maxRows: 6 }"
-        formControlName="content"
-        nz-input
-        placeholder="content"
-      ></textarea>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button [disabled]="!commentForm.valid" nz-button nzType="primary">Submit</button>
-      <button (click)="resetForm($event)" nz-button>Reset</button>
-    </nz-form-control>
-  </form>
-</ng-container>
+  <div class="row">
+
+    <div class="col-md-12 col-sm-12">
+
+      <article class="post single-post-inner">
+
+        <div class="post-inner-featured-content">
+          <img alt="" src="../../../assets/images/blog_3.jpg">
+        </div>
+
+        <div class="single-post-inner-title">
+          <h2>{{article.title}}</h2>
+          <p class="single-post-meta"><i
+            class="fa fa-user"></i>&nbsp; {{article?.user?.first_name}} {{article?.user?.last_name}}&nbsp; &nbsp; <i
+            class="fa fa-share"></i>&nbsp; {{article?.campaign?.title}}</p>
+        </div>
+
+        <div class="single-post-inner-content">
+          <p>
+            {{article.body}}
+          </p>
+        </div>
+
+
+      </article> <!--  end single-post-container -->
+
+      <div class="article-author clearfix">
+
+        <div class="topic-bold-header clearfix">
+          <h4>Article by <a href="#"
+                            routerLink="/article/{{article?.user?.id}}">{{article?.user?.first_name}} {{article?.user?.last_name}}</a>
+          </h4>
+        </div> <!-- end .topic-bold-header  -->
+
+        <figure class="author-avatar">
+          <a href="#">
+            <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+          </a>
+        </figure>
+
+
+      </div> <!-- end .article-author  -->
+
+
+      <div class="comments-area" id="comments">
+        <div class="topic-bold-header clearfix">
+          <h4>{{article.comments.length}} comment{{article.comments.length != 1 ? 's' : ''}} to this article</h4>
+        </div> <!-- end .topic-bold-header  -->
+
+
+        <ol *ngIf="article?.comments.length>0" class="commentslist">
+          <li *ngFor="let comment of article.comments">
+            <article class="clearfix">
+              <header>
+                <h5><span>USER</span><a href="#"
+                                        routerLink="/user/{{comment.id}}">{{comment.first_name}} {{comment.last_name}}</a>
+                </h5>
+              </header>
+
+              <figure class="comment-avatar">
+                <a href="#">
+                  <img alt="Avatar" src="../../../assets/images/user_1.jpg">
+                </a>
+              </figure>
+
+
+              <div class="comment_text">
+                {{comment.comments.content}}
+              </div>
+
+            </article>
+          </li>
+
+
+        </ol>
+
+
+        <div id="respond">
+
+          <div class="topic-bold-header clearfix">
+          </div> <!-- end .topic-bold-header  -->
+
+          <form (ngSubmit)="postComment()" *ngIf="currentUser" [formGroup]="commentForm" action="#" id="comment-form"
+                method="post"
+                role="form">
+
+            <div class="form-group">
+
+              <textarea class="form-control" formControlName="content" id="comment" name="comment"
+                        placeholder="Write Your Comment"
+                        rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+              <button [disabled]="!commentForm.valid" class="btn btn-custom" type="submit">Submit Comment</button>
+              <button (click)="resetForm($event)" class="btn btn-custom">Reset</button>
+            </div>
+
+          </form>
+
+
+        </div> <!-- end respond-->
+
+      </div> <!-- end comments-area-->
+
+    </div> <!--  end .single-post-container -->
+
+
+  </div> <!--  end row  -->
+
+</div>
+
+
+<!--<ng-container *ngIf="false">-->
+<!--  <h3>{{article.title}}</h3>-->
+<!--  <a *ngIf="currentUser&&currentUser.id===article.user.id" routerLink="/article/edit/{{articleId}}">Edit</a>-->
+<!--  <p *ngFor="let paragraph of article.body.split('\n')">-->
+<!--    {{paragraph}}-->
+<!--  </p>-->
+
+<!--  <div *ngIf="article.comments.length>0">-->
+<!--    <h3>-->
+<!--      Comments-->
+<!--    </h3>-->
+<!--    <div *ngFor="let comment of article.comments">-->
+<!--      <h4>-->
+<!--        {{comment.first_name}} {{comment.last_name}}-->
+<!--      </h4>-->
+<!--      <p>-->
+<!--        {{comment.comments.content}}-->
+<!--      </p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <form [formGroup]="commentForm" (ngSubmit)="postComment()" *ngIf="currentUser&&checkUserCanGiveComment()">-->
+<!--    <nz-form-item>-->
+<!--      <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>-->
+<!--      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">-->
+<!--      <textarea-->
+<!--        [nzAutosize]="{ minRows: 2, maxRows: 6 }"-->
+<!--        formControlName="content"-->
+<!--        nz-input-->
+<!--        placeholder="content"-->
+<!--      ></textarea>-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
+<!--    <nz-form-control [nzOffset]="7" [nzSpan]="12">-->
+<!--      <button [disabled]="!commentForm.valid" nz-button nzType="primary">Submit</button>-->
+<!--      <button (click)="resetForm($event)" nz-button>Reset</button>-->
+<!--    </nz-form-control>-->
+<!--  </form>-->
+<!--</ng-container>-->

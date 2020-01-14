@@ -1,24 +1,87 @@
-<nz-list
-  [nzDataSource]="articles"
-  [nzItemLayout]="'vertical'"
-  [nzPagination]="pagination"
-  [nzRenderItem]="item"
->
-  <ng-template #item let-item>
-    <nz-list-item [nzActions]="[starAction, likeAction]" [nzContent]="item.body|truncateDescription" [nzExtra]="extra">
-      <ng-template #starAction><i nz-icon nzType="like-o" style="margin-right: 8px;"></i> 156</ng-template>
-      <ng-template #likeAction><i nz-icon nzType="dislike-o" style="margin-right: 8px;"></i> 156</ng-template>
-      <nz-list-item-meta *ngIf="!!item.user" [nzDescription]="item.user.first_name+' '+item.user.last_name" [nzTitle]="nzTitle">
-        <ng-template #nzTitle
-        ><a  routerLink="/article/{{item.id}}">{{ item.title }}  <b> - {{item.campaign.title}}</b></a></ng-template
-        >
-      </nz-list-item-meta>
-      <ng-template #extra>
-        <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" width="272"/>
-      </ng-template>
-    </nz-list-item>
-  </ng-template>
-  <ng-template #pagination>
-    <nz-pagination (nzPageIndexChange)="loadData($event)" [nzPageIndex]="1" [nzTotal]="nbArticles"></nz-pagination>
-  </ng-template>
-</nz-list>
+<section class="page-header" data-stellar-background-ratio="1.2">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-sm-12 text-center">
+
+        <h3>
+          Articles Lists
+        </h3>
+
+        <p class="page-breadcrumb">
+          <a href="#">Home</a> / All Articles
+        </p>
+
+
+      </div>
+
+    </div> <!-- end .row  -->
+
+  </div> <!-- end .container  -->
+
+</section>
+
+<div class="container margin-top-48">
+
+  <div class="row section-heading-wrapper">
+
+    <div class="col-md-12 col-sm-12 text-left no-img-separator">
+      <h2>ALL ARTICLES</h2>
+      <span class="heading-separator heading-separator-horizontal"></span>
+    </div> <!-- end .col-sm-12  -->
+
+  </div> <!-- end .row  -->
+
+  <div *ngIf="articles" class="row margin-top-48">
+
+    <div *ngFor="let article of articles" class="col-md-6 col-sm-12">
+      <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
+        <figure class="event-img">
+          <a href="#">
+            <img alt="" src="../../../assets/images/gallery_4.jpg">
+          </a>
+        </figure>
+        <div class="event-info">
+          <a class="event-date" href="#" routerLink="/user/{{article.user.id}}"><i class="fa fa-user"></i>Written
+            By: {{article.user.first_name}} {{article.user.last_name}}</a>
+          <h4>
+            <a routerLink="/article/{{article.id}}">{{article.title|truncateDescription:30}}</a>
+          </h4>
+          <div class="event-exceprt" style="min-height: 84px">{{article.body|truncateDescription:80}}</div>
+          <div class="event-time">
+            <a href="#" routerLink="/campaign/{{article.campaign.id}}"><i class="fa fa-chain"
+            ></i>Campaign: {{article.campaign.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<nz-list *ngIf="false"-->
+<!--         [nzDataSource]="articles"-->
+<!--         [nzItemLayout]="'vertical'"-->
+<!--         [nzPagination]="pagination"-->
+<!--         [nzRenderItem]="item"-->
+<!--&gt;-->
+<!--  <ng-template #item let-item>-->
+<!--    <nz-list-item [nzActions]="[starAction, likeAction]" [nzContent]="item.body|truncateDescription" [nzExtra]="extra">-->
+<!--      <ng-template #starAction><i nz-icon nzType="like-o" style="margin-right: 8px;"></i> 156</ng-template>-->
+<!--      <ng-template #likeAction><i nz-icon nzType="dislike-o" style="margin-right: 8px;"></i> 156</ng-template>-->
+<!--      <nz-list-item-meta *ngIf="!!item.user" [nzDescription]="item.user.first_name+' '+item.user.last_name"-->
+<!--                         [nzTitle]="nzTitle">-->
+<!--        <ng-template #nzTitle-->
+<!--        ><a routerLink="/article/{{item.id}}">{{ item.title }}  <b> - {{item.campaign.title}}</b></a></ng-template-->
+<!--        >-->
+<!--      </nz-list-item-meta>-->
+<!--      <ng-template #extra>-->
+<!--        <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" width="272"/>-->
+<!--      </ng-template>-->
+<!--    </nz-list-item>-->
+<!--  </ng-template>-->
+<!--  <ng-template #pagination>-->
+<!--    <nz-pagination (nzPageIndexChange)="loadData($event)" [nzPageIndex]="1" [nzTotal]="nbArticles"></nz-pagination>-->
+<!--  </ng-template>-->
+<!--</nz-list>-->

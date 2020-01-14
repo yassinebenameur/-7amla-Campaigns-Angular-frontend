@@ -93,12 +93,13 @@ export class FormCampaignComponent implements OnInit {
       this.campaignForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    console.log(this.start.value.toLocaleString());
+    // console.log(this.start.value.toLocaleString());
 
     if (!this.campaign) {
-      this.crud.post(this.campaignUrl, Object.assign(this.campaignForm.value, {image: this.fileData}), true)
+      const values = this.fileData ? Object.assign(this.campaignForm.value, {image: this.fileData}) : this.campaignForm.value;
+      this.crud.post(this.campaignUrl, values, true)
         .subscribe(() => {
-          // this.router.navigate(['/campaign/']);
+          this.router.navigate(['/campaign/']);
         });
     } else {
       const values = this.fileData ? Object.assign(this.campaignForm.value, {image: this.fileData}) : this.campaignForm.value;
