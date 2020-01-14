@@ -69,6 +69,7 @@ export class ShowCampaignComponent implements OnInit {
       this.feedbackForm.controls[key].markAsDirty();
       this.feedbackForm.controls[key].updateValueAndValidity();
     }
+    this.feedbackForm.controls.rating.setValue(this.rating);
     this.crud.post(this.feedbackUrl, this.feedbackForm.value)
       .subscribe(feedback => {
         // @ts-ignore

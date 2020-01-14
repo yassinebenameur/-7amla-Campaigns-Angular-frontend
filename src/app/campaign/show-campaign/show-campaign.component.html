@@ -229,13 +229,13 @@
         </ol>
 
 
-        <div id="respond">
+        <div *ngIf="currentUser&&checkUserCanGiveFeedback()" id="respond">
 
           <div class="topic-bold-header clearfix">
             <h4>Leave a reply</h4>
           </div> <!-- end .topic-bold-header  -->
 
-          <form (ngSubmit)="postFeedback()" *ngIf="currentUser&&checkUserCanGiveFeedback()" [formGroup]="feedbackForm"
+          <form (ngSubmit)="postFeedback()" [formGroup]="feedbackForm"
                 id="comment-form">
 
             <nz-rate [(ngModel)]="rating" [ngModelOptions]="{standalone:true}" nzAllowHalf></nz-rate>
