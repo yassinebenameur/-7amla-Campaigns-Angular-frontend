@@ -19,6 +19,7 @@ export class Globals {
   static INTEREST = '/interest';
   static REMOVE = '/remove';
   static FACEBOOK_LOGIN = Globals.BASE_URL + '/redirect';
+  static FUNDS = '/funds';
 
 
   static toFormData<T>(formValue: T) {

@@ -19,6 +19,7 @@ export class Campaign {
   end_hour: string;
   place: string;
   image: string;
+  totalFunds: number;
 
   constructor(id: string, title: string, description: string, tags: TagModel[], users: UserModel[]) {
     this.id = id;

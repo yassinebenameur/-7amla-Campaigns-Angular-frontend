@@ -20,7 +20,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <a *ngIf="campaign.creator.id===currentUser.id"
+            <a *ngIf="currentUser&&campaign.creator.id===currentUser.id"
                class="btn btn-theme" routerLink="/campaign/edit/{{campaign.id}}"><i
               class="fa fa-edit"></i>
               Edit</a>
@@ -127,7 +127,7 @@
 
           <div class="row">
 
-            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12" routerLink="/user/{{user}}">
+            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12" routerLink="/user/{{user.id}}">
 
               <div class="team-layout-1 theme-custom-box-shadow theme-custom-box-animation">
 
@@ -186,6 +186,14 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="article-author clearfix">
+            <h4>
+              Total Funds : {{campaign.totalFunds}}
+            </h4>
+          </div>
+        </div>
+
         <div *ngIf="campaign.tags.length>0" class="row">
           <div class="article-author clearfix">
 
@@ -211,7 +219,7 @@
               <h4>Event Created by <a href="#">{{campaign.creator.first_name}} {{campaign.creator.last_name}}</a></h4>
             </div> <!-- end .topic-bold-header  -->
 
-            <figure class="author-avatar">
+            <figure class="author-avatar" *ngIf="campaign.creator.image">
               <a href="#">
                 <img alt="Avatar" src="{{campaign.creator.image|publicFolder}}">
               </a>
@@ -283,7 +291,75 @@
               </div>
 
               <div class="form-group">
-                <button class="btn btn-custom" type="submit">Submit Comment</button>
+                <button [disabled]="feedbackForm.invalid" class="btn btn-custom" type="submit">Submit Comment</button>
+              </div>
+
+            </form>
+
+
+          </div>
+
+          <div *ngIf="currentUser">
+
+            <div class="topic-bold-header clearfix">
+              <h4>Fund this campaign</h4>
+            </div> <!-- end .topic-bold-header  -->
+
+            <form (ngSubmit)="postFund()" [formGroup]="fundForm">
+
+              <div class="form-group">
+                <input (input)="formatCreditCardNumber($event)" [ngClass]="{'has-error':card_number.invalid}"
+                       class="form-control"
+                       formControlName="card_number" name="card_number"
+                       placeholder="Credit Card Number"
+                       type="text">
+                <ng-container *ngIf="card_number.invalid && (card_number.dirty || card_number.touched)">
+                  <span *ngIf="card_number.errors.required" class="help-block">Credit card number is Required</span>
+                  <span *ngIf="card_number.errors.minlength"
+                        class="help-block">Length of credit card number must be 16</span>
+                </ng-container>
+
+              </div>
+
+              <div class="form-group">
+                <nz-month-picker
+                  (ngModelChange)="onChange($event)"
+                  [ngModelOptions]="{standalone: true}"
+                  [nzDisabledDate]="disabledDate"
+                  [(ngModel)]="validityDate"
+                  nzFormat="MM/yyyy"
+                  nzPlaceHolder="Select date"
+                ></nz-month-picker>
+                <ng-container *ngIf="validity_date.invalid && (validity_date.dirty || validity_date.touched)">
+                  <span *ngIf="validity_date.errors.required" class="help-block">Validity date is Required</span>
+                </ng-container>
+
+              </div>
+
+              <div class="form-group">
+                <input [ngClass]="{'has-error':cvc.invalid}" class="form-control" formControlName="cvc" name="cvc"
+                       placeholder="CVC" type="password">
+                <ng-container *ngIf="cvc.invalid && (cvc.dirty || cvc.touched)">
+                  <span *ngIf="cvc.errors.maxlength" class="help-block">CVC length must be 3</span>
+                  <span *ngIf="cvc.errors.minlength" class="help-block">CVC length must be 3</span>
+                  <span *ngIf="cvc.errors.required" class="help-block">CVC is required</span>
+                </ng-container>
+
+              </div>
+
+              <div class="form-group">
+                <input [ngClass]="{'has-error':amount.invalid}" class="form-control" formControlName="amount"
+                       min="1"
+                       name="amount" placeholder="Amount" type="number">
+                <ng-container *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+                  <span *ngIf="amount.errors.required" class="help-block">Amount is required</span>
+                </ng-container>
+
+              </div>
+
+
+              <div class="form-group">
+                <button [disabled]="fundForm.invalid" class="btn btn-custom" type="submit">Fund this campaign</button>
               </div>
 
             </form>
