@@ -22,6 +22,7 @@ export class ShowCampaignComponent implements OnInit {
   currentUser: UserModel;
   interested: number;
   interestUrl;
+  rating: number;
 
   constructor(private crud: CrudService,
               private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class ShowCampaignComponent implements OnInit {
       this.campaignId = params.id;
     });
     this.interested = 0;
+    this.rating = 2.5;
 
     authService.currentUser
       .subscribe(user => {
