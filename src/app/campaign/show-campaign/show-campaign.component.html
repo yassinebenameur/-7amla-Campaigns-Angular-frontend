@@ -109,6 +109,42 @@
 
         </div> <!--  end .row  -->
 
+        <div class="container margin-top-48 margin-bottom-48 wow fadeInLeft animated"
+             style="visibility: visible; animation-name: fadeInLeft;">
+
+          <div class="row">
+
+            <div *ngFor="let user of campaign.users" class="col-md-4 col-sm-12">
+
+              <div class="team-layout-1 theme-custom-box-shadow theme-custom-box-animation">
+
+                <figure class="team-member">
+                  <a href="#" title="ALEXANDER GARY">
+                    <img alt="{{user.first_name }} {{ user.last_name}}" src="{{user.image|publicFolder}}">
+                  </a>
+
+                </figure> <!-- end. team-member  -->
+
+                <article class="team-info">
+                  <h3>{{user.first_name }} {{ user.last_name}}</h3>
+                  <h4>{{user.role.role}}</h4>
+                </article>
+
+                <div class="team-content">
+
+
+                </div>
+
+              </div> <!--  end team-layout-1 -->
+
+            </div> <!--  end .col-md-4 col-sm-12  -->
+
+
+          </div> <!-- end .row  -->
+
+
+        </div>
+
         <div *ngIf="campaign.articles.length>0" class="row">
           <div class="article-author clearfix">
 

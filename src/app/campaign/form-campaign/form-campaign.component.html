@@ -56,10 +56,10 @@
           </nz-form-control>
 
           <nz-form-item>
-            <button (click)="preventDefault($event);add_committee_member(null)" nz-button>
+            <a (click)="preventDefault($event);add_committee_member(null)" class="btn btn-custom">
               <i nz-icon nzType="add"></i>
               Add committee
-            </button>
+            </a>
 
             <nz-form-item *ngFor="let type of campaignForm.get('committee_members')['controls']; let i = index"
                           formArrayName="committee_members">
@@ -92,7 +92,14 @@
           <div class="row">
             <div class="col-md-6 offset-md-3">
               <div class="form-group">
-                <input (change)="fileProgress($event)" name="image" type="file"/>
+                <label for="image">
+                  <a class="btn btn-custom">Add Image
+                  </a>
+                  <input (change)="fileProgress($event)" class="form-control" id="image" name="image"
+                         style="display: none"
+                         type="file"/>
+                </label>
+
               </div>
               <div *ngIf="fileUploadProgress">
                 Upload progress: {{ fileUploadProgress }}
