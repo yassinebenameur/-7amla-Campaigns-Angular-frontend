@@ -63,6 +63,8 @@ export class FormArticleComponent implements OnInit {
         .subscribe(article => {
           this.article = article;
           this.initForm();
+        }, () => {
+          this.router.navigate(['/article']);
         });
     }
   }

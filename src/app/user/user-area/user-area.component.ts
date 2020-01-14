@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../_services/authentication.service';
 import {AuthTokenModel} from '../../_models/auth-token.model';
 import {UserModel} from '../../_models/user.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../_services/crud.service';
 import {Globals} from '../../_globals/Globals';
 
@@ -19,7 +19,10 @@ export class UserAreaComponent implements OnInit {
   private userId: any;
   private userUrl: string;
 
-  constructor(private authService: AuthenticationService, private  crudService: CrudService, private route: ActivatedRoute) {
+  constructor(private authService: AuthenticationService,
+              private crudService: CrudService,
+              private router: Router,
+              private route: ActivatedRoute) {
     this.userId = this.route.snapshot.params.id;
     this.userUrl = Globals.API_URL + Globals.USER;
 
@@ -36,7 +39,7 @@ export class UserAreaComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
-      this.userId = routeParams['id'];
+      this.userId = routeParams.id;
     });
 
     if (this.userId) {
@@ -46,6 +49,8 @@ export class UserAreaComponent implements OnInit {
             this.user = user;
           }
           console.log(this.user);
+        }, () => {
+          this.router.navigate(['/campaign']);
         });
     }
   }

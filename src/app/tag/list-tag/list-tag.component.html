@@ -7,19 +7,7 @@
     <div class="tag-list">
       <a *ngFor="let tag of tags" href="#" routerLink="/search/{{tag.name}}"
          style="margin: 5px 5px 5px 5px">#{{tag.name}}</a>
-      <input #newTagEl (keyup.enter)="onEnter(newTagEl.value)" *ngIf="newTag" placeholder="#" style="  display: inline-block;
-      padding: 4px 12px;
-      margin-right: 3px;
-      background: #EF3D32;
-      color: #FFFFFF;"
-             type="text">
 
     </div>
   </div>
-
-  <h2 class="contact-title">Create a new Tag ?
-    <button class="btn btn-capitalize">
-      <a (click)="newTag=true" href="JavaScript:void(0);">New Tag</a>
-    </button>
-  </h2>
 </div>
