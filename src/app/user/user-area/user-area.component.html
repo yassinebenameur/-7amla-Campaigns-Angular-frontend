@@ -122,33 +122,6 @@
     <app-list-article *ngIf="display===1" [articles]="user.articles"></app-list-article>
     <app-list-campaign *ngIf="display===2" [campaigns]="user.interests"></app-list-campaign>
     <app-list-article *ngIf="display===3" [articles]="user.comments"></app-list-article>
-    <!--
-    <app-list-campaign [campaigns]="user.user.campaigns" *ngIf="display===3"></app-list-campaign>
--->
   </section>
-  <!--
 
-<div class="">
-
-  <div nz-row nzJustify="center">
-    <div nz-col nzSm="18" nzXs="24">
-      <button (click)="changeDisplay(0)" [class.btn-outline-primary]="display!==0" [class.btn-primary]="display===0"
-              class="btn mb-3 mr-sm-2">Details
-      </button>
-      <button (click)="changeDisplay(1)" [class.btn-outline-primary]="display!==1" [class.btn-primary]="display===1"
-              class="btn mb-3 mr-sm-2">7amlet
-      </button>
-      <button (click)="changeDisplay(2)" [class.btn-outline-primary]="display!==2" [class.btn-primary]="display===2"
-              class="btn mb-3 mr-sm-2">Articles
-      </button>
-    </div>
-  </div>
-
-  <div class="border border-light p-3" *ngIf="user">
-    <app-user-detail *ngIf="display===0" [user]="user.user"></app-user-detail>
-    <app-list-article [articles]="user.user.articles" *ngIf="display===2"></app-list-article>
-  </div>
-
-</div>
--->
 </ng-container>

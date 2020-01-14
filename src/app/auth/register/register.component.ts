@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../_services/crud.service';
 import {Router} from '@angular/router';
 import {Globals} from '../../_globals/Globals';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,8 @@ export class RegisterComponent implements OnInit {
   registerUrl: string;
   userEmailUrl: string;
 
+  validateEmailSubscription: Subscription;
+
   error;
 
   loading: boolean;
@@ -23,28 +26,7 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder) {
     this.registerUrl = Globals.API_URL + Globals.AUTH + Globals.REGISTER;
-
-  }
-
-  ngOnInit() {
-    this.initRegisterForm();
-  }
-
-  initRegisterForm() {
-    this.registerForm = this.fb.group({
-
-      email: ['khlilturki97@gmail.com', Validators.compose([
-        Validators.required,
-        Validators.email,
-      ])],
-      password: [null, Validators.required],
-      password_confirmation: [null, Validators.required],
-
-      first_name: ['khlil', Validators.required],
-      last_name: ['turki', Validators.required],
-      phone: ['54192720', Validators.required],
-      date_of_birth: ['1997-03-10', Validators.required],
-    });
+    this.userEmailUrl = Globals.API_URL + Globals.USER + Globals.VERIFY;
   }
 
   get email() {
@@ -75,22 +57,37 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('date_of_birth');
   }
 
-  // initAddress(type) {
-  //   return this.fb.group({
-  //     street: ['street', Validators.required],
-  //     zip_code: [8000, Validators.required],
-  //     country: ['tn', Validators.required],
-  //     city: ['nb', Validators.required],
-  //     type
-  //   });
-  // }
+  ngOnInit() {
+    this.initRegisterForm();
+  }
 
+  initRegisterForm() {
+    this.registerForm = this.fb.group({
+
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.email,
+      ])],
+      password: [null, Validators.required],
+      password_confirmation: [null, Validators.required],
+
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      phone: ['', Validators.required],
+      date_of_birth: ['', Validators.required],
+    });
+  }
 
   validateEmail() {
-    this.crud.getOne(this.userEmailUrl, (this.registerForm.controls.user as FormGroup).controls.email.value)
+    if (this.validateEmailSubscription) {
+      this.validateEmailSubscription.unsubscribe();
+    }
+    this.validateEmailSubscription = this.crud.getOne(this.userEmailUrl, this.registerForm.controls.email.value)
       .subscribe(() => {
-        (this.registerForm.controls.user as FormGroup).controls.email.setErrors({error: true, duplicated: true});
-      });
+        },
+        () => {
+          this.registerForm.controls.email.setErrors({error: true, duplicated: true});
+        });
   }
 
   submitRegisterForm() {
@@ -115,14 +112,4 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  checkPassword() {
-    const password = (this.registerForm.controls.user as FormGroup).controls.password;
-    const password_confirmation = (this.registerForm.controls.user as FormGroup).controls.password_confirmation;
-    if (password.value && password_confirmation.value) {
-      console.log(password);
-      if (password.value !== password_confirmation.value) {
-        password_confirmation.setErrors({error: true, confirm: true});
-      }
-    }
-  }
 }

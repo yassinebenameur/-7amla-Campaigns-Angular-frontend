@@ -64,17 +64,6 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-
-  // initAddress(type) {
-  //   return this.fb.group({
-  //     street: [type !== 'billing' ? (this.user ? this.userForForm.user.user_detail.address.street : null) : null, Validators.required],
-  //     zip_code: [type !== 'billing' ? (this.user ? this.userForForm.user.user_detail.address.zip_code : null) : null, Validators.required],
-  //     country: [type !== 'billing' ? (this.user ? this.userForForm.user.user_detail.address.country : null) : null, Validators.required],
-  //     city: [type !== 'billing' ? (this.user ? this.userForForm.user.user_detail.address.city : null) : null, Validators.required],
-  //     type
-  //   });
-  // }
-
   fileProgress(fileInput: any) {
     this.fileData = fileInput.target.files[0] as File;
     this.preview();

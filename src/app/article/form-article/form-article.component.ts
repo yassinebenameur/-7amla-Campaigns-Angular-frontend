@@ -96,15 +96,6 @@ export class FormArticleComponent implements OnInit {
     }
   }
 
-  resetForm(e: MouseEvent): void {
-    e.preventDefault();
-    this.articleForm.reset();
-    for (const key in this.articleForm.controls) {
-      this.articleForm.controls[key].markAsPristine();
-      this.articleForm.controls[key].updateValueAndValidity();
-    }
-  }
-
 
   initForm() {
     this.articleForm = this.fb.group({

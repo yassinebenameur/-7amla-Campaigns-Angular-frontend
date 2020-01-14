@@ -8,12 +8,14 @@
             role="form">
 
         <div class="form-group">
-          <input [ngClass]="{'has-error':email.invalid}" class="form-control" formControlName="email" name="email"
-                 placeholder="Email"
+          <input (change)="validateEmail()" [ngClass]="{'has-error':email.invalid}" class="form-control"
+                 formControlName="email"
+                 name="email" placeholder="Email"
                  type="email">
           <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
             <span *ngIf="email.errors.required" class="help-block">Email is Required</span>
             <span *ngIf="email.errors.email" class="help-block">Email is invalid</span>
+            <span *ngIf="email.errors.duplicated" class="help-block">Email is already used</span>
           </ng-container>
 
         </div>

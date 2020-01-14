@@ -7,9 +7,9 @@ export class Globals {
   static TAG = '/tag';
   static LOGIN = '/login';
   static USER = '/user';
-  static VERIFY = '/verify';
   static REGISTER = '/register';
   static AUTH = '/auth';
+  static VERIFY = '/verify';
   static REFRESH = '/refresh';
 
   static globalError = 'Une erreur s\'est produite. Veuillez réessayez. Si l\'erreur persiste, contactez un administrateur';
@@ -39,12 +39,9 @@ export class Globals {
           }
         });
       } else {
-        //  console.log('not array');
         formData.append(key, value);
       }
     }
-    // console.log(formData);
-    // console.log('exiting toFormData');
 
 
     return formData;
