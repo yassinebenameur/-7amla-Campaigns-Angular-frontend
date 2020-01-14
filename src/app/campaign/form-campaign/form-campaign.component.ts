@@ -38,7 +38,7 @@ export class FormCampaignComponent implements OnInit {
   selectStartDate: boolean;
   selectEndDate: boolean;
   loading: boolean;
-  private selectedEndDate;
+  selectedEndDate;
 
   constructor(private fb: FormBuilder,
               private crud: CrudService,
