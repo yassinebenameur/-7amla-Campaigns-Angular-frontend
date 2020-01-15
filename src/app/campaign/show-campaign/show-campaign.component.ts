@@ -206,8 +206,13 @@ export class ShowCampaignComponent implements OnInit {
     console.log(validity_date);
     this.validity_date.setValue(validity_date.split('-')[0] + '-' + validity_date.split('-')[1]);
     this.crud.post(this.fundsUrl, this.fundForm.value)
-      .subscribe(() => {
+      .subscribe(campaign => {
         this.resetFundForm();
+        this.loading = false;
+        // @ts-ignore
+        this.campaign = campaign;
+      }, () => {
+
         this.loading = false;
       });
   }
