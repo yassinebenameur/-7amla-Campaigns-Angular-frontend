@@ -13,7 +13,7 @@
         </h3>
 
         <p class="page-breadcrumb">
-          <a href="#">Home</a> / All Campaigns
+          <a routerLink="/">Home</a> / All Campaigns
         </p>
 
 
@@ -42,7 +42,7 @@
     <div *ngFor="let campaign of campaigns" class="col-md-6 col-sm-12">
       <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
         <figure *ngIf="campaign.image" class="event-img">
-          <a href="#">
+          <a routerLink="/campaign/{{campaign.id}}">
             <img alt="" src="{{campaign.image|publicFolder}}">
           </a>
         </figure>
