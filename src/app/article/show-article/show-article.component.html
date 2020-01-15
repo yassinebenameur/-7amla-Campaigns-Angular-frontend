@@ -1,5 +1,7 @@
-<nz-card *ngIf="!article" [nzLoading]="!article"></nz-card>
+<div class="container">
 
+  <nz-card *ngIf="!article" [nzLoading]="!article"></nz-card>
+</div>
 
 <nz-spin [nzSpinning]="loading">
   <ng-container *ngIf="article">

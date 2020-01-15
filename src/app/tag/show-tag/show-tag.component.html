@@ -1,0 +1,24 @@
+<div class="container">
+  <nz-card *ngIf="!tag" [nzLoading]="!tag"></nz-card>
+</div>
+<div class="container animated zoomInUp">
+
+  <div *ngIf="tag" class="row">
+
+    <div class="col-md-12">
+      <h2 class="contact-title">Campaigns</h2>
+    </div>
+
+    <div *ngFor="let campaign of tag.campaigns" class="col-md-3">
+
+      <ul class="contact-info">
+        <li>
+          <a [routerLink]="'/campaign/'+campaign?.searchable?.id" href="javascript:void(0)" title>{{campaign.title}}</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>

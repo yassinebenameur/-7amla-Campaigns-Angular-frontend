@@ -1,11 +1,13 @@
-<div class="container  animated zoomInUp">
+<div class="container">
+  <nz-card *ngIf="!tags" [nzLoading]="!tags"></nz-card>
+</div>
+<div class="container  animated zoomInUp" *ngIf="tags">
   <h2 class="contact-title">Tags</h2>
 
-  <nz-card *ngIf="!tags" [nzLoading]="!tags"></nz-card>
 
   <div class="single-post-inner-meta">
     <div class="tag-list">
-      <a *ngFor="let tag of tags" href="#" routerLink="/search/{{tag.name}}"
+      <a *ngFor="let tag of tags" href="#" routerLink="/tag/{{tag.id}}"
          style="margin: 5px 5px 5px 5px">#{{tag.name}}</a>
 
     </div>
