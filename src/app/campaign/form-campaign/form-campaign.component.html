@@ -1,11 +1,12 @@
-<div *ngIf="campaignForm" class="container  animated fadeInLeftBig">
+<nz-card *ngIf="campaign_id&&!campaign" [nzLoading]="!campaign"></nz-card>
+
+<div *ngIf="campaignForm&&campaign_id?campaign:true" class="container  animated fadeInLeftBig">
   <div class="contact-form-block row ">
     <div class="col-md-6 col-12">
 
       <h2 *ngIf="!campaign_id" class="contact-title">Add a campaign</h2>
       <h2 *ngIf="campaign_id" class="contact-title">Edit a campaign</h2>
 
-      <nz-card *ngIf="campaign_id&&!campaign" [nzLoading]="!campaign"></nz-card>
 
       <nz-spin [nzSpinning]="loading">
         <form (ngSubmit)="submitForm(campaignForm.value)" [formGroup]="campaignForm" id="contact-form" role="form">

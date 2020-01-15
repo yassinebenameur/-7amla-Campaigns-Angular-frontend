@@ -1,4 +1,6 @@
-<div *ngIf="articleForm" class="container ">
+<nz-card *ngIf="articleId&&!article" [nzLoading]="!article"></nz-card>
+
+<div *ngIf="articleForm&&articleId?article:true" class="container  animated fadeInLeftBig ">
   <div class="contact-form-block row ">
     <div class="col-md-6 col-12">
 
