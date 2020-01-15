@@ -131,12 +131,19 @@
 
               <div class="team-layout-1 theme-custom-box-shadow theme-custom-box-animation">
 
-                <figure class="team-member" style="min-height: 358px">
+                <figure *ngIf="user.image" class="team-member" style="min-height: 358px">
                   <a href="#">
                     <img alt="{{user.first_name }} {{ user.last_name}}" src="{{user.image|publicFolder}}">
                   </a>
 
                 </figure> <!-- end. team-member  -->
+
+
+                <figure *ngIf="!user.image" class="team-member">
+                  <a href="#">
+                    <img alt="Avatar" src="../../../assets/images/default-avatar.png">
+                  </a>
+                </figure>
 
                 <article class="team-info">
                   <h3>{{user.first_name }} {{ user.last_name}}</h3>
@@ -219,9 +226,15 @@
               <h4>Event Created by <a href="#">{{campaign.creator.first_name}} {{campaign.creator.last_name}}</a></h4>
             </div> <!-- end .topic-bold-header  -->
 
-            <figure class="author-avatar" *ngIf="campaign.creator.image">
+            <figure *ngIf="campaign.creator.image" class="author-avatar">
               <a href="#">
                 <img alt="Avatar" src="{{campaign.creator.image|publicFolder}}">
+              </a>
+            </figure>
+
+            <figure *ngIf="!campaign.creator.image" class="author-avatar">
+              <a href="#">
+                <img alt="Avatar" src="../../../assets/images/default-avatar.png">
               </a>
             </figure>
 
@@ -324,9 +337,9 @@
               <div class="form-group">
                 <nz-month-picker
                   (ngModelChange)="onChange($event)"
+                  [(ngModel)]="validityDate"
                   [ngModelOptions]="{standalone: true}"
                   [nzDisabledDate]="disabledDate"
-                  [(ngModel)]="validityDate"
                   nzFormat="MM/yyyy"
                   nzPlaceHolder="Select date"
                 ></nz-month-picker>

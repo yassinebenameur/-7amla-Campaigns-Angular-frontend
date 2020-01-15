@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initLoginForm();
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/article';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   initLoginForm() {

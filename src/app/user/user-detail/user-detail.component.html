@@ -10,7 +10,7 @@
       <li>
         Nom: {{user.last_name}}
       </li>
-      <li>
+      <li *ngIf="user.date_of_birth">
         Date of birth: {{user.date_of_birth|revertDate}}
       </li>
       <li>

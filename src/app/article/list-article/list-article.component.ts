@@ -15,7 +15,7 @@ export class ListArticleComponent implements OnInit {
   page = 1;
   loading: any;
   @Input() hideBanner = false;
-  @Input() limitElements = 2;
+  @Input() limitElements = 6;
 
   constructor(private crud: CrudService) {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;

@@ -121,7 +121,7 @@
     <app-list-campaign *ngIf="display===0" [campaigns]="user.campaigns" [hideBanner]="true"></app-list-campaign>
     <app-list-article *ngIf="display===1" [articles]="user.articles" [hideBanner]="true"></app-list-article>
     <app-list-campaign *ngIf="display===2" [campaigns]="user.interests" [hideBanner]="true"></app-list-campaign>
-    <app-list-article *ngIf="display===3" [articles]="user.comments" [hideBanner]="true"></app-list-article>
+    <app-list-article *ngIf="display===3" [articles]="user.articles" [hideBanner]="true"></app-list-article>
   </section>
 
 </ng-container>

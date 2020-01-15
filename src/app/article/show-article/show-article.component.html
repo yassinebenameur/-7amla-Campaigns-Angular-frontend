@@ -14,7 +14,7 @@
 
           <article class="post single-post-inner">
 
-            <div class="post-inner-featured-content">
+            <div *ngIf="article.image" class="post-inner-featured-content">
               <img [src]="article.image|publicFolder" alt="">
             </div>
 
@@ -42,9 +42,15 @@
               </h4>
             </div> <!-- end .topic-bold-header  -->
 
-            <figure class="author-avatar">
+            <figure *ngIf="article.user.image" class="author-avatar">
               <a href="#">
                 <img alt="Avatar" src="{{article.user.image|publicFolder}}">
+              </a>
+            </figure>
+
+            <figure *ngIf="!article.user.image" class="author-avatar">
+              <a href="#">
+                <img alt="Avatar" src="../../../assets/images/default-avatar.png">
               </a>
             </figure>
 

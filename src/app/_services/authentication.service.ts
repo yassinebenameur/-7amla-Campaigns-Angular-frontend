@@ -42,7 +42,7 @@ export class AuthenticationService {
       sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     console.log('logout 1');
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/home']);
   }
 
 

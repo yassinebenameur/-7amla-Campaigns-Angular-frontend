@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../_services/crud.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Globals} from '../../_globals/Globals';
 import {Subscription} from 'rxjs';
 
@@ -22,7 +22,10 @@ export class RegisterComponent implements OnInit {
 
   loading: boolean;
 
+  returnUrl;
+
   constructor(private crud: CrudService,
+              private route: ActivatedRoute,
               private router: Router,
               private fb: FormBuilder) {
     this.registerUrl = Globals.API_URL + Globals.AUTH + Globals.REGISTER;
@@ -59,6 +62,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initRegisterForm();
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/article';
   }
 
   initRegisterForm() {
@@ -74,7 +78,7 @@ export class RegisterComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       phone: ['', Validators.required],
-      date_of_birth: ['0'],
+      date_of_birth: [null],
     });
   }
 
@@ -105,7 +109,7 @@ export class RegisterComponent implements OnInit {
     this.crud.post(this.registerUrl, this.registerForm.value)
       .subscribe(data => {
         console.log(data);
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.returnUrl}});
       }, () => {
         this.error = Globals.globalError;
         this.loading = false;

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://51.91.126.8:1001'
+  baseUrl: 'https://7amla.online:446'
 };

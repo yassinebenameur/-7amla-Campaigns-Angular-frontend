@@ -35,13 +35,13 @@
     </div> <!-- end .col-sm-12  -->
 
   </div> <!-- end .row  -->
-  <nz-card [nzLoading]="!campaigns" *ngIf="!campaigns"></nz-card>
+  <nz-card *ngIf="!campaigns" [nzLoading]="!campaigns"></nz-card>
 
   <div *ngIf="campaigns" class="row margin-top-48">
 
     <div *ngFor="let campaign of campaigns" class="col-md-6 col-sm-12">
       <div class="event-layout-1 theme-custom-box-shadow clearfix" style="min-height: 310px">
-        <figure class="event-img">
+        <figure *ngIf="campaign.image" class="event-img">
           <a href="#">
             <img alt="" src="{{campaign.image|publicFolder}}">
           </a>

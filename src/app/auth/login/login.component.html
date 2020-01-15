@@ -39,7 +39,8 @@
 
       <h2 class="contact-title">Don't Have An Account ?
         <button class="btn btn-capitalize">
-          <a href="JavaScript:void(0);" routerLink="/auth/register">Create A New Account</a>
+          <a [queryParams]="{returnUrl:returnUrl}" href="JavaScript:void(0);" routerLink="/auth/register">Create A New
+            Account</a>
         </button>
       </h2>
 
