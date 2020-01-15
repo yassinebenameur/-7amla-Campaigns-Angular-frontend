@@ -1,81 +1,87 @@
-<div class="container animated zoomInUp">
-
-  <div *ngIf="results['campaigns']" class="row">
-
-    <div class="col-md-12">
-      <h2 class="contact-title">Campaigns</h2>
-    </div>
-
-    <div *ngFor="let campaign of results['campaigns']" class="col-md-3">
-
-      <ul class="contact-info">
-        <li>
-          <a [routerLink]="'/campaign/'+campaign?.searchable?.id" href="javascript:void(0)" title>{{campaign.title}}</a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-
-  <div *ngIf="results['users']" class="row">
-
-    <div class="col-md-12">
-      <h2 class="contact-title">Users</h2>
-    </div>
-
-    <div *ngFor="let user of results['users']" class="col-md-3">
-
-      <ul class="contact-info">
-        <li>
-          <a [routerLink]="'/user/'+user?.searchable?.id" href="javascript:void(0)" title>{{user.title}}</a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-  <div *ngIf="results['articles']" class="row">
-
-    <div class="col-md-12">
-      <h2 class="contact-title">Articles</h2>
-    </div>
-
-    <div *ngFor="let article of results['articles']" class="col-md-3">
-
-      <ul class="contact-info">
-        <li>
-          <a [routerLink]="'/article/'+article?.searchable?.id" href="javascript:void(0)" title>{{article.title}}</a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-  <div *ngIf="results['tags']" class="row">
-
-    <div class="col-md-12">
-      <h2 class="contact-title">Tags</h2>
-    </div>
-
-    <div *ngFor="let tag of results['tags']" class="col-md-3">
-
-      <ul class="contact-info">
-        <li>
-          <a [routerLink]="'/tag/'+tag?.searchable?.id" href="javascript:void(0)" title>#{{tag.title}}</a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-  <div *ngIf="results.length==0 " class="row">
-
-    <div class="col-md-12">
-      <h2 class="contact-title">No results found</h2>
-    </div>
-
-
-  </div>
-
+<div class="container">
+  <nz-card *ngIf="!results" [nzLoading]="!results"></nz-card>
 </div>
+<nz-spin [nzSpinning]="results&&loading">
+  <div *ngIf="results" class="container animated zoomInUp">
+
+    <div *ngIf="results['campaigns']" class="row">
+
+      <div class="col-md-12">
+        <h2 class="contact-title">Campaigns</h2>
+      </div>
+
+      <div *ngFor="let campaign of results['campaigns']" class="col-md-3">
+
+        <ul class="contact-info">
+          <li>
+            <a [routerLink]="'/campaign/'+campaign?.searchable?.id" href="javascript:void(0)"
+               title>{{campaign.title}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="results['users']" class="row">
+
+      <div class="col-md-12">
+        <h2 class="contact-title">Users</h2>
+      </div>
+
+      <div *ngFor="let user of results['users']" class="col-md-3">
+
+        <ul class="contact-info">
+          <li>
+            <a [routerLink]="'/user/'+user?.searchable?.id" href="javascript:void(0)" title>{{user.title}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+    <div *ngIf="results['articles']" class="row">
+
+      <div class="col-md-12">
+        <h2 class="contact-title">Articles</h2>
+      </div>
+
+      <div *ngFor="let article of results['articles']" class="col-md-3">
+
+        <ul class="contact-info">
+          <li>
+            <a [routerLink]="'/article/'+article?.searchable?.id" href="javascript:void(0)" title>{{article.title}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+    <div *ngIf="results['tags']" class="row">
+
+      <div class="col-md-12">
+        <h2 class="contact-title">Tags</h2>
+      </div>
+
+      <div *ngFor="let tag of results['tags']" class="col-md-3">
+
+        <ul class="contact-info">
+          <li>
+            <a [routerLink]="'/tag/'+tag?.searchable?.id" href="javascript:void(0)" title>#{{tag.title}}</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+    <div *ngIf="results.length==0 " class="row">
+
+      <div class="col-md-12">
+        <h2 class="contact-title">No results found</h2>
+      </div>
+
+
+    </div>
+
+  </div>
+</nz-spin>

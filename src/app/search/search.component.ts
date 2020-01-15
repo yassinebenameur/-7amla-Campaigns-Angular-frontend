@@ -11,6 +11,7 @@ import {Globals} from '../_globals/Globals';
 export class SearchComponent implements OnInit {
   keyword: string;
   results: any[];
+  loading;
 
   constructor(private crudService: CrudService, private route: ActivatedRoute) {
     this.keyword = this.route.snapshot.params.keyword;
@@ -28,10 +29,12 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+    this.loading = true;
     this.crudService.searchByKeyword(Globals.API_URL, this.keyword).subscribe(
       (data: any[]) => {
         console.log(data);
         this.results = data;
+        this.loading = false;
       }
     );
   }

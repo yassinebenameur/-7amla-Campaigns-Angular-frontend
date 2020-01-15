@@ -29,7 +29,9 @@
           <input #box (keyup.enter)="onEnter(box.value)"
                  placeholder="je cherche.."
                  type="text">
-          <i class="fa fa-search"></i>
+          <a (click)="onEnter(box.value)">
+            <i class="fa fa-search"></i>
+          </a>
 
 
           <input type="hidden" value="submit">
