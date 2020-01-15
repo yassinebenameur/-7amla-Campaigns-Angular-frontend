@@ -1,7 +1,8 @@
 <nz-card *ngIf="!campaign" [nzLoading]="!campaign"></nz-card>
 <nz-spin [nzSpinning]="loading">
   <ng-container *ngIf="campaign">
-    <section class="page-header animated zoomInUp" data-stellar-background-ratio="1.2">
+    <section class="page-header animated zoomInUp" data-stellar-background-ratio="1.2"
+             style="background: url('../../../assets/images/5dad53113ef7b2.86229642_fiqpomjknhgel.jpg')">
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
@@ -28,7 +29,7 @@
           </div>
           <div class="col-md-2">
 
-            <a *ngIf="campaign.creator.id===currentUser.id"
+            <a *ngIf="currentUser&&campaign.creator.id===currentUser.id"
                class="btn btn-theme" routerLink="/article/add/{{campaign.id}}"><i
               class="fa fa-plus"></i>
               Add Article</a></div>
@@ -41,7 +42,7 @@
 
               <article class="post single-post-inner">
 
-                <div class="post-inner-featured-content">
+                <div *ngIf="campaign.image" class="post-inner-featured-content">
                   <img alt="" src="{{campaign.image|publicFolder}}">
                 </div>
 
