@@ -10,13 +10,13 @@
       <div class="col-md-12 col-sm-12 text-center">
         <div class="banner-content">
           <h2>
-            Donate blood and get real blessings.
+            Fight for your cause together !
           </h2>
-          <h3>Blood is the most precious gift that anyone can give to another person.<br>
-            Donating blood not only saves the life also save donor's lives.
+          <h3>Coming together is the beginning. Staying together is progress. Working together is success.<br>
+            Start your campaign and get help from other people.
           </h3>
 
-          <a class="btn btn-theme margin-top-32" href="#">DONATE TODAY</a>
+          <a class="btn btn-theme margin-top-32" routerLink="/campaign/add">START YOUR CAMPAIGN NOW</a>
         </div>
       </div> <!-- end .col-md-12  -->
     </div>
@@ -27,7 +27,71 @@
 
 <div class="animated zoomInUp">
   <app-list-campaign [hideBanner]="true" [limitElements]="2"></app-list-campaign>
-  <app-list-article [hideBanner]="true" [limitElements]="2"></app-list-article>
+
+  <section class="section-content-block section-home-blog section-pure-white-bg">
+
+    <div class="container wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+
+      <div class="row section-heading-wrapper">
+
+        <div class="col-md-12 col-sm-12 text-center no-img-separator">
+          <h2>LATEST ARTICLES</h2>
+          <span class="heading-separator"></span>
+          <h4>Latest articles concerning our campaigns</h4>
+        </div> <!-- end .col-sm-10  -->
+
+      </div> <!-- end .row  -->
+
+      <div class="row">
+
+        <div *ngFor="let article of articles"
+             class="col-lg-4 col-md-offset-0 col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-12">
+
+          <div class="latest-news-container theme-custom-box-shadow theme-custom-box-animation">
+
+            <a href="#">
+              <figure *ngIf="article.image">
+                <img alt="latest news" src="{{article.image|publicFolder}}">
+              </figure>
+              <figure *ngIf="!article.image">
+                <img alt="latest news" src="../../assets/images/default-thumb.png">
+              </figure>
+            </a>
+
+            <div class="news-content">
+
+              <h3>
+                <a routerLink="/article/{{article.id}}">{{article.title|truncateDescription:30}}</a>
+              </h3>
+
+              <div class="news-meta-info">
+                <i class="fa fa-clock-o"></i> {{article.created_at|date:'fullDate'}}<br>
+                <i class="fa fa-comment-o"></i> {{article.comments.length}}
+                Comment{{article.comments.length == 0 ? '' : 's'}}
+              </div>
+
+              <div class="update-details">
+                {{article.body|truncateDescription}}
+              </div>
+
+            </div>
+
+          </div><!--  end .update-info  -->
+
+        </div> <!--  end col-lg-4  -->
+
+
+      </div> <!-- end row  -->
+
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 text-center">
+          <a class="btn btn-theme margin-top-48" routerLink="/article">See More Articles</a>
+        </div>
+      </div> <!-- end .row  -->
+
+    </div> <!-- end .container  -->
+
+  </section>
   <app-list-tag></app-list-tag>
 
 </div>
