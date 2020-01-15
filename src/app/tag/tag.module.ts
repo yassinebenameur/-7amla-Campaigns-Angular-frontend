@@ -11,6 +11,9 @@ import {SharedModule} from '../_shared/shared.module';
   declarations: [
     ListTagComponent
   ],
+  exports: [
+    ListTagComponent
+  ],
   imports: [
     CommonModule,
     TagRoutingModule,

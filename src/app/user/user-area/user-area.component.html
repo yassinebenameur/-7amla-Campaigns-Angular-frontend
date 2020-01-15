@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container ">
   <nz-card *ngIf="!user" [nzLoading]="!user"></nz-card>
 </div>
 <ng-container *ngIf="user">
@@ -27,7 +27,7 @@
 
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 
-          <figure class="about-img theme-custom-box-shadow">
+          <figure *ngIf="user.image" class="about-img theme-custom-box-shadow">
             <img alt="about" src="{{user.image|publicFolder}}"/>
           </figure> <!-- end .cause-img  -->
 
@@ -118,10 +118,10 @@
 
   </section>
   <section>
-    <app-list-campaign *ngIf="display===0" [campaigns]="user.campaigns"></app-list-campaign>
-    <app-list-article *ngIf="display===1" [articles]="user.articles"></app-list-article>
-    <app-list-campaign *ngIf="display===2" [campaigns]="user.interests"></app-list-campaign>
-    <app-list-article *ngIf="display===3" [articles]="user.comments"></app-list-article>
+    <app-list-campaign *ngIf="display===0" [campaigns]="user.campaigns" [hideBanner]="true"></app-list-campaign>
+    <app-list-article *ngIf="display===1" [articles]="user.articles" [hideBanner]="true"></app-list-article>
+    <app-list-campaign *ngIf="display===2" [campaigns]="user.interests" [hideBanner]="true"></app-list-campaign>
+    <app-list-article *ngIf="display===3" [articles]="user.comments" [hideBanner]="true"></app-list-article>
   </section>
 
 </ng-container>

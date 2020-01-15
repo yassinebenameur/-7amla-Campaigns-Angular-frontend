@@ -18,6 +18,10 @@ export class ListCampaignComponent implements OnInit {
   campaignUrl: string;
   nbElements: number;
 
+  @Input() hideBanner = false;
+
+  @Input() limitElements = 6;
+
   page = 1;
 
   constructor(private crudService: CrudService,
@@ -42,7 +46,7 @@ export class ListCampaignComponent implements OnInit {
 
   getAllCampaigns(pi) {
     this.loading = true;
-    this.crudService.getAllPaginate<{ count: number, elements: Campaign[] }>(this.campaignUrl, (pi - 1) * 6, 6)
+    this.crudService.getAllPaginate<{ count: number, elements: Campaign[] }>(this.campaignUrl, (pi - 1) * this.limitElements, this.limitElements)
       .subscribe(campaigns => {
         if (!this.campaigns) {
           this.campaigns = [];

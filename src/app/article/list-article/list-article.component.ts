@@ -14,6 +14,8 @@ export class ListArticleComponent implements OnInit {
   nbArticles: number;
   page = 1;
   loading: any;
+  @Input() hideBanner = false;
+  @Input() limitElements = 2;
 
   constructor(private crud: CrudService) {
     this.articleUrl = Globals.API_URL + Globals.ARTICLE;
@@ -29,7 +31,7 @@ export class ListArticleComponent implements OnInit {
 
   loadData(pi: number = 1): void {
     this.loading = true;
-    this.crud.getAllPaginate<{ count: number, elements: ArticleModel[] }>(this.articleUrl, (pi - 1) * 6, 6)
+    this.crud.getAllPaginate<{ count: number, elements: ArticleModel[] }>(this.articleUrl, (pi - 1) * this.limitElements, this.limitElements)
       .subscribe(articles => {
         this.articles = this.articles.concat(articles.elements);
         console.log(this.articles);
